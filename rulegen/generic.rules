@@ -1,0 +1,24 @@
+// Copyright 2015 The Go Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
+
+// constant folding
+(Add <t> (Const [c]) (Const [d])) && is64BitInt(t) -> (Const [{c.(int64)+d.(int64)}])
+(Mul <t> (Const [c]) (Const [d])) && is64BitInt(t) -> (Const [{c.(int64)*d.(int64)}])
+(IsInBounds (Const [c]) (Const [d])) -> (Const [inBounds(c.(int64),d.(int64))])
+
+// tear apart slices
+// TODO: anything that generates a slice needs to go in here.
+(SlicePtr (Load ptr mem)) -> (Load ptr mem)
+(SliceLen (Load ptr mem)) -> (Load (Add <ptr.Type> ptr (Const <v.Block.Func.Config.Uintptr> [int64(v.Block.Func.Config.ptrSize)])) mem)
+(SliceCap (Load ptr mem)) -> (Load (Add <ptr.Type> ptr (Const <v.Block.Func.Config.Uintptr> [int64(v.Block.Func.Config.ptrSize*2)])) mem)
+
+// indexing operations
+// Note: bounds check has already been done
+(ArrayIndex (Load ptr mem) idx) -> (Load (PtrIndex <ptr.Type.Elem().Elem().PtrTo()> ptr idx) mem)
+(PtrIndex <t> ptr idx) -> (Add ptr (Mul <v.Block.Func.Config.Uintptr> idx (Const <v.Block.Func.Config.Uintptr> [t.Elem().Size()])))
+// TODO: hopefully this will get rid of all full-width array copies.
+
+// big-object moves
+// TODO: fix size
+(Store dst (Load <t> src mem) mem) && t.Size() > 8 -> (Move [t.Size()] dst src mem)
