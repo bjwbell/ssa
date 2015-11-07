@@ -100,7 +100,7 @@
 package ssa
 
 import (
-	"cmd/internal/obj"
+	"cmd/obj"
 	"fmt"
 	"unsafe"
 )

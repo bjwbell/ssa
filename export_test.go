@@ -5,7 +5,7 @@
 package ssa
 
 import (
-	"cmd/internal/obj"
+	"cmd/obj"
 	"testing"
 )
 

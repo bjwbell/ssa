@@ -2,7 +2,7 @@
 // generated from gen/*Ops.go
 package ssa
 
-import "cmd/internal/obj/x86"
+import "cmd/obj/x86"
 
 const (
 	BlockInvalid BlockKind = iota
