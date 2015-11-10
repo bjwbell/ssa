@@ -4,7 +4,7 @@
 
 package ssa
 
-import "cmd/obj"
+import "github.com/bjwbell/cmd/obj"
 
 type Config struct {
 	arch       string                     // "amd64", etc.

@@ -1,3 +1,0 @@
-[submodule "vendor/cmd/obj"]
-	path = vendor/cmd/obj
-	url = https://github.com/bjwbell/obj

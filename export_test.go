@@ -5,8 +5,9 @@
 package ssa
 
 import (
-	"cmd/obj"
 	"testing"
+
+	"github.com/bjwbell/cmd/obj"
 )
 
 var CheckFunc = checkFunc

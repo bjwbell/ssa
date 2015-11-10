@@ -100,9 +100,10 @@
 package ssa
 
 import (
-	"cmd/obj"
 	"fmt"
 	"unsafe"
+
+	"github.com/bjwbell/cmd/obj"
 )
 
 const regDebug = false
