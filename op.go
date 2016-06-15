@@ -5,8 +5,9 @@
 package ssa
 
 import (
-	"cmd/internal/obj"
 	"fmt"
+
+	"github.com/bjwbell/cmd/obj"
 )
 
 // An Op encodes the specific operation that a Value performs.

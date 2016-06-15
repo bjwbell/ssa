@@ -4,9 +4,8 @@
 package ssa
 
 import (
-	"cmd/internal/obj"
-	"cmd/internal/obj/arm"
-
+	"github.com/bjwbell/cmd/obj"
+	"github.com/bjwbell/cmd/obj/arm"
 	"github.com/bjwbell/cmd/obj/x86"
 )
 
