@@ -12,7 +12,7 @@ func TestDeadStore(t *testing.T) {
 	ptrType := &TypeImpl{Size_: 8, Ptr: true, Name: "testptr", Elem_: elemType} // dummy for testing
 	fun := Fun(c, "entry",
 		Bloc("entry",
-			Valu("start", OpInitMem, TypeMem, 0, ".mem"),
+			Valu("start", OpInitMem, TypeMem, 0, nil),
 			Valu("sb", OpSB, TypeInvalid, 0, nil),
 			Valu("v", OpConstBool, TypeBool, 1, nil),
 			Valu("addr1", OpAddr, ptrType, 0, nil, "sb"),
@@ -47,7 +47,7 @@ func TestDeadStorePhi(t *testing.T) {
 	ptrType := &TypeImpl{Size_: 8, Ptr: true, Name: "testptr"} // dummy for testing
 	fun := Fun(c, "entry",
 		Bloc("entry",
-			Valu("start", OpInitMem, TypeMem, 0, ".mem"),
+			Valu("start", OpInitMem, TypeMem, 0, nil),
 			Valu("sb", OpSB, TypeInvalid, 0, nil),
 			Valu("v", OpConstBool, TypeBool, 1, nil),
 			Valu("addr", OpAddr, ptrType, 0, nil, "sb"),
@@ -65,7 +65,7 @@ func TestDeadStorePhi(t *testing.T) {
 }
 
 func TestDeadStoreTypes(t *testing.T) {
-	// Make sure a narrow store can't shadow a wider one.  We test an even
+	// Make sure a narrow store can't shadow a wider one. We test an even
 	// stronger restriction, that one store can't shadow another unless the
 	// types of the address fields are identical (where identicalness is
 	// decided by the CSE pass).
@@ -74,7 +74,7 @@ func TestDeadStoreTypes(t *testing.T) {
 	t2 := &TypeImpl{Size_: 4, Ptr: true, Name: "t2"}
 	fun := Fun(c, "entry",
 		Bloc("entry",
-			Valu("start", OpInitMem, TypeMem, 0, ".mem"),
+			Valu("start", OpInitMem, TypeMem, 0, nil),
 			Valu("sb", OpSB, TypeInvalid, 0, nil),
 			Valu("v", OpConstBool, TypeBool, 1, nil),
 			Valu("addr1", OpAddr, t1, 0, nil, "sb"),

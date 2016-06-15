@@ -4,10 +4,17 @@
 
 package ssa
 
-import "sort"
+import (
+	"fmt"
+	"sort"
+)
+
+const (
+	cmpDepth = 4
+)
 
 // cse does common-subexpression elimination on the Function.
-// Values are just relinked, nothing is deleted.  A subsequent deadcode
+// Values are just relinked, nothing is deleted. A subsequent deadcode
 // pass is required to actually remove duplicate expressions.
 func cse(f *Func) {
 	// Two values are equivalent if they satisfy the following definition:
@@ -25,61 +32,57 @@ func cse(f *Func) {
 	// It starts with a coarse partition and iteratively refines it
 	// until it reaches a fixed point.
 
-	// Make initial partition based on opcode, type-name, aux, auxint, nargs, phi-block, and the ops of v's first args
-	type key struct {
-		op     Op
-		typ    string
-		aux    interface{}
-		auxint int64
-		nargs  int
-		block  ID // block id for phi vars, -1 otherwise
-		arg0op Op // v.Args[0].Op if len(v.Args) > 0, OpInvalid otherwise
-		arg1op Op // v.Args[1].Op if len(v.Args) > 1, OpInvalid otherwise
-	}
-	m := map[key]eqclass{}
+	// Make initial coarse partitions by using a subset of the conditions above.
+	a := make([]*Value, 0, f.NumValues())
+	auxIDs := auxmap{}
 	for _, b := range f.Blocks {
 		for _, v := range b.Values {
-			bid := ID(-1)
-			if v.Op == OpPhi {
-				bid = b.ID
+			if auxIDs[v.Aux] == 0 {
+				auxIDs[v.Aux] = int32(len(auxIDs)) + 1
 			}
-			arg0op := OpInvalid
-			if len(v.Args) > 0 {
-				arg0op = v.Args[0].Op
+			if v.Type.IsMemory() {
+				continue // memory values can never cse
 			}
-			arg1op := OpInvalid
-			if len(v.Args) > 1 {
-				arg1op = v.Args[1].Op
+			if opcodeTable[v.Op].commutative && len(v.Args) == 2 && v.Args[1].ID < v.Args[0].ID {
+				// Order the arguments of binary commutative operations.
+				v.Args[0], v.Args[1] = v.Args[1], v.Args[0]
 			}
-
-			// This assumes that floats are stored in AuxInt
-			// instead of Aux. If not, then we need to use the
-			// float bits as part of the key, otherwise since 0.0 == -0.0
-			// this would incorrectly treat 0.0 and -0.0 as identical values
-			k := key{v.Op, v.Type.String(), v.Aux, v.AuxInt, len(v.Args), bid, arg0op, arg1op}
-			m[k] = append(m[k], v)
+			a = append(a, v)
 		}
 	}
-
-	// A partition is a set of disjoint eqclasses.
-	var partition []eqclass
-	for _, v := range m {
-		partition = append(partition, v)
-	}
-	// TODO: Sort partition here for perfect reproducibility?
-	// Sort by what? Partition size?
-	// (Could that improve efficiency by discovering splits earlier?)
+	partition := partitionValues(a, auxIDs)
 
 	// map from value id back to eqclass id
-	valueEqClass := make([]int, f.NumValues())
+	valueEqClass := make([]ID, f.NumValues())
+	for _, b := range f.Blocks {
+		for _, v := range b.Values {
+			// Use negative equivalence class #s for unique values.
+			valueEqClass[v.ID] = -v.ID
+		}
+	}
 	for i, e := range partition {
+		if f.pass.debug > 1 && len(e) > 500 {
+			fmt.Printf("CSE.large partition (%d): ", len(e))
+			for j := 0; j < 3; j++ {
+				fmt.Printf("%s ", e[j].LongString())
+			}
+			fmt.Println()
+		}
+
 		for _, v := range e {
-			valueEqClass[v.ID] = i
+			valueEqClass[v.ID] = ID(i)
+		}
+		if f.pass.debug > 2 && len(e) > 1 {
+			fmt.Printf("CSE.partition #%d:", i)
+			for _, v := range e {
+				fmt.Printf(" %s", v.String())
+			}
+			fmt.Printf("\n")
 		}
 	}
 
 	// Find an equivalence class where some members of the class have
-	// non-equivalent arguments.  Split the equivalence class appropriately.
+	// non-equivalent arguments. Split the equivalence class appropriately.
 	// Repeat until we can't find any more splits.
 	for {
 		changed := false
@@ -98,18 +101,23 @@ func cse(f *Func) {
 		eqloop:
 			for j := 1; j < len(e); {
 				w := e[j]
+				equivalent := true
 				for i := 0; i < len(v.Args); i++ {
-					if valueEqClass[v.Args[i].ID] != valueEqClass[w.Args[i].ID] || !v.Type.Equal(w.Type) {
-						// w is not equivalent to v.
-						// move it to the end and shrink e.
-						e[j], e[len(e)-1] = e[len(e)-1], e[j]
-						e = e[:len(e)-1]
-						valueEqClass[w.ID] = len(partition)
-						changed = true
-						continue eqloop
+					if valueEqClass[v.Args[i].ID] != valueEqClass[w.Args[i].ID] {
+						equivalent = false
+						break
 					}
 				}
-				// v and w are equivalent.  Keep w in e.
+				if !equivalent || v.Type.Compare(w.Type) != CMPeq {
+					// w is not equivalent to v.
+					// move it to the end and shrink e.
+					e[j], e[len(e)-1] = e[len(e)-1], e[j]
+					e = e[:len(e)-1]
+					valueEqClass[w.ID] = ID(len(partition))
+					changed = true
+					continue eqloop
+				}
+				// v and w are equivalent. Keep w in e.
 				j++
 			}
 			partition[i] = e
@@ -123,39 +131,39 @@ func cse(f *Func) {
 		}
 	}
 
-	// Compute dominator tree
-	idom := dominators(f)
-	sdom := newSparseTree(f, idom)
+	// Dominator tree (f.sdom) is computed by the generic domtree pass.
 
-	// Compute substitutions we would like to do.  We substitute v for w
+	// Compute substitutions we would like to do. We substitute v for w
 	// if v and w are in the same equivalence class and v dominates w.
 	rewrite := make([]*Value, f.NumValues())
 	for _, e := range partition {
-		sort.Sort(e) // ensure deterministic ordering
-		for len(e) > 1 {
-			// Find a maximal dominant element in e
-			v := e[0]
-			for _, w := range e[1:] {
-				if sdom.isAncestorEq(w.Block, v.Block) {
-					v = w
-				}
+		sort.Sort(partitionByDom{e, f.sdom})
+		for i := 0; i < len(e)-1; i++ {
+			// e is sorted by domorder, so a maximal dominant element is first in the slice
+			v := e[i]
+			if v == nil {
+				continue
 			}
 
+			e[i] = nil
 			// Replace all elements of e which v dominates
-			for i := 0; i < len(e); {
-				w := e[i]
-				if w == v {
-					e, e[i] = e[:len(e)-1], e[len(e)-1]
-				} else if sdom.isAncestorEq(v.Block, w.Block) {
+			for j := i + 1; j < len(e); j++ {
+				w := e[j]
+				if w == nil {
+					continue
+				}
+				if f.sdom.isAncestorEq(v.Block, w.Block) {
 					rewrite[w.ID] = v
-					e, e[i] = e[:len(e)-1], e[len(e)-1]
+					e[j] = nil
 				} else {
-					i++
+					// e is sorted by domorder, so v.Block doesn't dominate any subsequent blocks in e
+					break
 				}
 			}
-			// TODO(khr): if value is a control value, do we need to keep it block-local?
 		}
 	}
+
+	rewrites := int64(0)
 
 	// Apply substitutions
 	for _, b := range f.Blocks {
@@ -163,32 +171,152 @@ func cse(f *Func) {
 			for i, w := range v.Args {
 				if x := rewrite[w.ID]; x != nil {
 					v.SetArg(i, x)
+					rewrites++
 				}
 			}
 		}
-	}
-}
-
-// returns true if b dominates c.
-// simple and iterative, has O(depth) complexity in tall trees.
-func dom(b, c *Block, idom []*Block) bool {
-	// Walk up from c in the dominator tree looking for b.
-	for c != nil {
-		if c == b {
-			return true
+		if v := b.Control; v != nil {
+			if x := rewrite[v.ID]; x != nil {
+				if v.Op == OpNilCheck {
+					// nilcheck pass will remove the nil checks and log
+					// them appropriately, so don't mess with them here.
+					continue
+				}
+				b.SetControl(x)
+			}
 		}
-		c = idom[c.ID]
 	}
-	// Reached the entry block, never saw b.
-	return false
+	if f.pass.stats > 0 {
+		f.LogStat("CSE REWRITES", rewrites)
+	}
 }
 
-// An eqclass approximates an equivalence class.  During the
+// An eqclass approximates an equivalence class. During the
 // algorithm it may represent the union of several of the
 // final equivalence classes.
 type eqclass []*Value
 
-// Sort an equivalence class by value ID.
-func (e eqclass) Len() int           { return len(e) }
-func (e eqclass) Swap(i, j int)      { e[i], e[j] = e[j], e[i] }
-func (e eqclass) Less(i, j int) bool { return e[i].ID < e[j].ID }
+// partitionValues partitions the values into equivalence classes
+// based on having all the following features match:
+//  - opcode
+//  - type
+//  - auxint
+//  - aux
+//  - nargs
+//  - block # if a phi op
+//  - first two arg's opcodes and auxint
+//  - NOT first two arg's aux; that can break CSE.
+// partitionValues returns a list of equivalence classes, each
+// being a sorted by ID list of *Values. The eqclass slices are
+// backed by the same storage as the input slice.
+// Equivalence classes of size 1 are ignored.
+func partitionValues(a []*Value, auxIDs auxmap) []eqclass {
+	sort.Sort(sortvalues{a, auxIDs})
+
+	var partition []eqclass
+	for len(a) > 0 {
+		v := a[0]
+		j := 1
+		for ; j < len(a); j++ {
+			w := a[j]
+			if cmpVal(v, w, auxIDs, cmpDepth) != CMPeq {
+				break
+			}
+		}
+		if j > 1 {
+			partition = append(partition, a[:j])
+		}
+		a = a[j:]
+	}
+
+	return partition
+}
+func lt2Cmp(isLt bool) Cmp {
+	if isLt {
+		return CMPlt
+	}
+	return CMPgt
+}
+
+type auxmap map[interface{}]int32
+
+func cmpVal(v, w *Value, auxIDs auxmap, depth int) Cmp {
+	// Try to order these comparison by cost (cheaper first)
+	if v.Op != w.Op {
+		return lt2Cmp(v.Op < w.Op)
+	}
+	if v.AuxInt != w.AuxInt {
+		return lt2Cmp(v.AuxInt < w.AuxInt)
+	}
+	if len(v.Args) != len(w.Args) {
+		return lt2Cmp(len(v.Args) < len(w.Args))
+	}
+	if v.Op == OpPhi && v.Block != w.Block {
+		return lt2Cmp(v.Block.ID < w.Block.ID)
+	}
+	if v.Type.IsMemory() {
+		// We will never be able to CSE two values
+		// that generate memory.
+		return lt2Cmp(v.ID < w.ID)
+	}
+
+	if tc := v.Type.Compare(w.Type); tc != CMPeq {
+		return tc
+	}
+
+	if v.Aux != w.Aux {
+		if v.Aux == nil {
+			return CMPlt
+		}
+		if w.Aux == nil {
+			return CMPgt
+		}
+		return lt2Cmp(auxIDs[v.Aux] < auxIDs[w.Aux])
+	}
+
+	if depth > 0 {
+		for i := range v.Args {
+			if v.Args[i] == w.Args[i] {
+				// skip comparing equal args
+				continue
+			}
+			if ac := cmpVal(v.Args[i], w.Args[i], auxIDs, depth-1); ac != CMPeq {
+				return ac
+			}
+		}
+	}
+
+	return CMPeq
+}
+
+// Sort values to make the initial partition.
+type sortvalues struct {
+	a      []*Value // array of values
+	auxIDs auxmap   // aux -> aux ID map
+}
+
+func (sv sortvalues) Len() int      { return len(sv.a) }
+func (sv sortvalues) Swap(i, j int) { sv.a[i], sv.a[j] = sv.a[j], sv.a[i] }
+func (sv sortvalues) Less(i, j int) bool {
+	v := sv.a[i]
+	w := sv.a[j]
+	if cmp := cmpVal(v, w, sv.auxIDs, cmpDepth); cmp != CMPeq {
+		return cmp == CMPlt
+	}
+
+	// Sort by value ID last to keep the sort result deterministic.
+	return v.ID < w.ID
+}
+
+type partitionByDom struct {
+	a    []*Value // array of values
+	sdom SparseTree
+}
+
+func (sv partitionByDom) Len() int      { return len(sv.a) }
+func (sv partitionByDom) Swap(i, j int) { sv.a[i], sv.a[j] = sv.a[j], sv.a[i] }
+func (sv partitionByDom) Less(i, j int) bool {
+	v := sv.a[i]
+	w := sv.a[j]
+	return sv.sdom.domorder(v.Block) < sv.sdom.domorder(w.Block)
+}

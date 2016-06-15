@@ -10,15 +10,15 @@ func TestLiveControlOps(t *testing.T) {
 	c := testConfig(t)
 	f := Fun(c, "entry",
 		Bloc("entry",
-			Valu("mem", OpInitMem, TypeMem, 0, ".mem"),
-			Valu("x", OpAMD64MOVBconst, TypeInt8, 0, 1),
-			Valu("y", OpAMD64MOVBconst, TypeInt8, 0, 2),
-			Valu("a", OpAMD64TESTB, TypeBool, 0, nil, "x", "y"),
-			Valu("b", OpAMD64TESTB, TypeBool, 0, nil, "y", "x"),
-			If("a", "if", "exit"),
+			Valu("mem", OpInitMem, TypeMem, 0, nil),
+			Valu("x", OpAMD64MOVLconst, TypeInt8, 1, nil),
+			Valu("y", OpAMD64MOVLconst, TypeInt8, 2, nil),
+			Valu("a", OpAMD64TESTB, TypeFlags, 0, nil, "x", "y"),
+			Valu("b", OpAMD64TESTB, TypeFlags, 0, nil, "y", "x"),
+			Eq("a", "if", "exit"),
 		),
 		Bloc("if",
-			If("b", "plain", "exit"),
+			Eq("b", "plain", "exit"),
 		),
 		Bloc("plain",
 			Goto("exit"),
@@ -27,6 +27,7 @@ func TestLiveControlOps(t *testing.T) {
 			Exit("mem"),
 		),
 	)
+	flagalloc(f.f)
 	regalloc(f.f)
 	checkFunc(f.f)
 }

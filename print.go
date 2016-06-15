@@ -45,7 +45,8 @@ func (p stringFuncPrinter) startBlock(b *Block, reachable bool) {
 	fmt.Fprintf(p.w, "  b%d:", b.ID)
 	if len(b.Preds) > 0 {
 		io.WriteString(p.w, " <-")
-		for _, pred := range b.Preds {
+		for _, e := range b.Preds {
+			pred := e.b
 			fmt.Fprintf(p.w, " b%d", pred.ID)
 		}
 	}
@@ -61,6 +62,8 @@ func (p stringFuncPrinter) endBlock(b *Block) {
 
 func (p stringFuncPrinter) value(v *Value, live bool) {
 	fmt.Fprint(p.w, "    ")
+	//fmt.Fprint(p.w, v.Block.Func.Config.fe.Line(v.Line))
+	//fmt.Fprint(p.w, ": ")
 	fmt.Fprint(p.w, v.LongString())
 	if !live {
 		fmt.Fprint(p.w, " DEAD")
@@ -141,7 +144,7 @@ func fprintFunc(p funcPrinter, f *Func) {
 
 		p.endBlock(b)
 	}
-	for name, vals := range f.NamedValues {
-		p.named(name, vals)
+	for _, name := range f.Names {
+		p.named(name, f.NamedValues[name])
 	}
 }

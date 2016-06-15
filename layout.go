@@ -12,8 +12,10 @@ func layout(f *Func) {
 	scheduled := make([]bool, f.NumBlocks())
 	idToBlock := make([]*Block, f.NumBlocks())
 	indegree := make([]int, f.NumBlocks())
-	posdegree := newSparseSet(f.NumBlocks())  // blocks with positive remaining degree
-	zerodegree := newSparseSet(f.NumBlocks()) // blocks with zero remaining degree
+	posdegree := f.newSparseSet(f.NumBlocks()) // blocks with positive remaining degree
+	defer f.retSparseSet(posdegree)
+	zerodegree := f.newSparseSet(f.NumBlocks()) // blocks with zero remaining degree
+	defer f.retSparseSet(zerodegree)
 
 	// Initialize indegree of each block
 	for _, b := range f.Blocks {
@@ -37,7 +39,8 @@ blockloop:
 			break
 		}
 
-		for _, c := range b.Succs {
+		for _, e := range b.Succs {
+			c := e.b
 			indegree[c.ID]--
 			if indegree[c.ID] == 0 {
 				posdegree.remove(c.ID)
@@ -52,9 +55,9 @@ blockloop:
 		var likely *Block
 		switch b.Likely {
 		case BranchLikely:
-			likely = b.Succs[0]
+			likely = b.Succs[0].b
 		case BranchUnlikely:
-			likely = b.Succs[1]
+			likely = b.Succs[1].b
 		}
 		if likely != nil && !scheduled[likely.ID] {
 			bid = likely.ID
@@ -64,7 +67,8 @@ blockloop:
 		// Use degree for now.
 		bid = 0
 		mindegree := f.NumBlocks()
-		for _, c := range order[len(order)-1].Succs {
+		for _, e := range order[len(order)-1].Succs {
+			c := e.b
 			if scheduled[c.ID] {
 				continue
 			}
@@ -94,7 +98,6 @@ blockloop:
 				continue blockloop
 			}
 		}
-		b.Fatalf("no block available for layout")
 	}
 	f.Blocks = order
 }

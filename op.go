@@ -4,6 +4,11 @@
 
 package ssa
 
+import (
+	"cmd/internal/obj"
+	"fmt"
+)
+
 // An Op encodes the specific operation that a Value performs.
 // Opcodes' semantics can be modified by the type and aux fields of the Value.
 // For instance, OpAdd can be 32 or 64 bit, signed or unsigned, float or complex, depending on Value.Type.
@@ -13,10 +18,15 @@ package ssa
 type Op int32
 
 type opInfo struct {
-	name    string
-	asm     int
-	reg     regInfo
-	generic bool // this is a generic (arch-independent) opcode
+	name              string
+	reg               regInfo
+	auxType           auxType
+	argLen            int32 // the number of arugments, -1 if variable length
+	asm               obj.As
+	generic           bool // this is a generic (arch-independent) opcode
+	rematerializeable bool // this op is rematerializeable
+	commutative       bool // this operation is commutative (e.g. addition)
+	resultInArg0      bool // v and v.Args[0] must be allocated to the same register
 }
 
 type inputInfo struct {
@@ -30,57 +40,87 @@ type regInfo struct {
 	outputs  []regMask // NOTE: values can only have 1 output for now.
 }
 
-// A StoreConst is used by the MOVXstoreconst opcodes.  It holds
-// both the value to store and an offset from the store pointer.
-// A StoreConst is intended to be encoded into an AuxInt field.
-// The zero StoreConst encodes a value of 0 and an offset of 0.
-// The high 32 bits hold a value to be stored.
+type auxType int8
+
+const (
+	auxNone         auxType = iota
+	auxBool                 // auxInt is 0/1 for false/true
+	auxInt8                 // auxInt is an 8-bit integer
+	auxInt16                // auxInt is a 16-bit integer
+	auxInt32                // auxInt is a 32-bit integer
+	auxInt64                // auxInt is a 64-bit integer
+	auxInt128               // auxInt represents a 128-bit integer.  Always 0.
+	auxFloat32              // auxInt is a float32 (encoded with math.Float64bits)
+	auxFloat64              // auxInt is a float64 (encoded with math.Float64bits)
+	auxString               // aux is a string
+	auxSym                  // aux is a symbol
+	auxSymOff               // aux is a symbol, auxInt is an offset
+	auxSymValAndOff         // aux is a symbol, auxInt is a ValAndOff
+
+	auxSymInt32 // aux is a symbol, auxInt is a 32-bit integer
+)
+
+// A ValAndOff is used by the several opcodes. It holds
+// both a value and a pointer offset.
+// A ValAndOff is intended to be encoded into an AuxInt field.
+// The zero ValAndOff encodes a value of 0 and an offset of 0.
+// The high 32 bits hold a value.
 // The low 32 bits hold a pointer offset.
-type StoreConst int64
+type ValAndOff int64
 
-func (sc StoreConst) Val() int64 {
-	return int64(sc) >> 32
+func (x ValAndOff) Val() int64 {
+	return int64(x) >> 32
 }
-func (sc StoreConst) Off() int64 {
-	return int64(int32(sc))
+func (x ValAndOff) Off() int64 {
+	return int64(int32(x))
 }
-func (sc StoreConst) Int64() int64 {
-	return int64(sc)
+func (x ValAndOff) Int64() int64 {
+	return int64(x)
+}
+func (x ValAndOff) String() string {
+	return fmt.Sprintf("val=%d,off=%d", x.Val(), x.Off())
 }
 
-// validStoreConstOff reports whether the offset can be used
-// as an argument to makeStoreConst.
-func validStoreConstOff(off int64) bool {
+// validVal reports whether the value can be used
+// as an argument to makeValAndOff.
+func validVal(val int64) bool {
+	return val == int64(int32(val))
+}
+
+// validOff reports whether the offset can be used
+// as an argument to makeValAndOff.
+func validOff(off int64) bool {
 	return off == int64(int32(off))
 }
 
-// validStoreConst reports whether we can fit the value and offset into
-// a StoreConst value.
-func validStoreConst(val, off int64) bool {
-	if val != int64(int32(val)) {
+// validValAndOff reports whether we can fit the value and offset into
+// a ValAndOff value.
+func validValAndOff(val, off int64) bool {
+	if !validVal(val) {
 		return false
 	}
-	if !validStoreConstOff(off) {
+	if !validOff(off) {
 		return false
 	}
 	return true
 }
 
-// encode encodes a StoreConst into an int64 suitable for storing in an AuxInt field.
-func makeStoreConst(val, off int64) int64 {
-	if !validStoreConst(val, off) {
-		panic("invalid makeStoreConst")
+// makeValAndOff encodes a ValAndOff into an int64 suitable for storing in an AuxInt field.
+func makeValAndOff(val, off int64) int64 {
+	if !validValAndOff(val, off) {
+		panic("invalid makeValAndOff")
 	}
-	return StoreConst(val<<32 + int64(uint32(off))).Int64()
+	return ValAndOff(val<<32 + int64(uint32(off))).Int64()
 }
 
-func (sc StoreConst) canAdd(off int64) bool {
-	newoff := sc.Off() + off
+func (x ValAndOff) canAdd(off int64) bool {
+	newoff := x.Off() + off
 	return newoff == int64(int32(newoff))
 }
-func (sc StoreConst) add(off int64) int64 {
-	if !sc.canAdd(off) {
-		panic("invalid StoreConst.add")
+
+func (x ValAndOff) add(off int64) int64 {
+	if !x.canAdd(off) {
+		panic("invalid ValAndOff.add")
 	}
-	return makeStoreConst(sc.Val(), sc.Off()+off)
+	return makeValAndOff(x.Val(), x.Off()+off)
 }

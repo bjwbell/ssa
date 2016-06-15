@@ -4,13 +4,17 @@
 
 package ssa
 
-import "testing"
+import (
+	"fmt"
+	"strconv"
+	"testing"
+)
 
 func TestDeadLoop(t *testing.T) {
 	c := testConfig(t)
 	fun := Fun(c, "entry",
 		Bloc("entry",
-			Valu("mem", OpInitMem, TypeMem, 0, ".mem"),
+			Valu("mem", OpInitMem, TypeMem, 0, nil),
 			Goto("exit")),
 		Bloc("exit",
 			Exit("mem")),
@@ -40,7 +44,7 @@ func TestDeadValue(t *testing.T) {
 	c := testConfig(t)
 	fun := Fun(c, "entry",
 		Bloc("entry",
-			Valu("mem", OpInitMem, TypeMem, 0, ".mem"),
+			Valu("mem", OpInitMem, TypeMem, 0, nil),
 			Valu("deadval", OpConst64, TypeInt64, 37, nil),
 			Goto("exit")),
 		Bloc("exit",
@@ -64,7 +68,7 @@ func TestNeverTaken(t *testing.T) {
 	fun := Fun(c, "entry",
 		Bloc("entry",
 			Valu("cond", OpConstBool, TypeBool, 0, nil),
-			Valu("mem", OpInitMem, TypeMem, 0, ".mem"),
+			Valu("mem", OpInitMem, TypeMem, 0, nil),
 			If("cond", "then", "else")),
 		Bloc("then",
 			Goto("exit")),
@@ -98,7 +102,7 @@ func TestNestedDeadBlocks(t *testing.T) {
 	c := testConfig(t)
 	fun := Fun(c, "entry",
 		Bloc("entry",
-			Valu("mem", OpInitMem, TypeMem, 0, ".mem"),
+			Valu("mem", OpInitMem, TypeMem, 0, nil),
 			Valu("cond", OpConstBool, TypeBool, 0, nil),
 			If("cond", "b2", "b4")),
 		Bloc("b2",
@@ -130,5 +134,28 @@ func TestNestedDeadBlocks(t *testing.T) {
 				t.Errorf("constant condition still present")
 			}
 		}
+	}
+}
+
+func BenchmarkDeadCode(b *testing.B) {
+	for _, n := range [...]int{1, 10, 100, 1000, 10000, 100000, 200000} {
+		b.Run(strconv.Itoa(n), func(b *testing.B) {
+			c := testConfig(b)
+			blocks := make([]bloc, 0, n+2)
+			blocks = append(blocks,
+				Bloc("entry",
+					Valu("mem", OpInitMem, TypeMem, 0, nil),
+					Goto("exit")))
+			blocks = append(blocks, Bloc("exit", Exit("mem")))
+			for i := 0; i < n; i++ {
+				blocks = append(blocks, Bloc(fmt.Sprintf("dead%d", i), Goto("exit")))
+			}
+			b.ResetTimer()
+			for i := 0; i < b.N; i++ {
+				fun := Fun(c, "entry", blocks...)
+				Deadcode(fun.f)
+				fun.f.Free()
+			}
+		})
 	}
 }
