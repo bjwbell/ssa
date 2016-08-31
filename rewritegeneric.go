@@ -316,6 +316,8 @@ func rewriteValuegeneric(v *Value, config *Config) bool {
 		return rewriteValuegeneric_OpSliceLen(v, config)
 	case OpSlicePtr:
 		return rewriteValuegeneric_OpSlicePtr(v, config)
+	case OpSqrt:
+		return rewriteValuegeneric_OpSqrt(v, config)
 	case OpStore:
 		return rewriteValuegeneric_OpStore(v, config)
 	case OpStringLen:
@@ -356,6 +358,8 @@ func rewriteValuegeneric(v *Value, config *Config) bool {
 		return rewriteValuegeneric_OpXor64(v, config)
 	case OpXor8:
 		return rewriteValuegeneric_OpXor8(v, config)
+	case OpZero:
+		return rewriteValuegeneric_OpZero(v, config)
 	}
 	return false
 }
@@ -9032,6 +9036,24 @@ func rewriteValuegeneric_OpSlicePtr(v *Value, config *Config) bool {
 	}
 	return false
 }
+func rewriteValuegeneric_OpSqrt(v *Value, config *Config) bool {
+	b := v.Block
+	_ = b
+	// match: (Sqrt (Const64F [c]))
+	// cond:
+	// result: (Const64F [f2i(math.Sqrt(i2f(c)))])
+	for {
+		v_0 := v.Args[0]
+		if v_0.Op != OpConst64F {
+			break
+		}
+		c := v_0.AuxInt
+		v.reset(OpConst64F)
+		v.AuxInt = f2i(math.Sqrt(i2f(c)))
+		return true
+	}
+	return false
+}
 func rewriteValuegeneric_OpStore(v *Value, config *Config) bool {
 	b := v.Block
 	_ = b
@@ -9951,6 +9973,34 @@ func rewriteValuegeneric_OpTrunc16to8(v *Value, config *Config) bool {
 		v.AuxInt = int64(int8(c))
 		return true
 	}
+	// match: (Trunc16to8  (ZeroExt8to16  x))
+	// cond:
+	// result: x
+	for {
+		v_0 := v.Args[0]
+		if v_0.Op != OpZeroExt8to16 {
+			break
+		}
+		x := v_0.Args[0]
+		v.reset(OpCopy)
+		v.Type = x.Type
+		v.AddArg(x)
+		return true
+	}
+	// match: (Trunc16to8  (SignExt8to16  x))
+	// cond:
+	// result: x
+	for {
+		v_0 := v.Args[0]
+		if v_0.Op != OpSignExt8to16 {
+			break
+		}
+		x := v_0.Args[0]
+		v.reset(OpCopy)
+		v.Type = x.Type
+		v.AddArg(x)
+		return true
+	}
 	// match: (Trunc16to8  (And16 (Const16 [y]) x))
 	// cond: y&0xFF == 0xFF
 	// result: (Trunc16to8 x)
@@ -9988,6 +10038,60 @@ func rewriteValuegeneric_OpTrunc32to16(v *Value, config *Config) bool {
 		c := v_0.AuxInt
 		v.reset(OpConst16)
 		v.AuxInt = int64(int16(c))
+		return true
+	}
+	// match: (Trunc32to16 (ZeroExt8to32  x))
+	// cond:
+	// result: (ZeroExt8to16  x)
+	for {
+		v_0 := v.Args[0]
+		if v_0.Op != OpZeroExt8to32 {
+			break
+		}
+		x := v_0.Args[0]
+		v.reset(OpZeroExt8to16)
+		v.AddArg(x)
+		return true
+	}
+	// match: (Trunc32to16 (ZeroExt16to32 x))
+	// cond:
+	// result: x
+	for {
+		v_0 := v.Args[0]
+		if v_0.Op != OpZeroExt16to32 {
+			break
+		}
+		x := v_0.Args[0]
+		v.reset(OpCopy)
+		v.Type = x.Type
+		v.AddArg(x)
+		return true
+	}
+	// match: (Trunc32to16 (SignExt8to32  x))
+	// cond:
+	// result: (SignExt8to16  x)
+	for {
+		v_0 := v.Args[0]
+		if v_0.Op != OpSignExt8to32 {
+			break
+		}
+		x := v_0.Args[0]
+		v.reset(OpSignExt8to16)
+		v.AddArg(x)
+		return true
+	}
+	// match: (Trunc32to16 (SignExt16to32 x))
+	// cond:
+	// result: x
+	for {
+		v_0 := v.Args[0]
+		if v_0.Op != OpSignExt16to32 {
+			break
+		}
+		x := v_0.Args[0]
+		v.reset(OpCopy)
+		v.Type = x.Type
+		v.AddArg(x)
 		return true
 	}
 	// match: (Trunc32to16 (And32 (Const32 [y]) x))
@@ -10029,6 +10133,34 @@ func rewriteValuegeneric_OpTrunc32to8(v *Value, config *Config) bool {
 		v.AuxInt = int64(int8(c))
 		return true
 	}
+	// match: (Trunc32to8  (ZeroExt8to32  x))
+	// cond:
+	// result: x
+	for {
+		v_0 := v.Args[0]
+		if v_0.Op != OpZeroExt8to32 {
+			break
+		}
+		x := v_0.Args[0]
+		v.reset(OpCopy)
+		v.Type = x.Type
+		v.AddArg(x)
+		return true
+	}
+	// match: (Trunc32to8  (SignExt8to32  x))
+	// cond:
+	// result: x
+	for {
+		v_0 := v.Args[0]
+		if v_0.Op != OpSignExt8to32 {
+			break
+		}
+		x := v_0.Args[0]
+		v.reset(OpCopy)
+		v.Type = x.Type
+		v.AddArg(x)
+		return true
+	}
 	// match: (Trunc32to8  (And32 (Const32 [y]) x))
 	// cond: y&0xFF == 0xFF
 	// result: (Trunc32to8 x)
@@ -10066,6 +10198,60 @@ func rewriteValuegeneric_OpTrunc64to16(v *Value, config *Config) bool {
 		c := v_0.AuxInt
 		v.reset(OpConst16)
 		v.AuxInt = int64(int16(c))
+		return true
+	}
+	// match: (Trunc64to16 (ZeroExt8to64  x))
+	// cond:
+	// result: (ZeroExt8to16  x)
+	for {
+		v_0 := v.Args[0]
+		if v_0.Op != OpZeroExt8to64 {
+			break
+		}
+		x := v_0.Args[0]
+		v.reset(OpZeroExt8to16)
+		v.AddArg(x)
+		return true
+	}
+	// match: (Trunc64to16 (ZeroExt16to64 x))
+	// cond:
+	// result: x
+	for {
+		v_0 := v.Args[0]
+		if v_0.Op != OpZeroExt16to64 {
+			break
+		}
+		x := v_0.Args[0]
+		v.reset(OpCopy)
+		v.Type = x.Type
+		v.AddArg(x)
+		return true
+	}
+	// match: (Trunc64to16 (SignExt8to64  x))
+	// cond:
+	// result: (SignExt8to16  x)
+	for {
+		v_0 := v.Args[0]
+		if v_0.Op != OpSignExt8to64 {
+			break
+		}
+		x := v_0.Args[0]
+		v.reset(OpSignExt8to16)
+		v.AddArg(x)
+		return true
+	}
+	// match: (Trunc64to16 (SignExt16to64 x))
+	// cond:
+	// result: x
+	for {
+		v_0 := v.Args[0]
+		if v_0.Op != OpSignExt16to64 {
+			break
+		}
+		x := v_0.Args[0]
+		v.reset(OpCopy)
+		v.Type = x.Type
+		v.AddArg(x)
 		return true
 	}
 	// match: (Trunc64to16 (And64 (Const64 [y]) x))
@@ -10107,6 +10293,86 @@ func rewriteValuegeneric_OpTrunc64to32(v *Value, config *Config) bool {
 		v.AuxInt = int64(int32(c))
 		return true
 	}
+	// match: (Trunc64to32 (ZeroExt8to64  x))
+	// cond:
+	// result: (ZeroExt8to32  x)
+	for {
+		v_0 := v.Args[0]
+		if v_0.Op != OpZeroExt8to64 {
+			break
+		}
+		x := v_0.Args[0]
+		v.reset(OpZeroExt8to32)
+		v.AddArg(x)
+		return true
+	}
+	// match: (Trunc64to32 (ZeroExt16to64 x))
+	// cond:
+	// result: (ZeroExt16to32 x)
+	for {
+		v_0 := v.Args[0]
+		if v_0.Op != OpZeroExt16to64 {
+			break
+		}
+		x := v_0.Args[0]
+		v.reset(OpZeroExt16to32)
+		v.AddArg(x)
+		return true
+	}
+	// match: (Trunc64to32 (ZeroExt32to64 x))
+	// cond:
+	// result: x
+	for {
+		v_0 := v.Args[0]
+		if v_0.Op != OpZeroExt32to64 {
+			break
+		}
+		x := v_0.Args[0]
+		v.reset(OpCopy)
+		v.Type = x.Type
+		v.AddArg(x)
+		return true
+	}
+	// match: (Trunc64to32 (SignExt8to64  x))
+	// cond:
+	// result: (SignExt8to32  x)
+	for {
+		v_0 := v.Args[0]
+		if v_0.Op != OpSignExt8to64 {
+			break
+		}
+		x := v_0.Args[0]
+		v.reset(OpSignExt8to32)
+		v.AddArg(x)
+		return true
+	}
+	// match: (Trunc64to32 (SignExt16to64 x))
+	// cond:
+	// result: (SignExt16to32 x)
+	for {
+		v_0 := v.Args[0]
+		if v_0.Op != OpSignExt16to64 {
+			break
+		}
+		x := v_0.Args[0]
+		v.reset(OpSignExt16to32)
+		v.AddArg(x)
+		return true
+	}
+	// match: (Trunc64to32 (SignExt32to64 x))
+	// cond:
+	// result: x
+	for {
+		v_0 := v.Args[0]
+		if v_0.Op != OpSignExt32to64 {
+			break
+		}
+		x := v_0.Args[0]
+		v.reset(OpCopy)
+		v.Type = x.Type
+		v.AddArg(x)
+		return true
+	}
 	// match: (Trunc64to32 (And64 (Const64 [y]) x))
 	// cond: y&0xFFFFFFFF == 0xFFFFFFFF
 	// result: (Trunc64to32 x)
@@ -10144,6 +10410,34 @@ func rewriteValuegeneric_OpTrunc64to8(v *Value, config *Config) bool {
 		c := v_0.AuxInt
 		v.reset(OpConst8)
 		v.AuxInt = int64(int8(c))
+		return true
+	}
+	// match: (Trunc64to8  (ZeroExt8to64  x))
+	// cond:
+	// result: x
+	for {
+		v_0 := v.Args[0]
+		if v_0.Op != OpZeroExt8to64 {
+			break
+		}
+		x := v_0.Args[0]
+		v.reset(OpCopy)
+		v.Type = x.Type
+		v.AddArg(x)
+		return true
+	}
+	// match: (Trunc64to8  (SignExt8to64  x))
+	// cond:
+	// result: x
+	for {
+		v_0 := v.Args[0]
+		if v_0.Op != OpSignExt8to64 {
+			break
+		}
+		x := v_0.Args[0]
+		v.reset(OpCopy)
+		v.Type = x.Type
+		v.AddArg(x)
 		return true
 	}
 	// match: (Trunc64to8  (And64 (Const64 [y]) x))
@@ -10677,7 +10971,43 @@ func rewriteValuegeneric_OpXor8(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteBlockgeneric(b *Block) bool {
+func rewriteValuegeneric_OpZero(v *Value, config *Config) bool {
+	b := v.Block
+	_ = b
+	// match: (Zero (Load (OffPtr [c] (SP)) mem:(StaticCall {sym} _)) mem2)
+	// cond: c == config.ctxt.FixedFrameSize() + config.PtrSize 	&& mem2 == mem 	&& isSameSym(sym, "runtime.newobject")
+	// result: mem
+	for {
+		v_0 := v.Args[0]
+		if v_0.Op != OpLoad {
+			break
+		}
+		v_0_0 := v_0.Args[0]
+		if v_0_0.Op != OpOffPtr {
+			break
+		}
+		c := v_0_0.AuxInt
+		v_0_0_0 := v_0_0.Args[0]
+		if v_0_0_0.Op != OpSP {
+			break
+		}
+		mem := v_0.Args[1]
+		if mem.Op != OpStaticCall {
+			break
+		}
+		sym := mem.Aux
+		mem2 := v.Args[1]
+		if !(c == config.ctxt.FixedFrameSize()+config.PtrSize && mem2 == mem && isSameSym(sym, "runtime.newobject")) {
+			break
+		}
+		v.reset(OpCopy)
+		v.Type = mem.Type
+		v.AddArg(mem)
+		return true
+	}
+	return false
+}
+func rewriteBlockgeneric(b *Block, config *Config) bool {
 	switch b.Kind {
 	case BlockCheck:
 		// match: (Check (NilCheck (GetG _) _) next)
@@ -10696,6 +11026,80 @@ func rewriteBlockgeneric(b *Block) bool {
 			b.Kind = BlockPlain
 			b.SetControl(nil)
 			_ = next
+			return true
+		}
+		// match: (Check (NilCheck (Load (OffPtr [c] (SP)) mem:(StaticCall {sym} _)) _) succ)
+		// cond: c == config.ctxt.FixedFrameSize() + config.PtrSize 	&& isSameSym(sym, "runtime.newobject")
+		// result: (Plain nil succ)
+		for {
+			v := b.Control
+			if v.Op != OpNilCheck {
+				break
+			}
+			v_0 := v.Args[0]
+			if v_0.Op != OpLoad {
+				break
+			}
+			v_0_0 := v_0.Args[0]
+			if v_0_0.Op != OpOffPtr {
+				break
+			}
+			c := v_0_0.AuxInt
+			v_0_0_0 := v_0_0.Args[0]
+			if v_0_0_0.Op != OpSP {
+				break
+			}
+			mem := v_0.Args[1]
+			if mem.Op != OpStaticCall {
+				break
+			}
+			sym := mem.Aux
+			succ := b.Succs[0]
+			if !(c == config.ctxt.FixedFrameSize()+config.PtrSize && isSameSym(sym, "runtime.newobject")) {
+				break
+			}
+			b.Kind = BlockPlain
+			b.SetControl(nil)
+			_ = succ
+			return true
+		}
+		// match: (Check (NilCheck (OffPtr (Load (OffPtr [c] (SP)) mem:(StaticCall {sym} _))) _) succ)
+		// cond: c == config.ctxt.FixedFrameSize() + config.PtrSize 	&& isSameSym(sym, "runtime.newobject")
+		// result: (Plain nil succ)
+		for {
+			v := b.Control
+			if v.Op != OpNilCheck {
+				break
+			}
+			v_0 := v.Args[0]
+			if v_0.Op != OpOffPtr {
+				break
+			}
+			v_0_0 := v_0.Args[0]
+			if v_0_0.Op != OpLoad {
+				break
+			}
+			v_0_0_0 := v_0_0.Args[0]
+			if v_0_0_0.Op != OpOffPtr {
+				break
+			}
+			c := v_0_0_0.AuxInt
+			v_0_0_0_0 := v_0_0_0.Args[0]
+			if v_0_0_0_0.Op != OpSP {
+				break
+			}
+			mem := v_0_0.Args[1]
+			if mem.Op != OpStaticCall {
+				break
+			}
+			sym := mem.Aux
+			succ := b.Succs[0]
+			if !(c == config.ctxt.FixedFrameSize()+config.PtrSize && isSameSym(sym, "runtime.newobject")) {
+				break
+			}
+			b.Kind = BlockPlain
+			b.SetControl(nil)
+			_ = succ
 			return true
 		}
 	case BlockIf:
