@@ -318,11 +318,11 @@ func init() {
 		{name: "CSELULT0", argLength: 2, reg: gp1flags1, asm: "CSEL"}, // returns arg0 if flags indicates unsigned LT, 0 otherwise, arg1=flags
 
 		// function calls
-		{name: "CALLstatic", argLength: 1, reg: regInfo{clobbers: callerSave}, aux: "SymOff", clobberFlags: true},                                              // call static function aux.(*gc.Sym).  arg0=mem, auxint=argsize, returns mem
-		{name: "CALLclosure", argLength: 3, reg: regInfo{inputs: []regMask{gpsp, buildReg("R26"), 0}, clobbers: callerSave}, aux: "Int64", clobberFlags: true}, // call function via closure.  arg0=codeptr, arg1=closure, arg2=mem, auxint=argsize, returns mem
-		{name: "CALLdefer", argLength: 1, reg: regInfo{clobbers: callerSave}, aux: "Int64", clobberFlags: true},                                                // call deferproc.  arg0=mem, auxint=argsize, returns mem
-		{name: "CALLgo", argLength: 1, reg: regInfo{clobbers: callerSave}, aux: "Int64", clobberFlags: true},                                                   // call newproc.  arg0=mem, auxint=argsize, returns mem
-		{name: "CALLinter", argLength: 2, reg: regInfo{inputs: []regMask{gp}, clobbers: callerSave}, aux: "Int64", clobberFlags: true},                         // call fn by pointer.  arg0=codeptr, arg1=mem, auxint=argsize, returns mem
+		{name: "CALLstatic", argLength: 1, reg: regInfo{clobbers: callerSave}, aux: "SymOff", clobberFlags: true, call: true},                                              // call static function aux.(*gc.Sym).  arg0=mem, auxint=argsize, returns mem
+		{name: "CALLclosure", argLength: 3, reg: regInfo{inputs: []regMask{gpsp, buildReg("R26"), 0}, clobbers: callerSave}, aux: "Int64", clobberFlags: true, call: true}, // call function via closure.  arg0=codeptr, arg1=closure, arg2=mem, auxint=argsize, returns mem
+		{name: "CALLdefer", argLength: 1, reg: regInfo{clobbers: callerSave}, aux: "Int64", clobberFlags: true, call: true},                                                // call deferproc.  arg0=mem, auxint=argsize, returns mem
+		{name: "CALLgo", argLength: 1, reg: regInfo{clobbers: callerSave}, aux: "Int64", clobberFlags: true, call: true},                                                   // call newproc.  arg0=mem, auxint=argsize, returns mem
+		{name: "CALLinter", argLength: 2, reg: regInfo{inputs: []regMask{gp}, clobbers: callerSave}, aux: "Int64", clobberFlags: true, call: true},                         // call fn by pointer.  arg0=codeptr, arg1=mem, auxint=argsize, returns mem
 
 		// pseudo-ops
 		{name: "LoweredNilCheck", argLength: 2, reg: regInfo{inputs: []regMask{gpg}}}, // panic if arg0 is nil.  arg1=mem.
@@ -426,18 +426,18 @@ func init() {
 		{name: "InvertFlags", argLength: 1}, // reverse direction of arg0
 
 		// atomic loads.
-		// load from arg0. arg1=mem.
+		// load from arg0. arg1=mem. auxint must be zero.
 		// returns <value,memory> so they can be properly ordered with other loads.
 		{name: "LDAR", argLength: 2, reg: gpload, asm: "LDAR"},
 		{name: "LDARW", argLength: 2, reg: gpload, asm: "LDARW"},
 
 		// atomic stores.
-		// store arg1 to arg0. arg2=mem. returns memory.
+		// store arg1 to arg0. arg2=mem. returns memory. auxint must be zero.
 		{name: "STLR", argLength: 3, reg: gpstore, asm: "STLR"},
 		{name: "STLRW", argLength: 3, reg: gpstore, asm: "STLRW"},
 
 		// atomic exchange.
-		// store arg1 to arg0. arg2=mem. returns <old content of *arg0, memory>.
+		// store arg1 to arg0. arg2=mem. returns <old content of *arg0, memory>. auxint must be zero.
 		// LDAXR	(Rarg0), Rout
 		// STLXR	Rarg1, (Rarg0), Rtmp
 		// CBNZ		Rtmp, -2(PC)
@@ -445,7 +445,7 @@ func init() {
 		{name: "LoweredAtomicExchange32", argLength: 3, reg: gpxchg, resultNotInArgs: true},
 
 		// atomic add.
-		// *arg0 += arg1. arg2=mem. returns <new content of *arg0, memory>.
+		// *arg0 += arg1. arg2=mem. returns <new content of *arg0, memory>. auxint must be zero.
 		// LDAXR	(Rarg0), Rout
 		// ADD		Rarg1, Rout
 		// STLXR	Rout, (Rarg0), Rtmp
@@ -454,7 +454,7 @@ func init() {
 		{name: "LoweredAtomicAdd32", argLength: 3, reg: gpxchg, resultNotInArgs: true},
 
 		// atomic compare and swap.
-		// arg0 = pointer, arg1 = old value, arg2 = new value, arg3 = memory.
+		// arg0 = pointer, arg1 = old value, arg2 = new value, arg3 = memory. auxint must be zero.
 		// if *arg0 == arg1 {
 		//   *arg0 = arg2
 		//   return (true, memory)
@@ -469,6 +469,15 @@ func init() {
 		// CSET		EQ, Rout
 		{name: "LoweredAtomicCas64", argLength: 4, reg: gpcas, resultNotInArgs: true, clobberFlags: true},
 		{name: "LoweredAtomicCas32", argLength: 4, reg: gpcas, resultNotInArgs: true, clobberFlags: true},
+
+		// atomic and/or.
+		// *arg0 &= (|=) arg1. arg2=mem. returns memory. auxint must be zero.
+		// LDAXRB	(Rarg0), Rtmp
+		// AND/OR	Rarg1, Rtmp
+		// STLXRB	Rtmp, (Rarg0), Rtmp
+		// CBNZ		Rtmp, -3(PC)
+		{name: "LoweredAtomicAnd8", argLength: 3, reg: gpstore, asm: "AND"},
+		{name: "LoweredAtomicOr8", argLength: 3, reg: gpstore, asm: "ORR"},
 	}
 
 	blocks := []blockData{
