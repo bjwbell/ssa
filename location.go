@@ -23,6 +23,10 @@ func (r *Register) Name() string {
 	return r.name
 }
 
+func (r *Register) Num() int16 {
+	return r.objNum
+}
+
 // A LocalSlot is a location in the stack frame.
 // It is (possibly a subpiece of) a PPARAM, PPARAMOUT, or PAUTO ONAME node.
 type LocalSlot struct {
