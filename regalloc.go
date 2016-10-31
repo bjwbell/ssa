@@ -106,9 +106,10 @@
 package ssa
 
 import (
-	"cmd/internal/obj"
 	"fmt"
 	"unsafe"
+
+	"github.com/bjwbell/cmd/obj"
 )
 
 const (
