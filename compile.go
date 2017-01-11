@@ -5,7 +5,6 @@
 package ssa
 
 import (
-	"cmd/internal/obj"
 	"fmt"
 	"log"
 	"os"
@@ -13,6 +12,8 @@ import (
 	"runtime"
 	"strings"
 	"time"
+
+	"github.com/bjwbell/cmd/obj"
 )
 
 // Compile is the main entry point for this package.
