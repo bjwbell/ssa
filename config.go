@@ -12,6 +12,7 @@ import (
 	"strings"
 
 	"github.com/bjwbell/cmd/obj"
+	"github.com/bjwbell/cmd/src"
 )
 
 type Config struct {
@@ -51,6 +52,7 @@ type Config struct {
 	// Storage for low-numbered values and blocks.
 	values [2000]Value
 	blocks [200]Block
+	locs   [2000]Location
 
 	// Reusable stackAllocState.
 	// See stackalloc.go's {new,put}StackAllocState.
@@ -89,10 +91,10 @@ type Logger interface {
 	Log() bool
 
 	// Fatal reports a compiler error and exits.
-	Fatalf(line int32, msg string, args ...interface{})
+	Fatalf(pos src.XPos, msg string, args ...interface{})
 
 	// Warnl writes compiler messages in the form expected by "errorcheck" tests
-	Warnl(line int32, fmt_ string, args ...interface{})
+	Warnl(pos src.XPos, fmt_ string, args ...interface{})
 
 	// Forwards the Debug flags from gc
 	Debug_checknil() bool
@@ -120,15 +122,15 @@ type Frontend interface {
 	SplitArray(LocalSlot) LocalSlot              // array must be length 1
 	SplitInt64(LocalSlot) (LocalSlot, LocalSlot) // returns (hi, lo)
 
-	// Line returns a string describing the given line number.
-	Line(int32) string
+	// Line returns a string describing the given position.
+	Line(src.XPos) string
 
 	// AllocFrame assigns frame offsets to all live auto variables.
 	AllocFrame(f *Func)
 
 	// Syslook returns a symbol of the runtime function/variable with the
 	// given name.
-	Syslook(string) interface{} // returns *gc.Sym
+	Syslook(string) *obj.LSym
 }
 
 // interface used to hold *gc.Node. We'd use *gc.Node directly but
@@ -270,7 +272,7 @@ func NewConfig(arch string, fe Frontend, ctxt *obj.Link, optimize bool) *Config 
 		c.hasGReg = true
 		c.noDuffDevice = true
 	default:
-		fe.Fatalf(0, "arch %s not implemented", arch)
+		fe.Fatalf(src.NoXPos, "arch %s not implemented", arch)
 	}
 	c.ctxt = ctxt
 	c.optimize = optimize
@@ -310,7 +312,7 @@ func NewConfig(arch string, fe Frontend, ctxt *obj.Link, optimize bool) *Config 
 	if ev != "" {
 		v, err := strconv.ParseInt(ev, 10, 64)
 		if err != nil {
-			fe.Fatalf(0, "Environment variable GO_SSA_PHI_LOC_CUTOFF (value '%s') did not parse as a number", ev)
+			fe.Fatalf(src.NoXPos, "Environment variable GO_SSA_PHI_LOC_CUTOFF (value '%s') did not parse as a number", ev)
 		}
 		c.sparsePhiCutoff = uint64(v) // convert -1 to maxint, for never use sparse
 	}
@@ -332,19 +334,19 @@ func (c *Config) Ctxt() *obj.Link         { return c.ctxt }
 func (c *Config) NewFunc() *Func {
 	// TODO(khr): should this function take name, type, etc. as arguments?
 	if c.curFunc != nil {
-		c.Fatalf(0, "NewFunc called without previous Free")
+		c.Fatalf(src.NoXPos, "NewFunc called without previous Free")
 	}
 	f := &Func{Config: c, NamedValues: map[LocalSlot][]*Value{}}
 	c.curFunc = f
 	return f
 }
 
-func (c *Config) Logf(msg string, args ...interface{})               { c.fe.Logf(msg, args...) }
-func (c *Config) Log() bool                                          { return c.fe.Log() }
-func (c *Config) Fatalf(line int32, msg string, args ...interface{}) { c.fe.Fatalf(line, msg, args...) }
-func (c *Config) Warnl(line int32, msg string, args ...interface{})  { c.fe.Warnl(line, msg, args...) }
-func (c *Config) Debug_checknil() bool                               { return c.fe.Debug_checknil() }
-func (c *Config) Debug_wb() bool                                     { return c.fe.Debug_wb() }
+func (c *Config) Logf(msg string, args ...interface{})                 { c.fe.Logf(msg, args...) }
+func (c *Config) Log() bool                                            { return c.fe.Log() }
+func (c *Config) Fatalf(pos src.XPos, msg string, args ...interface{}) { c.fe.Fatalf(pos, msg, args...) }
+func (c *Config) Warnl(pos src.XPos, msg string, args ...interface{})  { c.fe.Warnl(pos, msg, args...) }
+func (c *Config) Debug_checknil() bool                                 { return c.fe.Debug_checknil() }
+func (c *Config) Debug_wb() bool                                       { return c.fe.Debug_wb() }
 
 func (c *Config) logDebugHashMatch(evname, name string) {
 	file := c.logfiles[evname]
@@ -355,7 +357,7 @@ func (c *Config) logDebugHashMatch(evname, name string) {
 			var ok error
 			file, ok = os.Create(tmpfile)
 			if ok != nil {
-				c.Fatalf(0, "Could not open hash-testing logfile %s", tmpfile)
+				c.Fatalf(src.NoXPos, "Could not open hash-testing logfile %s", tmpfile)
 			}
 		}
 		c.logfiles[evname] = file
