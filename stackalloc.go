@@ -7,8 +7,9 @@
 package ssa
 
 import (
-	"cmd/internal/src"
 	"fmt"
+
+	"github.com/bjwbell/cmd/src"
 )
 
 type stackAllocState struct {

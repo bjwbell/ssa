@@ -5,8 +5,8 @@
 package ssa
 
 import (
-	"cmd/internal/obj"
-	"cmd/internal/src"
+	"github.com/bjwbell/cmd/obj"
+	"github.com/bjwbell/cmd/src"
 )
 
 // writebarrier expands write barrier ops (StoreWB, MoveWB, etc.) into

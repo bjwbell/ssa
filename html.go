@@ -6,11 +6,12 @@ package ssa
 
 import (
 	"bytes"
-	"cmd/internal/src"
 	"fmt"
 	"html"
 	"io"
 	"os"
+
+	"github.com/bjwbell/cmd/src"
 )
 
 type HTMLWriter struct {

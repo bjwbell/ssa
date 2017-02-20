@@ -37,10 +37,11 @@ package ssa
 //                the parser can be used instead of Fun.
 
 import (
-	"cmd/internal/src"
 	"fmt"
 	"reflect"
 	"testing"
+
+	"github.com/bjwbell/cmd/src"
 )
 
 // Compare two Funcs for equivalence. Their CFGs must be isomorphic,

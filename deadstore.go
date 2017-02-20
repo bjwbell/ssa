@@ -4,7 +4,7 @@
 
 package ssa
 
-import "cmd/internal/src"
+import "github.com/bjwbell/cmd/src"
 
 // dse does dead-store elimination on the Function.
 // Dead stores are those which are unconditionally followed by

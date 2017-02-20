@@ -5,10 +5,11 @@
 package ssa
 
 import (
-	"cmd/internal/obj"
-	"cmd/internal/src"
 	"fmt"
 	"math"
+
+	"github.com/bjwbell/cmd/obj"
+	"github.com/bjwbell/cmd/src"
 )
 
 // A Value represents a value in the SSA representation of the program.

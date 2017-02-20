@@ -4,7 +4,7 @@
 
 package ssa
 
-import "cmd/internal/src"
+import "github.com/bjwbell/cmd/src"
 
 // from http://research.swtch.com/sparse
 // in turn, from Briggs and Torczon

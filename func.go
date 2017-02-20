@@ -5,10 +5,11 @@
 package ssa
 
 import (
-	"cmd/internal/src"
 	"fmt"
 	"math"
 	"strings"
+
+	"github.com/bjwbell/cmd/src"
 )
 
 // A Func represents a Go func declaration (or function literal) and
