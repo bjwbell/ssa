@@ -1,3 +1,5 @@
+# SSA Package
+
 Extracted from https://github.com/golang/go/tree/master/src/cmd/compile/internal/ssa.
 
 The internal `obj` and `src` packages are mirrored at https://github.com/bjwbell/cmd.
