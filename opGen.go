@@ -491,6 +491,10 @@ const (
 	OpAMD64CMPBconst
 	OpAMD64UCOMISS
 	OpAMD64UCOMISD
+	OpAMD64BTL
+	OpAMD64BTQ
+	OpAMD64BTLconst
+	OpAMD64BTQconst
 	OpAMD64TESTQ
 	OpAMD64TESTL
 	OpAMD64TESTW
@@ -1390,6 +1394,10 @@ const (
 	OpS390XFDIV
 	OpS390XFNEGS
 	OpS390XFNEG
+	OpS390XFMADDS
+	OpS390XFMADD
+	OpS390XFMSUBS
+	OpS390XFMSUB
 	OpS390XFMOVSload
 	OpS390XFMOVDload
 	OpS390XFMOVSconst
@@ -1554,6 +1562,8 @@ const (
 	OpS390XLoweredGetG
 	OpS390XLoweredGetClosurePtr
 	OpS390XLoweredNilCheck
+	OpS390XLoweredRound32F
+	OpS390XLoweredRound64F
 	OpS390XMOVDconvert
 	OpS390XFlagEQ
 	OpS390XFlagLT
@@ -1830,6 +1840,8 @@ const (
 	OpCvt64Fto64
 	OpCvt32Fto64F
 	OpCvt64Fto32F
+	OpRound32F
+	OpRound64F
 	OpIsNonNil
 	OpIsInBounds
 	OpIsSliceInBounds
@@ -5539,6 +5551,50 @@ var opcodeTable = [...]opInfo{
 			inputs: []inputInfo{
 				{0, 4294901760}, // X0 X1 X2 X3 X4 X5 X6 X7 X8 X9 X10 X11 X12 X13 X14 X15
 				{1, 4294901760}, // X0 X1 X2 X3 X4 X5 X6 X7 X8 X9 X10 X11 X12 X13 X14 X15
+			},
+		},
+	},
+	{
+		name:   "BTL",
+		argLen: 2,
+		asm:    x86.ABTL,
+		reg: regInfo{
+			inputs: []inputInfo{
+				{0, 65535}, // AX CX DX BX SP BP SI DI R8 R9 R10 R11 R12 R13 R14 R15
+				{1, 65535}, // AX CX DX BX SP BP SI DI R8 R9 R10 R11 R12 R13 R14 R15
+			},
+		},
+	},
+	{
+		name:   "BTQ",
+		argLen: 2,
+		asm:    x86.ABTQ,
+		reg: regInfo{
+			inputs: []inputInfo{
+				{0, 65535}, // AX CX DX BX SP BP SI DI R8 R9 R10 R11 R12 R13 R14 R15
+				{1, 65535}, // AX CX DX BX SP BP SI DI R8 R9 R10 R11 R12 R13 R14 R15
+			},
+		},
+	},
+	{
+		name:    "BTLconst",
+		auxType: auxInt8,
+		argLen:  1,
+		asm:     x86.ABTL,
+		reg: regInfo{
+			inputs: []inputInfo{
+				{0, 65535}, // AX CX DX BX SP BP SI DI R8 R9 R10 R11 R12 R13 R14 R15
+			},
+		},
+	},
+	{
+		name:    "BTQconst",
+		auxType: auxInt8,
+		argLen:  1,
+		asm:     x86.ABTQ,
+		reg: regInfo{
+			inputs: []inputInfo{
+				{0, 65535}, // AX CX DX BX SP BP SI DI R8 R9 R10 R11 R12 R13 R14 R15
 			},
 		},
 	},
@@ -17447,6 +17503,70 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
+		name:         "FMADDS",
+		argLen:       3,
+		resultInArg0: true,
+		asm:          s390x.AFMADDS,
+		reg: regInfo{
+			inputs: []inputInfo{
+				{0, 4294901760}, // F0 F1 F2 F3 F4 F5 F6 F7 F8 F9 F10 F11 F12 F13 F14 F15
+				{1, 4294901760}, // F0 F1 F2 F3 F4 F5 F6 F7 F8 F9 F10 F11 F12 F13 F14 F15
+				{2, 4294901760}, // F0 F1 F2 F3 F4 F5 F6 F7 F8 F9 F10 F11 F12 F13 F14 F15
+			},
+			outputs: []outputInfo{
+				{0, 4294901760}, // F0 F1 F2 F3 F4 F5 F6 F7 F8 F9 F10 F11 F12 F13 F14 F15
+			},
+		},
+	},
+	{
+		name:         "FMADD",
+		argLen:       3,
+		resultInArg0: true,
+		asm:          s390x.AFMADD,
+		reg: regInfo{
+			inputs: []inputInfo{
+				{0, 4294901760}, // F0 F1 F2 F3 F4 F5 F6 F7 F8 F9 F10 F11 F12 F13 F14 F15
+				{1, 4294901760}, // F0 F1 F2 F3 F4 F5 F6 F7 F8 F9 F10 F11 F12 F13 F14 F15
+				{2, 4294901760}, // F0 F1 F2 F3 F4 F5 F6 F7 F8 F9 F10 F11 F12 F13 F14 F15
+			},
+			outputs: []outputInfo{
+				{0, 4294901760}, // F0 F1 F2 F3 F4 F5 F6 F7 F8 F9 F10 F11 F12 F13 F14 F15
+			},
+		},
+	},
+	{
+		name:         "FMSUBS",
+		argLen:       3,
+		resultInArg0: true,
+		asm:          s390x.AFMSUBS,
+		reg: regInfo{
+			inputs: []inputInfo{
+				{0, 4294901760}, // F0 F1 F2 F3 F4 F5 F6 F7 F8 F9 F10 F11 F12 F13 F14 F15
+				{1, 4294901760}, // F0 F1 F2 F3 F4 F5 F6 F7 F8 F9 F10 F11 F12 F13 F14 F15
+				{2, 4294901760}, // F0 F1 F2 F3 F4 F5 F6 F7 F8 F9 F10 F11 F12 F13 F14 F15
+			},
+			outputs: []outputInfo{
+				{0, 4294901760}, // F0 F1 F2 F3 F4 F5 F6 F7 F8 F9 F10 F11 F12 F13 F14 F15
+			},
+		},
+	},
+	{
+		name:         "FMSUB",
+		argLen:       3,
+		resultInArg0: true,
+		asm:          s390x.AFMSUB,
+		reg: regInfo{
+			inputs: []inputInfo{
+				{0, 4294901760}, // F0 F1 F2 F3 F4 F5 F6 F7 F8 F9 F10 F11 F12 F13 F14 F15
+				{1, 4294901760}, // F0 F1 F2 F3 F4 F5 F6 F7 F8 F9 F10 F11 F12 F13 F14 F15
+				{2, 4294901760}, // F0 F1 F2 F3 F4 F5 F6 F7 F8 F9 F10 F11 F12 F13 F14 F15
+			},
+			outputs: []outputInfo{
+				{0, 4294901760}, // F0 F1 F2 F3 F4 F5 F6 F7 F8 F9 F10 F11 F12 F13 F14 F15
+			},
+		},
+	},
+	{
 		name:           "FMOVSload",
 		auxType:        auxSymOff,
 		argLen:         2,
@@ -19802,6 +19922,32 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
+		name:         "LoweredRound32F",
+		argLen:       1,
+		resultInArg0: true,
+		reg: regInfo{
+			inputs: []inputInfo{
+				{0, 4294901760}, // F0 F1 F2 F3 F4 F5 F6 F7 F8 F9 F10 F11 F12 F13 F14 F15
+			},
+			outputs: []outputInfo{
+				{0, 4294901760}, // F0 F1 F2 F3 F4 F5 F6 F7 F8 F9 F10 F11 F12 F13 F14 F15
+			},
+		},
+	},
+	{
+		name:         "LoweredRound64F",
+		argLen:       1,
+		resultInArg0: true,
+		reg: regInfo{
+			inputs: []inputInfo{
+				{0, 4294901760}, // F0 F1 F2 F3 F4 F5 F6 F7 F8 F9 F10 F11 F12 F13 F14 F15
+			},
+			outputs: []outputInfo{
+				{0, 4294901760}, // F0 F1 F2 F3 F4 F5 F6 F7 F8 F9 F10 F11 F12 F13 F14 F15
+			},
+		},
+	},
+	{
 		name:   "MOVDconvert",
 		argLen: 2,
 		asm:    s390x.AMOVD,
@@ -21454,6 +21600,16 @@ var opcodeTable = [...]opInfo{
 	},
 	{
 		name:    "Cvt64Fto32F",
+		argLen:  1,
+		generic: true,
+	},
+	{
+		name:    "Round32F",
+		argLen:  1,
+		generic: true,
+	},
+	{
+		name:    "Round64F",
 		argLen:  1,
 		generic: true,
 	},
