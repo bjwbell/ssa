@@ -268,10 +268,6 @@ const (
 	Op386MULLconst
 	Op386HMULL
 	Op386HMULLU
-	Op386HMULW
-	Op386HMULB
-	Op386HMULWU
-	Op386HMULBU
 	Op386MULLQU
 	Op386AVGLU
 	Op386DIVL
@@ -454,12 +450,8 @@ const (
 	OpAMD64MULLconst
 	OpAMD64HMULQ
 	OpAMD64HMULL
-	OpAMD64HMULW
-	OpAMD64HMULB
 	OpAMD64HMULQU
 	OpAMD64HMULLU
-	OpAMD64HMULWU
-	OpAMD64HMULBU
 	OpAMD64AVGQU
 	OpAMD64DIVQ
 	OpAMD64DIVL
@@ -1625,10 +1617,6 @@ const (
 	OpMul64F
 	OpDiv32F
 	OpDiv64F
-	OpHmul8
-	OpHmul8u
-	OpHmul16
-	OpHmul16u
 	OpHmul32
 	OpHmul32u
 	OpHmul64
@@ -1818,7 +1806,6 @@ const (
 	OpZero
 	OpStoreWB
 	OpMoveWB
-	OpMoveWBVolatile
 	OpZeroWB
 	OpClosureCall
 	OpStaticCall
@@ -2499,70 +2486,6 @@ var opcodeTable = [...]opInfo{
 		argLen:       2,
 		clobberFlags: true,
 		asm:          x86.AMULL,
-		reg: regInfo{
-			inputs: []inputInfo{
-				{0, 1},   // AX
-				{1, 255}, // AX CX DX BX SP BP SI DI
-			},
-			clobbers: 1, // AX
-			outputs: []outputInfo{
-				{0, 4}, // DX
-			},
-		},
-	},
-	{
-		name:         "HMULW",
-		argLen:       2,
-		clobberFlags: true,
-		asm:          x86.AIMULW,
-		reg: regInfo{
-			inputs: []inputInfo{
-				{0, 1},   // AX
-				{1, 255}, // AX CX DX BX SP BP SI DI
-			},
-			clobbers: 1, // AX
-			outputs: []outputInfo{
-				{0, 4}, // DX
-			},
-		},
-	},
-	{
-		name:         "HMULB",
-		argLen:       2,
-		clobberFlags: true,
-		asm:          x86.AIMULB,
-		reg: regInfo{
-			inputs: []inputInfo{
-				{0, 1},   // AX
-				{1, 255}, // AX CX DX BX SP BP SI DI
-			},
-			clobbers: 1, // AX
-			outputs: []outputInfo{
-				{0, 4}, // DX
-			},
-		},
-	},
-	{
-		name:         "HMULWU",
-		argLen:       2,
-		clobberFlags: true,
-		asm:          x86.AMULW,
-		reg: regInfo{
-			inputs: []inputInfo{
-				{0, 1},   // AX
-				{1, 255}, // AX CX DX BX SP BP SI DI
-			},
-			clobbers: 1, // AX
-			outputs: []outputInfo{
-				{0, 4}, // DX
-			},
-		},
-	},
-	{
-		name:         "HMULBU",
-		argLen:       2,
-		clobberFlags: true,
-		asm:          x86.AMULB,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{0, 1},   // AX
@@ -5019,38 +4942,6 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:         "HMULW",
-		argLen:       2,
-		clobberFlags: true,
-		asm:          x86.AIMULW,
-		reg: regInfo{
-			inputs: []inputInfo{
-				{0, 1},     // AX
-				{1, 65535}, // AX CX DX BX SP BP SI DI R8 R9 R10 R11 R12 R13 R14 R15
-			},
-			clobbers: 1, // AX
-			outputs: []outputInfo{
-				{0, 4}, // DX
-			},
-		},
-	},
-	{
-		name:         "HMULB",
-		argLen:       2,
-		clobberFlags: true,
-		asm:          x86.AIMULB,
-		reg: regInfo{
-			inputs: []inputInfo{
-				{0, 1},     // AX
-				{1, 65535}, // AX CX DX BX SP BP SI DI R8 R9 R10 R11 R12 R13 R14 R15
-			},
-			clobbers: 1, // AX
-			outputs: []outputInfo{
-				{0, 4}, // DX
-			},
-		},
-	},
-	{
 		name:         "HMULQU",
 		argLen:       2,
 		clobberFlags: true,
@@ -5071,38 +4962,6 @@ var opcodeTable = [...]opInfo{
 		argLen:       2,
 		clobberFlags: true,
 		asm:          x86.AMULL,
-		reg: regInfo{
-			inputs: []inputInfo{
-				{0, 1},     // AX
-				{1, 65535}, // AX CX DX BX SP BP SI DI R8 R9 R10 R11 R12 R13 R14 R15
-			},
-			clobbers: 1, // AX
-			outputs: []outputInfo{
-				{0, 4}, // DX
-			},
-		},
-	},
-	{
-		name:         "HMULWU",
-		argLen:       2,
-		clobberFlags: true,
-		asm:          x86.AMULW,
-		reg: regInfo{
-			inputs: []inputInfo{
-				{0, 1},     // AX
-				{1, 65535}, // AX CX DX BX SP BP SI DI R8 R9 R10 R11 R12 R13 R14 R15
-			},
-			clobbers: 1, // AX
-			outputs: []outputInfo{
-				{0, 4}, // DX
-			},
-		},
-	},
-	{
-		name:         "HMULBU",
-		argLen:       2,
-		clobberFlags: true,
-		asm:          x86.AMULB,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{0, 1},     // AX
@@ -20621,26 +20480,6 @@ var opcodeTable = [...]opInfo{
 		generic: true,
 	},
 	{
-		name:    "Hmul8",
-		argLen:  2,
-		generic: true,
-	},
-	{
-		name:    "Hmul8u",
-		argLen:  2,
-		generic: true,
-	},
-	{
-		name:    "Hmul16",
-		argLen:  2,
-		generic: true,
-	},
-	{
-		name:    "Hmul16u",
-		argLen:  2,
-		generic: true,
-	},
-	{
 		name:    "Hmul32",
 		argLen:  2,
 		generic: true,
@@ -21619,12 +21458,6 @@ var opcodeTable = [...]opInfo{
 	},
 	{
 		name:    "MoveWB",
-		auxType: auxSymSizeAndAlign,
-		argLen:  3,
-		generic: true,
-	},
-	{
-		name:    "MoveWBVolatile",
 		auxType: auxSymSizeAndAlign,
 		argLen:  3,
 		generic: true,

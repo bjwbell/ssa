@@ -49,10 +49,6 @@ var genericOps = []opData{
 	{name: "Div32F", argLength: 2}, // arg0 / arg1
 	{name: "Div64F", argLength: 2},
 
-	{name: "Hmul8", argLength: 2},  // (arg0 * arg1) >> width, signed
-	{name: "Hmul8u", argLength: 2}, // (arg0 * arg1) >> width, unsigned
-	{name: "Hmul16", argLength: 2},
-	{name: "Hmul16u", argLength: 2},
 	{name: "Hmul32", argLength: 2},
 	{name: "Hmul32u", argLength: 2},
 	{name: "Hmul64", argLength: 2},
@@ -298,10 +294,9 @@ var genericOps = []opData{
 
 	// Memory operations with write barriers.
 	// Expand to runtime calls. Write barrier will be removed if write on stack.
-	{name: "StoreWB", argLength: 3, typ: "Mem", aux: "Int64"},                  // Store arg1 to arg0. arg2=memory, auxint=size.  Returns memory.
-	{name: "MoveWB", argLength: 3, typ: "Mem", aux: "SymSizeAndAlign"},         // arg0=destptr, arg1=srcptr, arg2=mem, auxint=size+alignment, aux=symbol-of-type (for typedmemmove).  Returns memory.
-	{name: "MoveWBVolatile", argLength: 3, typ: "Mem", aux: "SymSizeAndAlign"}, // arg0=destptr, arg1=srcptr, arg2=mem, auxint=size+alignment, aux=symbol-of-type (for typedmemmove).  Returns memory. Src is volatile, i.e. needs to move to a temp space before calling typedmemmove.
-	{name: "ZeroWB", argLength: 2, typ: "Mem", aux: "SymSizeAndAlign"},         // arg0=destptr, arg1=mem, auxint=size+alignment, aux=symbol-of-type. Returns memory.
+	{name: "StoreWB", argLength: 3, typ: "Mem", aux: "Int64"},          // Store arg1 to arg0. arg2=memory, auxint=size.  Returns memory.
+	{name: "MoveWB", argLength: 3, typ: "Mem", aux: "SymSizeAndAlign"}, // arg0=destptr, arg1=srcptr, arg2=mem, auxint=size+alignment, aux=symbol-of-type (for typedmemmove).  Returns memory.
+	{name: "ZeroWB", argLength: 2, typ: "Mem", aux: "SymSizeAndAlign"}, // arg0=destptr, arg1=mem, auxint=size+alignment, aux=symbol-of-type. Returns memory.
 
 	// Function calls. Arguments to the call have already been written to the stack.
 	// Return values appear on the stack. The method receiver, if any, is treated
