@@ -410,8 +410,6 @@ func rewriteValueARM(v *Value, config *Config) bool {
 		return rewriteValueARM_OpCvt64Fto32F(v, config)
 	case OpCvt64Fto32U:
 		return rewriteValueARM_OpCvt64Fto32U(v, config)
-	case OpDeferCall:
-		return rewriteValueARM_OpDeferCall(v, config)
 	case OpDiv16:
 		return rewriteValueARM_OpDiv16(v, config)
 	case OpDiv16u:
@@ -460,8 +458,6 @@ func rewriteValueARM(v *Value, config *Config) bool {
 		return rewriteValueARM_OpGeq8U(v, config)
 	case OpGetClosurePtr:
 		return rewriteValueARM_OpGetClosurePtr(v, config)
-	case OpGoCall:
-		return rewriteValueARM_OpGoCall(v, config)
 	case OpGreater16:
 		return rewriteValueARM_OpGreater16(v, config)
 	case OpGreater16U:
@@ -13388,21 +13384,6 @@ func rewriteValueARM_OpCvt64Fto32U(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueARM_OpDeferCall(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
-	// match: (DeferCall [argwid] mem)
-	// cond:
-	// result: (CALLdefer [argwid] mem)
-	for {
-		argwid := v.AuxInt
-		mem := v.Args[0]
-		v.reset(OpARMCALLdefer)
-		v.AuxInt = argwid
-		v.AddArg(mem)
-		return true
-	}
-}
 func rewriteValueARM_OpDiv16(v *Value, config *Config) bool {
 	b := v.Block
 	_ = b
@@ -13446,14 +13427,15 @@ func rewriteValueARM_OpDiv32(v *Value, config *Config) bool {
 	_ = b
 	// match: (Div32 x y)
 	// cond:
-	// result: (SUB (XOR <config.fe.TypeUInt32()> 		(Select0 <config.fe.TypeUInt32()> (UDIVrtcall 			(SUB <config.fe.TypeUInt32()> (XOR x <config.fe.TypeUInt32()> (Signmask x)) (Signmask x)) 			(SUB <config.fe.TypeUInt32()> (XOR y <config.fe.TypeUInt32()> (Signmask y)) (Signmask y)))) 		(Signmask (XOR <config.fe.TypeUInt32()> x y))) (Signmask (XOR <config.fe.TypeUInt32()> x y)))
+	// result: (SUB (XOR <config.fe.TypeUInt32()> 		(Select0 <config.fe.TypeUInt32()> (CALLudiv {config.ctxt.Lookup("udiv", 0)} 			(SUB <config.fe.TypeUInt32()> (XOR x <config.fe.TypeUInt32()> (Signmask x)) (Signmask x)) 			(SUB <config.fe.TypeUInt32()> (XOR y <config.fe.TypeUInt32()> (Signmask y)) (Signmask y)))) 		(Signmask (XOR <config.fe.TypeUInt32()> x y))) (Signmask (XOR <config.fe.TypeUInt32()> x y)))
 	for {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpARMSUB)
 		v0 := b.NewValue0(v.Pos, OpARMXOR, config.fe.TypeUInt32())
 		v1 := b.NewValue0(v.Pos, OpSelect0, config.fe.TypeUInt32())
-		v2 := b.NewValue0(v.Pos, OpARMUDIVrtcall, MakeTuple(config.fe.TypeUInt32(), config.fe.TypeUInt32()))
+		v2 := b.NewValue0(v.Pos, OpARMCALLudiv, MakeTuple(config.fe.TypeUInt32(), config.fe.TypeUInt32()))
+		v2.Aux = config.ctxt.Lookup("udiv", 0)
 		v3 := b.NewValue0(v.Pos, OpARMSUB, config.fe.TypeUInt32())
 		v4 := b.NewValue0(v.Pos, OpARMXOR, config.fe.TypeUInt32())
 		v4.AddArg(x)
@@ -13514,13 +13496,14 @@ func rewriteValueARM_OpDiv32u(v *Value, config *Config) bool {
 	_ = b
 	// match: (Div32u x y)
 	// cond:
-	// result: (Select0 <config.fe.TypeUInt32()> (UDIVrtcall x y))
+	// result: (Select0 <config.fe.TypeUInt32()> (CALLudiv {config.ctxt.Lookup("udiv", 0)} x y))
 	for {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpSelect0)
 		v.Type = config.fe.TypeUInt32()
-		v0 := b.NewValue0(v.Pos, OpARMUDIVrtcall, MakeTuple(config.fe.TypeUInt32(), config.fe.TypeUInt32()))
+		v0 := b.NewValue0(v.Pos, OpARMCALLudiv, MakeTuple(config.fe.TypeUInt32(), config.fe.TypeUInt32()))
+		v0.Aux = config.ctxt.Lookup("udiv", 0)
 		v0.AddArg(x)
 		v0.AddArg(y)
 		v.AddArg(v0)
@@ -13868,21 +13851,6 @@ func rewriteValueARM_OpGetClosurePtr(v *Value, config *Config) bool {
 	// result: (LoweredGetClosurePtr)
 	for {
 		v.reset(OpARMLoweredGetClosurePtr)
-		return true
-	}
-}
-func rewriteValueARM_OpGoCall(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
-	// match: (GoCall [argwid] mem)
-	// cond:
-	// result: (CALLgo [argwid] mem)
-	for {
-		argwid := v.AuxInt
-		mem := v.Args[0]
-		v.reset(OpARMCALLgo)
-		v.AuxInt = argwid
-		v.AddArg(mem)
 		return true
 	}
 }
@@ -14919,14 +14887,15 @@ func rewriteValueARM_OpMod32(v *Value, config *Config) bool {
 	_ = b
 	// match: (Mod32 x y)
 	// cond:
-	// result: (SUB (XOR <config.fe.TypeUInt32()> 		(Select1 <config.fe.TypeUInt32()> (UDIVrtcall 			(SUB <config.fe.TypeUInt32()> (XOR <config.fe.TypeUInt32()> x (Signmask x)) (Signmask x)) 			(SUB <config.fe.TypeUInt32()> (XOR <config.fe.TypeUInt32()> y (Signmask y)) (Signmask y)))) 		(Signmask x)) (Signmask x))
+	// result: (SUB (XOR <config.fe.TypeUInt32()> 		(Select1 <config.fe.TypeUInt32()> (CALLudiv {config.ctxt.Lookup("udiv", 0)} 			(SUB <config.fe.TypeUInt32()> (XOR <config.fe.TypeUInt32()> x (Signmask x)) (Signmask x)) 			(SUB <config.fe.TypeUInt32()> (XOR <config.fe.TypeUInt32()> y (Signmask y)) (Signmask y)))) 		(Signmask x)) (Signmask x))
 	for {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpARMSUB)
 		v0 := b.NewValue0(v.Pos, OpARMXOR, config.fe.TypeUInt32())
 		v1 := b.NewValue0(v.Pos, OpSelect1, config.fe.TypeUInt32())
-		v2 := b.NewValue0(v.Pos, OpARMUDIVrtcall, MakeTuple(config.fe.TypeUInt32(), config.fe.TypeUInt32()))
+		v2 := b.NewValue0(v.Pos, OpARMCALLudiv, MakeTuple(config.fe.TypeUInt32(), config.fe.TypeUInt32()))
+		v2.Aux = config.ctxt.Lookup("udiv", 0)
 		v3 := b.NewValue0(v.Pos, OpARMSUB, config.fe.TypeUInt32())
 		v4 := b.NewValue0(v.Pos, OpARMXOR, config.fe.TypeUInt32())
 		v4.AddArg(x)
@@ -14966,13 +14935,14 @@ func rewriteValueARM_OpMod32u(v *Value, config *Config) bool {
 	_ = b
 	// match: (Mod32u x y)
 	// cond:
-	// result: (Select1 <config.fe.TypeUInt32()> (UDIVrtcall x y))
+	// result: (Select1 <config.fe.TypeUInt32()> (CALLudiv {config.ctxt.Lookup("udiv", 0)} x y))
 	for {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpSelect1)
 		v.Type = config.fe.TypeUInt32()
-		v0 := b.NewValue0(v.Pos, OpARMUDIVrtcall, MakeTuple(config.fe.TypeUInt32(), config.fe.TypeUInt32()))
+		v0 := b.NewValue0(v.Pos, OpARMCALLudiv, MakeTuple(config.fe.TypeUInt32(), config.fe.TypeUInt32()))
+		v0.Aux = config.ctxt.Lookup("udiv", 0)
 		v0.AddArg(x)
 		v0.AddArg(y)
 		v.AddArg(v0)
@@ -16365,12 +16335,12 @@ func rewriteValueARM_OpRsh8x8(v *Value, config *Config) bool {
 func rewriteValueARM_OpSelect0(v *Value, config *Config) bool {
 	b := v.Block
 	_ = b
-	// match: (Select0 (UDIVrtcall x (MOVWconst [1])))
+	// match: (Select0 (CALLudiv x (MOVWconst [1])))
 	// cond:
 	// result: x
 	for {
 		v_0 := v.Args[0]
-		if v_0.Op != OpARMUDIVrtcall {
+		if v_0.Op != OpARMCALLudiv {
 			break
 		}
 		x := v_0.Args[0]
@@ -16386,12 +16356,12 @@ func rewriteValueARM_OpSelect0(v *Value, config *Config) bool {
 		v.AddArg(x)
 		return true
 	}
-	// match: (Select0 (UDIVrtcall x (MOVWconst [c])))
+	// match: (Select0 (CALLudiv x (MOVWconst [c])))
 	// cond: isPowerOfTwo(c)
 	// result: (SRLconst [log2(c)] x)
 	for {
 		v_0 := v.Args[0]
-		if v_0.Op != OpARMUDIVrtcall {
+		if v_0.Op != OpARMCALLudiv {
 			break
 		}
 		x := v_0.Args[0]
@@ -16408,12 +16378,12 @@ func rewriteValueARM_OpSelect0(v *Value, config *Config) bool {
 		v.AddArg(x)
 		return true
 	}
-	// match: (Select0 (UDIVrtcall (MOVWconst [c]) (MOVWconst [d])))
+	// match: (Select0 (CALLudiv (MOVWconst [c]) (MOVWconst [d])))
 	// cond:
 	// result: (MOVWconst [int64(uint32(c)/uint32(d))])
 	for {
 		v_0 := v.Args[0]
-		if v_0.Op != OpARMUDIVrtcall {
+		if v_0.Op != OpARMCALLudiv {
 			break
 		}
 		v_0_0 := v_0.Args[0]
@@ -16435,12 +16405,12 @@ func rewriteValueARM_OpSelect0(v *Value, config *Config) bool {
 func rewriteValueARM_OpSelect1(v *Value, config *Config) bool {
 	b := v.Block
 	_ = b
-	// match: (Select1 (UDIVrtcall _ (MOVWconst [1])))
+	// match: (Select1 (CALLudiv _ (MOVWconst [1])))
 	// cond:
 	// result: (MOVWconst [0])
 	for {
 		v_0 := v.Args[0]
-		if v_0.Op != OpARMUDIVrtcall {
+		if v_0.Op != OpARMCALLudiv {
 			break
 		}
 		v_0_1 := v_0.Args[1]
@@ -16454,12 +16424,12 @@ func rewriteValueARM_OpSelect1(v *Value, config *Config) bool {
 		v.AuxInt = 0
 		return true
 	}
-	// match: (Select1 (UDIVrtcall x (MOVWconst [c])))
+	// match: (Select1 (CALLudiv x (MOVWconst [c])))
 	// cond: isPowerOfTwo(c)
 	// result: (ANDconst [c-1] x)
 	for {
 		v_0 := v.Args[0]
-		if v_0.Op != OpARMUDIVrtcall {
+		if v_0.Op != OpARMCALLudiv {
 			break
 		}
 		x := v_0.Args[0]
@@ -16476,12 +16446,12 @@ func rewriteValueARM_OpSelect1(v *Value, config *Config) bool {
 		v.AddArg(x)
 		return true
 	}
-	// match: (Select1 (UDIVrtcall (MOVWconst [c]) (MOVWconst [d])))
+	// match: (Select1 (CALLudiv (MOVWconst [c]) (MOVWconst [d])))
 	// cond:
 	// result: (MOVWconst [int64(uint32(c)%uint32(d))])
 	for {
 		v_0 := v.Args[0]
-		if v_0.Op != OpARMUDIVrtcall {
+		if v_0.Op != OpARMCALLudiv {
 			break
 		}
 		v_0_0 := v_0.Args[0]
