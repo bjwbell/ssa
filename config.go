@@ -15,6 +15,9 @@ import (
 	"github.com/bjwbell/cmd/src"
 )
 
+// A Config holds readonly compilation information.
+// It is created once, early during compilation,
+// and shared across all compilations.
 type Config struct {
 	arch            string                     // "amd64", etc.
 	IntSize         int64                      // 4 or 8
@@ -121,6 +124,12 @@ type Frontend interface {
 	SplitStruct(LocalSlot, int) LocalSlot
 	SplitArray(LocalSlot) LocalSlot              // array must be length 1
 	SplitInt64(LocalSlot) (LocalSlot, LocalSlot) // returns (hi, lo)
+
+	// DerefItab dereferences an itab function
+	// entry, given the symbol of the itab and
+	// the byte offset of the function pointer.
+	// It may return nil.
+	DerefItab(sym *obj.LSym, offset int64) *obj.LSym
 
 	// Line returns a string describing the given position.
 	Line(src.XPos) string

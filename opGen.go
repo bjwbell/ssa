@@ -1783,7 +1783,6 @@ const (
 	OpAddr
 	OpSP
 	OpSB
-	OpFunc
 	OpLoad
 	OpStore
 	OpMove
@@ -2034,6 +2033,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            x86.AMOVSS,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -2049,6 +2049,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            x86.AMOVSD,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -2084,10 +2085,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "MOVSSloadidx1",
-		auxType: auxSymOff,
-		argLen:  3,
-		asm:     x86.AMOVSS,
+		name:      "MOVSSloadidx1",
+		auxType:   auxSymOff,
+		argLen:    3,
+		symEffect: SymRead,
+		asm:       x86.AMOVSS,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 255},   // AX CX DX BX SP BP SI DI
@@ -2099,10 +2101,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "MOVSSloadidx4",
-		auxType: auxSymOff,
-		argLen:  3,
-		asm:     x86.AMOVSS,
+		name:      "MOVSSloadidx4",
+		auxType:   auxSymOff,
+		argLen:    3,
+		symEffect: SymRead,
+		asm:       x86.AMOVSS,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 255},   // AX CX DX BX SP BP SI DI
@@ -2114,10 +2117,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "MOVSDloadidx1",
-		auxType: auxSymOff,
-		argLen:  3,
-		asm:     x86.AMOVSD,
+		name:      "MOVSDloadidx1",
+		auxType:   auxSymOff,
+		argLen:    3,
+		symEffect: SymRead,
+		asm:       x86.AMOVSD,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 255},   // AX CX DX BX SP BP SI DI
@@ -2129,10 +2133,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "MOVSDloadidx8",
-		auxType: auxSymOff,
-		argLen:  3,
-		asm:     x86.AMOVSD,
+		name:      "MOVSDloadidx8",
+		auxType:   auxSymOff,
+		argLen:    3,
+		symEffect: SymRead,
+		asm:       x86.AMOVSD,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 255},   // AX CX DX BX SP BP SI DI
@@ -2148,6 +2153,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         3,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            x86.AMOVSS,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -2161,6 +2167,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         3,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            x86.AMOVSD,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -2170,10 +2177,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "MOVSSstoreidx1",
-		auxType: auxSymOff,
-		argLen:  4,
-		asm:     x86.AMOVSS,
+		name:      "MOVSSstoreidx1",
+		auxType:   auxSymOff,
+		argLen:    4,
+		symEffect: SymWrite,
+		asm:       x86.AMOVSS,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 255},   // AX CX DX BX SP BP SI DI
@@ -2183,10 +2191,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "MOVSSstoreidx4",
-		auxType: auxSymOff,
-		argLen:  4,
-		asm:     x86.AMOVSS,
+		name:      "MOVSSstoreidx4",
+		auxType:   auxSymOff,
+		argLen:    4,
+		symEffect: SymWrite,
+		asm:       x86.AMOVSS,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 255},   // AX CX DX BX SP BP SI DI
@@ -2196,10 +2205,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "MOVSDstoreidx1",
-		auxType: auxSymOff,
-		argLen:  4,
-		asm:     x86.AMOVSD,
+		name:      "MOVSDstoreidx1",
+		auxType:   auxSymOff,
+		argLen:    4,
+		symEffect: SymWrite,
+		asm:       x86.AMOVSD,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 255},   // AX CX DX BX SP BP SI DI
@@ -2209,10 +2219,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "MOVSDstoreidx8",
-		auxType: auxSymOff,
-		argLen:  4,
-		asm:     x86.AMOVSD,
+		name:      "MOVSDstoreidx8",
+		auxType:   auxSymOff,
+		argLen:    4,
+		symEffect: SymWrite,
+		asm:       x86.AMOVSD,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 255},   // AX CX DX BX SP BP SI DI
@@ -3622,6 +3633,7 @@ var opcodeTable = [...]opInfo{
 		auxType:           auxSymOff,
 		argLen:            1,
 		rematerializeable: true,
+		symEffect:         SymAddr,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{0, 65791}, // AX CX DX BX SP BP SI DI SB
@@ -3632,23 +3644,10 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "LEAL1",
-		auxType: auxSymOff,
-		argLen:  2,
-		reg: regInfo{
-			inputs: []inputInfo{
-				{1, 255},   // AX CX DX BX SP BP SI DI
-				{0, 65791}, // AX CX DX BX SP BP SI DI SB
-			},
-			outputs: []outputInfo{
-				{0, 239}, // AX CX DX BX BP SI DI
-			},
-		},
-	},
-	{
-		name:    "LEAL2",
-		auxType: auxSymOff,
-		argLen:  2,
+		name:      "LEAL1",
+		auxType:   auxSymOff,
+		argLen:    2,
+		symEffect: SymAddr,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 255},   // AX CX DX BX SP BP SI DI
@@ -3660,9 +3659,10 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "LEAL4",
-		auxType: auxSymOff,
-		argLen:  2,
+		name:      "LEAL2",
+		auxType:   auxSymOff,
+		argLen:    2,
+		symEffect: SymAddr,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 255},   // AX CX DX BX SP BP SI DI
@@ -3674,9 +3674,25 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "LEAL8",
-		auxType: auxSymOff,
-		argLen:  2,
+		name:      "LEAL4",
+		auxType:   auxSymOff,
+		argLen:    2,
+		symEffect: SymAddr,
+		reg: regInfo{
+			inputs: []inputInfo{
+				{1, 255},   // AX CX DX BX SP BP SI DI
+				{0, 65791}, // AX CX DX BX SP BP SI DI SB
+			},
+			outputs: []outputInfo{
+				{0, 239}, // AX CX DX BX BP SI DI
+			},
+		},
+	},
+	{
+		name:      "LEAL8",
+		auxType:   auxSymOff,
+		argLen:    2,
+		symEffect: SymAddr,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 255},   // AX CX DX BX SP BP SI DI
@@ -3692,6 +3708,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            x86.AMOVBLZX,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -3707,6 +3724,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            x86.AMOVBLSX,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -3722,6 +3740,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            x86.AMOVWLZX,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -3737,6 +3756,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            x86.AMOVWLSX,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -3752,6 +3772,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            x86.AMOVL,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -3767,6 +3788,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         3,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            x86.AMOVB,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -3780,6 +3802,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         3,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            x86.AMOVW,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -3793,6 +3816,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         3,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            x86.AMOVL,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -3802,10 +3826,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "MOVBloadidx1",
-		auxType: auxSymOff,
-		argLen:  3,
-		asm:     x86.AMOVBLZX,
+		name:      "MOVBloadidx1",
+		auxType:   auxSymOff,
+		argLen:    3,
+		symEffect: SymRead,
+		asm:       x86.AMOVBLZX,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 255},   // AX CX DX BX SP BP SI DI
@@ -3817,10 +3842,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "MOVWloadidx1",
-		auxType: auxSymOff,
-		argLen:  3,
-		asm:     x86.AMOVWLZX,
+		name:      "MOVWloadidx1",
+		auxType:   auxSymOff,
+		argLen:    3,
+		symEffect: SymRead,
+		asm:       x86.AMOVWLZX,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 255},   // AX CX DX BX SP BP SI DI
@@ -3832,10 +3858,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "MOVWloadidx2",
-		auxType: auxSymOff,
-		argLen:  3,
-		asm:     x86.AMOVWLZX,
+		name:      "MOVWloadidx2",
+		auxType:   auxSymOff,
+		argLen:    3,
+		symEffect: SymRead,
+		asm:       x86.AMOVWLZX,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 255},   // AX CX DX BX SP BP SI DI
@@ -3847,10 +3874,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "MOVLloadidx1",
-		auxType: auxSymOff,
-		argLen:  3,
-		asm:     x86.AMOVL,
+		name:      "MOVLloadidx1",
+		auxType:   auxSymOff,
+		argLen:    3,
+		symEffect: SymRead,
+		asm:       x86.AMOVL,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 255},   // AX CX DX BX SP BP SI DI
@@ -3862,10 +3890,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "MOVLloadidx4",
-		auxType: auxSymOff,
-		argLen:  3,
-		asm:     x86.AMOVL,
+		name:      "MOVLloadidx4",
+		auxType:   auxSymOff,
+		argLen:    3,
+		symEffect: SymRead,
+		asm:       x86.AMOVL,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 255},   // AX CX DX BX SP BP SI DI
@@ -3877,10 +3906,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "MOVBstoreidx1",
-		auxType: auxSymOff,
-		argLen:  4,
-		asm:     x86.AMOVB,
+		name:      "MOVBstoreidx1",
+		auxType:   auxSymOff,
+		argLen:    4,
+		symEffect: SymWrite,
+		asm:       x86.AMOVB,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 255},   // AX CX DX BX SP BP SI DI
@@ -3890,10 +3920,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "MOVWstoreidx1",
-		auxType: auxSymOff,
-		argLen:  4,
-		asm:     x86.AMOVW,
+		name:      "MOVWstoreidx1",
+		auxType:   auxSymOff,
+		argLen:    4,
+		symEffect: SymWrite,
+		asm:       x86.AMOVW,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 255},   // AX CX DX BX SP BP SI DI
@@ -3903,10 +3934,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "MOVWstoreidx2",
-		auxType: auxSymOff,
-		argLen:  4,
-		asm:     x86.AMOVW,
+		name:      "MOVWstoreidx2",
+		auxType:   auxSymOff,
+		argLen:    4,
+		symEffect: SymWrite,
+		asm:       x86.AMOVW,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 255},   // AX CX DX BX SP BP SI DI
@@ -3916,10 +3948,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "MOVLstoreidx1",
-		auxType: auxSymOff,
-		argLen:  4,
-		asm:     x86.AMOVL,
+		name:      "MOVLstoreidx1",
+		auxType:   auxSymOff,
+		argLen:    4,
+		symEffect: SymWrite,
+		asm:       x86.AMOVL,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 255},   // AX CX DX BX SP BP SI DI
@@ -3929,10 +3962,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "MOVLstoreidx4",
-		auxType: auxSymOff,
-		argLen:  4,
-		asm:     x86.AMOVL,
+		name:      "MOVLstoreidx4",
+		auxType:   auxSymOff,
+		argLen:    4,
+		symEffect: SymWrite,
+		asm:       x86.AMOVL,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 255},   // AX CX DX BX SP BP SI DI
@@ -3946,6 +3980,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymValAndOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            x86.AMOVB,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -3958,6 +3993,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymValAndOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            x86.AMOVW,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -3970,6 +4006,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymValAndOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            x86.AMOVL,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -3978,10 +4015,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "MOVBstoreconstidx1",
-		auxType: auxSymValAndOff,
-		argLen:  3,
-		asm:     x86.AMOVB,
+		name:      "MOVBstoreconstidx1",
+		auxType:   auxSymValAndOff,
+		argLen:    3,
+		symEffect: SymWrite,
+		asm:       x86.AMOVB,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 255},   // AX CX DX BX SP BP SI DI
@@ -3990,10 +4028,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "MOVWstoreconstidx1",
-		auxType: auxSymValAndOff,
-		argLen:  3,
-		asm:     x86.AMOVW,
+		name:      "MOVWstoreconstidx1",
+		auxType:   auxSymValAndOff,
+		argLen:    3,
+		symEffect: SymWrite,
+		asm:       x86.AMOVW,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 255},   // AX CX DX BX SP BP SI DI
@@ -4002,10 +4041,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "MOVWstoreconstidx2",
-		auxType: auxSymValAndOff,
-		argLen:  3,
-		asm:     x86.AMOVW,
+		name:      "MOVWstoreconstidx2",
+		auxType:   auxSymValAndOff,
+		argLen:    3,
+		symEffect: SymWrite,
+		asm:       x86.AMOVW,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 255},   // AX CX DX BX SP BP SI DI
@@ -4014,10 +4054,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "MOVLstoreconstidx1",
-		auxType: auxSymValAndOff,
-		argLen:  3,
-		asm:     x86.AMOVL,
+		name:      "MOVLstoreconstidx1",
+		auxType:   auxSymValAndOff,
+		argLen:    3,
+		symEffect: SymWrite,
+		asm:       x86.AMOVL,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 255},   // AX CX DX BX SP BP SI DI
@@ -4026,10 +4067,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "MOVLstoreconstidx4",
-		auxType: auxSymValAndOff,
-		argLen:  3,
-		asm:     x86.AMOVL,
+		name:      "MOVLstoreconstidx4",
+		auxType:   auxSymValAndOff,
+		argLen:    3,
+		symEffect: SymWrite,
+		asm:       x86.AMOVL,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 255},   // AX CX DX BX SP BP SI DI
@@ -4069,6 +4111,7 @@ var opcodeTable = [...]opInfo{
 		argLen:       1,
 		clobberFlags: true,
 		call:         true,
+		symEffect:    SymNone,
 		reg: regInfo{
 			clobbers: 65519, // AX CX DX BX BP SI DI X0 X1 X2 X3 X4 X5 X6 X7
 		},
@@ -4390,6 +4433,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            x86.AMOVSS,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -4405,6 +4449,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            x86.AMOVSD,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -4440,10 +4485,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "MOVSSloadidx1",
-		auxType: auxSymOff,
-		argLen:  3,
-		asm:     x86.AMOVSS,
+		name:      "MOVSSloadidx1",
+		auxType:   auxSymOff,
+		argLen:    3,
+		symEffect: SymRead,
+		asm:       x86.AMOVSS,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 65535},      // AX CX DX BX SP BP SI DI R8 R9 R10 R11 R12 R13 R14 R15
@@ -4455,10 +4501,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "MOVSSloadidx4",
-		auxType: auxSymOff,
-		argLen:  3,
-		asm:     x86.AMOVSS,
+		name:      "MOVSSloadidx4",
+		auxType:   auxSymOff,
+		argLen:    3,
+		symEffect: SymRead,
+		asm:       x86.AMOVSS,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 65535},      // AX CX DX BX SP BP SI DI R8 R9 R10 R11 R12 R13 R14 R15
@@ -4470,10 +4517,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "MOVSDloadidx1",
-		auxType: auxSymOff,
-		argLen:  3,
-		asm:     x86.AMOVSD,
+		name:      "MOVSDloadidx1",
+		auxType:   auxSymOff,
+		argLen:    3,
+		symEffect: SymRead,
+		asm:       x86.AMOVSD,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 65535},      // AX CX DX BX SP BP SI DI R8 R9 R10 R11 R12 R13 R14 R15
@@ -4485,10 +4533,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "MOVSDloadidx8",
-		auxType: auxSymOff,
-		argLen:  3,
-		asm:     x86.AMOVSD,
+		name:      "MOVSDloadidx8",
+		auxType:   auxSymOff,
+		argLen:    3,
+		symEffect: SymRead,
+		asm:       x86.AMOVSD,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 65535},      // AX CX DX BX SP BP SI DI R8 R9 R10 R11 R12 R13 R14 R15
@@ -4504,6 +4553,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         3,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            x86.AMOVSS,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -4517,6 +4567,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         3,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            x86.AMOVSD,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -4526,10 +4577,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "MOVSSstoreidx1",
-		auxType: auxSymOff,
-		argLen:  4,
-		asm:     x86.AMOVSS,
+		name:      "MOVSSstoreidx1",
+		auxType:   auxSymOff,
+		argLen:    4,
+		symEffect: SymWrite,
+		asm:       x86.AMOVSS,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 65535},      // AX CX DX BX SP BP SI DI R8 R9 R10 R11 R12 R13 R14 R15
@@ -4539,10 +4591,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "MOVSSstoreidx4",
-		auxType: auxSymOff,
-		argLen:  4,
-		asm:     x86.AMOVSS,
+		name:      "MOVSSstoreidx4",
+		auxType:   auxSymOff,
+		argLen:    4,
+		symEffect: SymWrite,
+		asm:       x86.AMOVSS,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 65535},      // AX CX DX BX SP BP SI DI R8 R9 R10 R11 R12 R13 R14 R15
@@ -4552,10 +4605,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "MOVSDstoreidx1",
-		auxType: auxSymOff,
-		argLen:  4,
-		asm:     x86.AMOVSD,
+		name:      "MOVSDstoreidx1",
+		auxType:   auxSymOff,
+		argLen:    4,
+		symEffect: SymWrite,
+		asm:       x86.AMOVSD,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 65535},      // AX CX DX BX SP BP SI DI R8 R9 R10 R11 R12 R13 R14 R15
@@ -4565,10 +4619,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "MOVSDstoreidx8",
-		auxType: auxSymOff,
-		argLen:  4,
-		asm:     x86.AMOVSD,
+		name:      "MOVSDstoreidx8",
+		auxType:   auxSymOff,
+		argLen:    4,
+		symEffect: SymWrite,
+		asm:       x86.AMOVSD,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 65535},      // AX CX DX BX SP BP SI DI R8 R9 R10 R11 R12 R13 R14 R15
@@ -4583,6 +4638,7 @@ var opcodeTable = [...]opInfo{
 		argLen:         3,
 		resultInArg0:   true,
 		faultOnNilArg1: true,
+		symEffect:      SymRead,
 		asm:            x86.AADDSD,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -4600,6 +4656,7 @@ var opcodeTable = [...]opInfo{
 		argLen:         3,
 		resultInArg0:   true,
 		faultOnNilArg1: true,
+		symEffect:      SymRead,
 		asm:            x86.AADDSS,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -4617,6 +4674,7 @@ var opcodeTable = [...]opInfo{
 		argLen:         3,
 		resultInArg0:   true,
 		faultOnNilArg1: true,
+		symEffect:      SymRead,
 		asm:            x86.ASUBSS,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -4634,6 +4692,7 @@ var opcodeTable = [...]opInfo{
 		argLen:         3,
 		resultInArg0:   true,
 		faultOnNilArg1: true,
+		symEffect:      SymRead,
 		asm:            x86.ASUBSD,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -4651,6 +4710,7 @@ var opcodeTable = [...]opInfo{
 		argLen:         3,
 		resultInArg0:   true,
 		faultOnNilArg1: true,
+		symEffect:      SymRead,
 		asm:            x86.AMULSS,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -4668,6 +4728,7 @@ var opcodeTable = [...]opInfo{
 		argLen:         3,
 		resultInArg0:   true,
 		faultOnNilArg1: true,
+		symEffect:      SymRead,
 		asm:            x86.AMULSD,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -5911,6 +5972,7 @@ var opcodeTable = [...]opInfo{
 		resultInArg0:   true,
 		clobberFlags:   true,
 		faultOnNilArg1: true,
+		symEffect:      SymRead,
 		asm:            x86.AADDL,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -5929,6 +5991,7 @@ var opcodeTable = [...]opInfo{
 		resultInArg0:   true,
 		clobberFlags:   true,
 		faultOnNilArg1: true,
+		symEffect:      SymRead,
 		asm:            x86.AADDQ,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -5947,6 +6010,7 @@ var opcodeTable = [...]opInfo{
 		resultInArg0:   true,
 		clobberFlags:   true,
 		faultOnNilArg1: true,
+		symEffect:      SymRead,
 		asm:            x86.ASUBQ,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -5965,6 +6029,7 @@ var opcodeTable = [...]opInfo{
 		resultInArg0:   true,
 		clobberFlags:   true,
 		faultOnNilArg1: true,
+		symEffect:      SymRead,
 		asm:            x86.ASUBL,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -5983,6 +6048,7 @@ var opcodeTable = [...]opInfo{
 		resultInArg0:   true,
 		clobberFlags:   true,
 		faultOnNilArg1: true,
+		symEffect:      SymRead,
 		asm:            x86.AANDL,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -6001,6 +6067,7 @@ var opcodeTable = [...]opInfo{
 		resultInArg0:   true,
 		clobberFlags:   true,
 		faultOnNilArg1: true,
+		symEffect:      SymRead,
 		asm:            x86.AANDQ,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -6019,6 +6086,7 @@ var opcodeTable = [...]opInfo{
 		resultInArg0:   true,
 		clobberFlags:   true,
 		faultOnNilArg1: true,
+		symEffect:      SymRead,
 		asm:            x86.AORQ,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -6037,6 +6105,7 @@ var opcodeTable = [...]opInfo{
 		resultInArg0:   true,
 		clobberFlags:   true,
 		faultOnNilArg1: true,
+		symEffect:      SymRead,
 		asm:            x86.AORL,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -6055,6 +6124,7 @@ var opcodeTable = [...]opInfo{
 		resultInArg0:   true,
 		clobberFlags:   true,
 		faultOnNilArg1: true,
+		symEffect:      SymRead,
 		asm:            x86.AXORQ,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -6073,6 +6143,7 @@ var opcodeTable = [...]opInfo{
 		resultInArg0:   true,
 		clobberFlags:   true,
 		faultOnNilArg1: true,
+		symEffect:      SymRead,
 		asm:            x86.AXORL,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -6682,6 +6753,7 @@ var opcodeTable = [...]opInfo{
 		auxType:           auxSymOff,
 		argLen:            1,
 		rematerializeable: true,
+		symEffect:         SymAddr,
 		asm:               x86.ALEAQ,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -6693,9 +6765,10 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "LEAQ1",
-		auxType: auxSymOff,
-		argLen:  2,
+		name:      "LEAQ1",
+		auxType:   auxSymOff,
+		argLen:    2,
+		symEffect: SymAddr,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 65535},      // AX CX DX BX SP BP SI DI R8 R9 R10 R11 R12 R13 R14 R15
@@ -6707,9 +6780,10 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "LEAQ2",
-		auxType: auxSymOff,
-		argLen:  2,
+		name:      "LEAQ2",
+		auxType:   auxSymOff,
+		argLen:    2,
+		symEffect: SymAddr,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 65535},      // AX CX DX BX SP BP SI DI R8 R9 R10 R11 R12 R13 R14 R15
@@ -6721,9 +6795,10 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "LEAQ4",
-		auxType: auxSymOff,
-		argLen:  2,
+		name:      "LEAQ4",
+		auxType:   auxSymOff,
+		argLen:    2,
+		symEffect: SymAddr,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 65535},      // AX CX DX BX SP BP SI DI R8 R9 R10 R11 R12 R13 R14 R15
@@ -6735,9 +6810,10 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "LEAQ8",
-		auxType: auxSymOff,
-		argLen:  2,
+		name:      "LEAQ8",
+		auxType:   auxSymOff,
+		argLen:    2,
+		symEffect: SymAddr,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 65535},      // AX CX DX BX SP BP SI DI R8 R9 R10 R11 R12 R13 R14 R15
@@ -6753,6 +6829,7 @@ var opcodeTable = [...]opInfo{
 		auxType:           auxSymOff,
 		argLen:            1,
 		rematerializeable: true,
+		symEffect:         SymAddr,
 		asm:               x86.ALEAL,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -6768,6 +6845,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            x86.AMOVBLZX,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -6783,6 +6861,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            x86.AMOVBQSX,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -6798,6 +6877,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            x86.AMOVWLZX,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -6813,6 +6893,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            x86.AMOVWQSX,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -6828,6 +6909,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            x86.AMOVL,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -6843,6 +6925,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            x86.AMOVLQSX,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -6858,6 +6941,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            x86.AMOVQ,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -6873,6 +6957,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         3,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            x86.AMOVB,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -6886,6 +6971,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         3,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            x86.AMOVW,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -6899,6 +6985,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         3,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            x86.AMOVL,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -6912,6 +6999,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         3,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            x86.AMOVQ,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -6925,6 +7013,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            x86.AMOVUPS,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -6940,6 +7029,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         3,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            x86.AMOVUPS,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -6949,10 +7039,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "MOVBloadidx1",
-		auxType: auxSymOff,
-		argLen:  3,
-		asm:     x86.AMOVBLZX,
+		name:      "MOVBloadidx1",
+		auxType:   auxSymOff,
+		argLen:    3,
+		symEffect: SymRead,
+		asm:       x86.AMOVBLZX,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 65535},      // AX CX DX BX SP BP SI DI R8 R9 R10 R11 R12 R13 R14 R15
@@ -6964,10 +7055,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "MOVWloadidx1",
-		auxType: auxSymOff,
-		argLen:  3,
-		asm:     x86.AMOVWLZX,
+		name:      "MOVWloadidx1",
+		auxType:   auxSymOff,
+		argLen:    3,
+		symEffect: SymRead,
+		asm:       x86.AMOVWLZX,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 65535},      // AX CX DX BX SP BP SI DI R8 R9 R10 R11 R12 R13 R14 R15
@@ -6979,10 +7071,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "MOVWloadidx2",
-		auxType: auxSymOff,
-		argLen:  3,
-		asm:     x86.AMOVWLZX,
+		name:      "MOVWloadidx2",
+		auxType:   auxSymOff,
+		argLen:    3,
+		symEffect: SymRead,
+		asm:       x86.AMOVWLZX,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 65535},      // AX CX DX BX SP BP SI DI R8 R9 R10 R11 R12 R13 R14 R15
@@ -6994,10 +7087,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "MOVLloadidx1",
-		auxType: auxSymOff,
-		argLen:  3,
-		asm:     x86.AMOVL,
+		name:      "MOVLloadidx1",
+		auxType:   auxSymOff,
+		argLen:    3,
+		symEffect: SymRead,
+		asm:       x86.AMOVL,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 65535},      // AX CX DX BX SP BP SI DI R8 R9 R10 R11 R12 R13 R14 R15
@@ -7009,10 +7103,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "MOVLloadidx4",
-		auxType: auxSymOff,
-		argLen:  3,
-		asm:     x86.AMOVL,
+		name:      "MOVLloadidx4",
+		auxType:   auxSymOff,
+		argLen:    3,
+		symEffect: SymRead,
+		asm:       x86.AMOVL,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 65535},      // AX CX DX BX SP BP SI DI R8 R9 R10 R11 R12 R13 R14 R15
@@ -7024,10 +7119,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "MOVQloadidx1",
-		auxType: auxSymOff,
-		argLen:  3,
-		asm:     x86.AMOVQ,
+		name:      "MOVQloadidx1",
+		auxType:   auxSymOff,
+		argLen:    3,
+		symEffect: SymRead,
+		asm:       x86.AMOVQ,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 65535},      // AX CX DX BX SP BP SI DI R8 R9 R10 R11 R12 R13 R14 R15
@@ -7039,10 +7135,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "MOVQloadidx8",
-		auxType: auxSymOff,
-		argLen:  3,
-		asm:     x86.AMOVQ,
+		name:      "MOVQloadidx8",
+		auxType:   auxSymOff,
+		argLen:    3,
+		symEffect: SymRead,
+		asm:       x86.AMOVQ,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 65535},      // AX CX DX BX SP BP SI DI R8 R9 R10 R11 R12 R13 R14 R15
@@ -7054,10 +7151,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "MOVBstoreidx1",
-		auxType: auxSymOff,
-		argLen:  4,
-		asm:     x86.AMOVB,
+		name:      "MOVBstoreidx1",
+		auxType:   auxSymOff,
+		argLen:    4,
+		symEffect: SymWrite,
+		asm:       x86.AMOVB,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 65535},      // AX CX DX BX SP BP SI DI R8 R9 R10 R11 R12 R13 R14 R15
@@ -7067,10 +7165,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "MOVWstoreidx1",
-		auxType: auxSymOff,
-		argLen:  4,
-		asm:     x86.AMOVW,
+		name:      "MOVWstoreidx1",
+		auxType:   auxSymOff,
+		argLen:    4,
+		symEffect: SymWrite,
+		asm:       x86.AMOVW,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 65535},      // AX CX DX BX SP BP SI DI R8 R9 R10 R11 R12 R13 R14 R15
@@ -7080,10 +7179,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "MOVWstoreidx2",
-		auxType: auxSymOff,
-		argLen:  4,
-		asm:     x86.AMOVW,
+		name:      "MOVWstoreidx2",
+		auxType:   auxSymOff,
+		argLen:    4,
+		symEffect: SymWrite,
+		asm:       x86.AMOVW,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 65535},      // AX CX DX BX SP BP SI DI R8 R9 R10 R11 R12 R13 R14 R15
@@ -7093,10 +7193,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "MOVLstoreidx1",
-		auxType: auxSymOff,
-		argLen:  4,
-		asm:     x86.AMOVL,
+		name:      "MOVLstoreidx1",
+		auxType:   auxSymOff,
+		argLen:    4,
+		symEffect: SymWrite,
+		asm:       x86.AMOVL,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 65535},      // AX CX DX BX SP BP SI DI R8 R9 R10 R11 R12 R13 R14 R15
@@ -7106,10 +7207,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "MOVLstoreidx4",
-		auxType: auxSymOff,
-		argLen:  4,
-		asm:     x86.AMOVL,
+		name:      "MOVLstoreidx4",
+		auxType:   auxSymOff,
+		argLen:    4,
+		symEffect: SymWrite,
+		asm:       x86.AMOVL,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 65535},      // AX CX DX BX SP BP SI DI R8 R9 R10 R11 R12 R13 R14 R15
@@ -7119,10 +7221,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "MOVQstoreidx1",
-		auxType: auxSymOff,
-		argLen:  4,
-		asm:     x86.AMOVQ,
+		name:      "MOVQstoreidx1",
+		auxType:   auxSymOff,
+		argLen:    4,
+		symEffect: SymWrite,
+		asm:       x86.AMOVQ,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 65535},      // AX CX DX BX SP BP SI DI R8 R9 R10 R11 R12 R13 R14 R15
@@ -7132,10 +7235,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "MOVQstoreidx8",
-		auxType: auxSymOff,
-		argLen:  4,
-		asm:     x86.AMOVQ,
+		name:      "MOVQstoreidx8",
+		auxType:   auxSymOff,
+		argLen:    4,
+		symEffect: SymWrite,
+		asm:       x86.AMOVQ,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 65535},      // AX CX DX BX SP BP SI DI R8 R9 R10 R11 R12 R13 R14 R15
@@ -7149,6 +7253,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymValAndOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            x86.AMOVB,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -7161,6 +7266,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymValAndOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            x86.AMOVW,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -7173,6 +7279,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymValAndOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            x86.AMOVL,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -7185,6 +7292,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymValAndOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            x86.AMOVQ,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -7193,10 +7301,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "MOVBstoreconstidx1",
-		auxType: auxSymValAndOff,
-		argLen:  3,
-		asm:     x86.AMOVB,
+		name:      "MOVBstoreconstidx1",
+		auxType:   auxSymValAndOff,
+		argLen:    3,
+		symEffect: SymWrite,
+		asm:       x86.AMOVB,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 65535},      // AX CX DX BX SP BP SI DI R8 R9 R10 R11 R12 R13 R14 R15
@@ -7205,10 +7314,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "MOVWstoreconstidx1",
-		auxType: auxSymValAndOff,
-		argLen:  3,
-		asm:     x86.AMOVW,
+		name:      "MOVWstoreconstidx1",
+		auxType:   auxSymValAndOff,
+		argLen:    3,
+		symEffect: SymWrite,
+		asm:       x86.AMOVW,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 65535},      // AX CX DX BX SP BP SI DI R8 R9 R10 R11 R12 R13 R14 R15
@@ -7217,10 +7327,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "MOVWstoreconstidx2",
-		auxType: auxSymValAndOff,
-		argLen:  3,
-		asm:     x86.AMOVW,
+		name:      "MOVWstoreconstidx2",
+		auxType:   auxSymValAndOff,
+		argLen:    3,
+		symEffect: SymWrite,
+		asm:       x86.AMOVW,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 65535},      // AX CX DX BX SP BP SI DI R8 R9 R10 R11 R12 R13 R14 R15
@@ -7229,10 +7340,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "MOVLstoreconstidx1",
-		auxType: auxSymValAndOff,
-		argLen:  3,
-		asm:     x86.AMOVL,
+		name:      "MOVLstoreconstidx1",
+		auxType:   auxSymValAndOff,
+		argLen:    3,
+		symEffect: SymWrite,
+		asm:       x86.AMOVL,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 65535},      // AX CX DX BX SP BP SI DI R8 R9 R10 R11 R12 R13 R14 R15
@@ -7241,10 +7353,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "MOVLstoreconstidx4",
-		auxType: auxSymValAndOff,
-		argLen:  3,
-		asm:     x86.AMOVL,
+		name:      "MOVLstoreconstidx4",
+		auxType:   auxSymValAndOff,
+		argLen:    3,
+		symEffect: SymWrite,
+		asm:       x86.AMOVL,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 65535},      // AX CX DX BX SP BP SI DI R8 R9 R10 R11 R12 R13 R14 R15
@@ -7253,10 +7366,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "MOVQstoreconstidx1",
-		auxType: auxSymValAndOff,
-		argLen:  3,
-		asm:     x86.AMOVQ,
+		name:      "MOVQstoreconstidx1",
+		auxType:   auxSymValAndOff,
+		argLen:    3,
+		symEffect: SymWrite,
+		asm:       x86.AMOVQ,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 65535},      // AX CX DX BX SP BP SI DI R8 R9 R10 R11 R12 R13 R14 R15
@@ -7265,10 +7379,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "MOVQstoreconstidx8",
-		auxType: auxSymValAndOff,
-		argLen:  3,
-		asm:     x86.AMOVQ,
+		name:      "MOVQstoreconstidx8",
+		auxType:   auxSymValAndOff,
+		argLen:    3,
+		symEffect: SymWrite,
+		asm:       x86.AMOVQ,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{1, 65535},      // AX CX DX BX SP BP SI DI R8 R9 R10 R11 R12 R13 R14 R15
@@ -7320,6 +7435,7 @@ var opcodeTable = [...]opInfo{
 		argLen:       1,
 		clobberFlags: true,
 		call:         true,
+		symEffect:    SymNone,
 		reg: regInfo{
 			clobbers: 4294967279, // AX CX DX BX BP SI DI R8 R9 R10 R11 R12 R13 R14 R15 X0 X1 X2 X3 X4 X5 X6 X7 X8 X9 X10 X11 X12 X13 X14 X15
 		},
@@ -7471,6 +7587,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            x86.AMOVL,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -7486,6 +7603,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            x86.AMOVQ,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -7503,6 +7621,7 @@ var opcodeTable = [...]opInfo{
 		resultInArg0:   true,
 		faultOnNilArg1: true,
 		hasSideEffects: true,
+		symEffect:      SymRdWr,
 		asm:            x86.AXCHGL,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -7521,6 +7640,7 @@ var opcodeTable = [...]opInfo{
 		resultInArg0:   true,
 		faultOnNilArg1: true,
 		hasSideEffects: true,
+		symEffect:      SymRdWr,
 		asm:            x86.AXCHGQ,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -7540,6 +7660,7 @@ var opcodeTable = [...]opInfo{
 		clobberFlags:   true,
 		faultOnNilArg1: true,
 		hasSideEffects: true,
+		symEffect:      SymRdWr,
 		asm:            x86.AXADDL,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -7559,6 +7680,7 @@ var opcodeTable = [...]opInfo{
 		clobberFlags:   true,
 		faultOnNilArg1: true,
 		hasSideEffects: true,
+		symEffect:      SymRdWr,
 		asm:            x86.AXADDQ,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -7587,6 +7709,7 @@ var opcodeTable = [...]opInfo{
 		clobberFlags:   true,
 		faultOnNilArg0: true,
 		hasSideEffects: true,
+		symEffect:      SymRdWr,
 		asm:            x86.ACMPXCHGL,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -7608,6 +7731,7 @@ var opcodeTable = [...]opInfo{
 		clobberFlags:   true,
 		faultOnNilArg0: true,
 		hasSideEffects: true,
+		symEffect:      SymRdWr,
 		asm:            x86.ACMPXCHGQ,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -7629,6 +7753,7 @@ var opcodeTable = [...]opInfo{
 		clobberFlags:   true,
 		faultOnNilArg0: true,
 		hasSideEffects: true,
+		symEffect:      SymRdWr,
 		asm:            x86.AANDB,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -7644,6 +7769,7 @@ var opcodeTable = [...]opInfo{
 		clobberFlags:   true,
 		faultOnNilArg0: true,
 		hasSideEffects: true,
+		symEffect:      SymRdWr,
 		asm:            x86.AORB,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -7788,6 +7914,7 @@ var opcodeTable = [...]opInfo{
 		auxType:      auxSymOff,
 		argLen:       2,
 		clobberFlags: true,
+		symEffect:    SymNone,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{0, 2}, // R1
@@ -9903,6 +10030,7 @@ var opcodeTable = [...]opInfo{
 		auxType:           auxSymOff,
 		argLen:            1,
 		rematerializeable: true,
+		symEffect:         SymAddr,
 		asm:               arm.AMOVW,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -9918,6 +10046,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            arm.AMOVB,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -9933,6 +10062,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            arm.AMOVBU,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -9948,6 +10078,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            arm.AMOVH,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -9963,6 +10094,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            arm.AMOVHU,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -9978,6 +10110,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            arm.AMOVW,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -9993,6 +10126,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            arm.AMOVF,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -10008,6 +10142,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            arm.AMOVD,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -10023,6 +10158,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         3,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            arm.AMOVB,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -10036,6 +10172,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         3,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            arm.AMOVH,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -10049,6 +10186,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         3,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            arm.AMOVW,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -10062,6 +10200,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         3,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            arm.AMOVF,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -10075,6 +10214,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         3,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            arm.AMOVD,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -10459,6 +10599,7 @@ var opcodeTable = [...]opInfo{
 		argLen:       1,
 		clobberFlags: true,
 		call:         true,
+		symEffect:    SymNone,
 		reg: regInfo{
 			clobbers: 4294924287, // R0 R1 R2 R3 R4 R5 R6 R7 R8 R9 g R12 R14 F0 F1 F2 F3 F4 F5 F6 F7 F8 F9 F10 F11 F12 F13 F14 F15
 		},
@@ -11917,6 +12058,7 @@ var opcodeTable = [...]opInfo{
 		auxType:           auxSymOff,
 		argLen:            1,
 		rematerializeable: true,
+		symEffect:         SymAddr,
 		asm:               arm64.AMOVD,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -11932,6 +12074,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            arm64.AMOVB,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -11947,6 +12090,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            arm64.AMOVBU,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -11962,6 +12106,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            arm64.AMOVH,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -11977,6 +12122,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            arm64.AMOVHU,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -11992,6 +12138,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            arm64.AMOVW,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -12007,6 +12154,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            arm64.AMOVWU,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -12022,6 +12170,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            arm64.AMOVD,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -12037,6 +12186,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            arm64.AFMOVS,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -12052,6 +12202,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            arm64.AFMOVD,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -12067,6 +12218,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         3,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            arm64.AMOVB,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -12080,6 +12232,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         3,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            arm64.AMOVH,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -12093,6 +12246,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         3,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            arm64.AMOVW,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -12106,6 +12260,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         3,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            arm64.AMOVD,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -12119,6 +12274,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         3,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            arm64.AFMOVS,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -12132,6 +12288,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         3,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            arm64.AFMOVD,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -12145,6 +12302,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            arm64.AMOVB,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -12157,6 +12315,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            arm64.AMOVH,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -12169,6 +12328,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            arm64.AMOVW,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -12181,6 +12341,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            arm64.AMOVD,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -12559,6 +12720,7 @@ var opcodeTable = [...]opInfo{
 		argLen:       1,
 		clobberFlags: true,
 		call:         true,
+		symEffect:    SymNone,
 		reg: regInfo{
 			clobbers: 9223372035512336383, // R0 R1 R2 R3 R4 R5 R6 R7 R8 R9 R10 R11 R12 R13 R14 R15 R16 R17 R19 R20 R21 R22 R23 R24 R25 R26 g R30 F0 F1 F2 F3 F4 F5 F6 F7 F8 F9 F10 F11 F12 F13 F14 F15 F16 F17 F18 F19 F20 F21 F22 F23 F24 F25 F26 F27 F28 F29 F30 F31
 		},
@@ -13682,6 +13844,7 @@ var opcodeTable = [...]opInfo{
 		auxType:           auxSymOff,
 		argLen:            1,
 		rematerializeable: true,
+		symEffect:         SymAddr,
 		asm:               mips.AMOVW,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -13697,6 +13860,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            mips.AMOVB,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -13712,6 +13876,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            mips.AMOVBU,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -13727,6 +13892,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            mips.AMOVH,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -13742,6 +13908,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            mips.AMOVHU,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -13757,6 +13924,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            mips.AMOVW,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -13772,6 +13940,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            mips.AMOVF,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -13787,6 +13956,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            mips.AMOVD,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -13802,6 +13972,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         3,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            mips.AMOVB,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -13815,6 +13986,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         3,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            mips.AMOVH,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -13828,6 +14000,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         3,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            mips.AMOVW,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -13841,6 +14014,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         3,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            mips.AMOVF,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -13854,6 +14028,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         3,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            mips.AMOVD,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -13867,6 +14042,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            mips.AMOVB,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -13879,6 +14055,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            mips.AMOVH,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -13891,6 +14068,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            mips.AMOVW,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -14091,6 +14269,7 @@ var opcodeTable = [...]opInfo{
 		argLen:       1,
 		clobberFlags: true,
 		call:         true,
+		symEffect:    SymNone,
 		reg: regInfo{
 			clobbers: 140737421246462, // R1 R2 R3 R4 R5 R6 R7 R8 R9 R10 R11 R12 R13 R14 R15 R16 R17 R18 R19 R20 R21 R22 R24 R25 R28 g R31 F0 F2 F4 F6 F8 F10 F12 F14 F16 F18 F20 F22 F24 F26 F28 F30 HI LO
 		},
@@ -14965,6 +15144,7 @@ var opcodeTable = [...]opInfo{
 		auxType:           auxSymOff,
 		argLen:            1,
 		rematerializeable: true,
+		symEffect:         SymAddr,
 		asm:               mips.AMOVV,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -14980,6 +15160,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            mips.AMOVB,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -14995,6 +15176,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            mips.AMOVBU,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -15010,6 +15192,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            mips.AMOVH,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -15025,6 +15208,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            mips.AMOVHU,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -15040,6 +15224,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            mips.AMOVW,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -15055,6 +15240,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            mips.AMOVWU,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -15070,6 +15256,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            mips.AMOVV,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -15085,6 +15272,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            mips.AMOVF,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -15100,6 +15288,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            mips.AMOVD,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -15115,6 +15304,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         3,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            mips.AMOVB,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -15128,6 +15318,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         3,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            mips.AMOVH,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -15141,6 +15332,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         3,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            mips.AMOVW,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -15154,6 +15346,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         3,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            mips.AMOVV,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -15167,6 +15360,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         3,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            mips.AMOVF,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -15180,6 +15374,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         3,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            mips.AMOVD,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -15193,6 +15388,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            mips.AMOVB,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -15205,6 +15401,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            mips.AMOVH,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -15217,6 +15414,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            mips.AMOVW,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -15229,6 +15427,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            mips.AMOVV,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -15476,6 +15675,7 @@ var opcodeTable = [...]opInfo{
 		argLen:       1,
 		clobberFlags: true,
 		call:         true,
+		symEffect:    SymNone,
 		reg: regInfo{
 			clobbers: 4611686018393833470, // R1 R2 R3 R4 R5 R6 R7 R8 R9 R10 R11 R12 R13 R14 R15 R16 R17 R18 R19 R20 R21 R22 R24 R25 g R31 F0 F1 F2 F3 F4 F5 F6 F7 F8 F9 F10 F11 F12 F13 F14 F15 F16 F17 F18 F19 F20 F21 F22 F23 F24 F25 F26 F27 F28 F29 F30 F31 HI LO
 		},
@@ -15617,10 +15817,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "ADDconst",
-		auxType: auxSymOff,
-		argLen:  1,
-		asm:     ppc64.AADD,
+		name:      "ADDconst",
+		auxType:   auxSymOff,
+		argLen:    1,
+		symEffect: SymAddr,
+		asm:       ppc64.AADD,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{0, 1073733630}, // SP SB R3 R4 R5 R6 R7 R8 R9 R10 R11 R12 R14 R15 R16 R17 R18 R19 R20 R21 R22 R23 R24 R25 R26 R27 R28 R29
@@ -16463,6 +16664,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            ppc64.AMOVBZ,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -16478,6 +16680,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            ppc64.AMOVH,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -16493,6 +16696,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            ppc64.AMOVHZ,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -16508,6 +16712,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            ppc64.AMOVW,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -16523,6 +16728,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            ppc64.AMOVWZ,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -16538,6 +16744,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            ppc64.AMOVD,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -16553,6 +16760,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            ppc64.AFMOVD,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -16568,6 +16776,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            ppc64.AFMOVS,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -16583,6 +16792,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         3,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            ppc64.AMOVB,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -16596,6 +16806,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         3,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            ppc64.AMOVH,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -16609,6 +16820,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         3,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            ppc64.AMOVW,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -16622,6 +16834,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         3,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            ppc64.AMOVD,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -16635,6 +16848,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         3,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            ppc64.AFMOVD,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -16648,6 +16862,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         3,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            ppc64.AFMOVS,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -16661,6 +16876,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            ppc64.AMOVB,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -16673,6 +16889,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            ppc64.AMOVH,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -16685,6 +16902,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            ppc64.AMOVW,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -16697,6 +16915,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            ppc64.AMOVD,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -16709,6 +16928,7 @@ var opcodeTable = [...]opInfo{
 		auxType:           auxSymOff,
 		argLen:            1,
 		rematerializeable: true,
+		symEffect:         SymAddr,
 		asm:               ppc64.AMOVD,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -16985,6 +17205,7 @@ var opcodeTable = [...]opInfo{
 		argLen:       1,
 		clobberFlags: true,
 		call:         true,
+		symEffect:    SymNone,
 		reg: regInfo{
 			clobbers: 576460745860964344, // R3 R4 R5 R6 R7 R8 R9 R10 R11 R12 R14 R15 R16 R17 R18 R19 R20 R21 R22 R23 R24 R25 R26 R27 R28 R29 g F1 F2 F3 F4 F5 F6 F7 F8 F9 F10 F11 F12 F13 F14 F15 F16 F17 F18 F19 F20 F21 F22 F23 F24 F25 F26
 		},
@@ -17488,6 +17709,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            s390x.AFMOVS,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -17503,6 +17725,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            s390x.AFMOVD,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -17538,10 +17761,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "FMOVSloadidx",
-		auxType: auxSymOff,
-		argLen:  3,
-		asm:     s390x.AFMOVS,
+		name:      "FMOVSloadidx",
+		auxType:   auxSymOff,
+		argLen:    3,
+		symEffect: SymRead,
+		asm:       s390x.AFMOVS,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{0, 54270}, // R1 R2 R3 R4 R5 R6 R7 R8 R9 R12 R14 SP
@@ -17553,10 +17777,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "FMOVDloadidx",
-		auxType: auxSymOff,
-		argLen:  3,
-		asm:     s390x.AFMOVD,
+		name:      "FMOVDloadidx",
+		auxType:   auxSymOff,
+		argLen:    3,
+		symEffect: SymRead,
+		asm:       s390x.AFMOVD,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{0, 54270}, // R1 R2 R3 R4 R5 R6 R7 R8 R9 R12 R14 SP
@@ -17572,6 +17797,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         3,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            s390x.AFMOVS,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -17585,6 +17811,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         3,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            s390x.AFMOVD,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -17594,10 +17821,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "FMOVSstoreidx",
-		auxType: auxSymOff,
-		argLen:  4,
-		asm:     s390x.AFMOVS,
+		name:      "FMOVSstoreidx",
+		auxType:   auxSymOff,
+		argLen:    4,
+		symEffect: SymWrite,
+		asm:       s390x.AFMOVS,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{0, 54270},      // R1 R2 R3 R4 R5 R6 R7 R8 R9 R12 R14 SP
@@ -17607,10 +17835,11 @@ var opcodeTable = [...]opInfo{
 		},
 	},
 	{
-		name:    "FMOVDstoreidx",
-		auxType: auxSymOff,
-		argLen:  4,
-		asm:     s390x.AFMOVD,
+		name:      "FMOVDstoreidx",
+		auxType:   auxSymOff,
+		argLen:    4,
+		symEffect: SymWrite,
+		asm:       s390x.AFMOVD,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{0, 54270},      // R1 R2 R3 R4 R5 R6 R7 R8 R9 R12 R14 SP
@@ -17688,6 +17917,7 @@ var opcodeTable = [...]opInfo{
 		resultInArg0:   true,
 		clobberFlags:   true,
 		faultOnNilArg1: true,
+		symEffect:      SymRead,
 		asm:            s390x.AADD,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -17706,6 +17936,7 @@ var opcodeTable = [...]opInfo{
 		resultInArg0:   true,
 		clobberFlags:   true,
 		faultOnNilArg1: true,
+		symEffect:      SymRead,
 		asm:            s390x.AADDW,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -17786,6 +18017,7 @@ var opcodeTable = [...]opInfo{
 		resultInArg0:   true,
 		clobberFlags:   true,
 		faultOnNilArg1: true,
+		symEffect:      SymRead,
 		asm:            s390x.ASUB,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -17804,6 +18036,7 @@ var opcodeTable = [...]opInfo{
 		resultInArg0:   true,
 		clobberFlags:   true,
 		faultOnNilArg1: true,
+		symEffect:      SymRead,
 		asm:            s390x.ASUBW,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -17888,6 +18121,7 @@ var opcodeTable = [...]opInfo{
 		resultInArg0:   true,
 		clobberFlags:   true,
 		faultOnNilArg1: true,
+		symEffect:      SymRead,
 		asm:            s390x.AMULLD,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -17906,6 +18140,7 @@ var opcodeTable = [...]opInfo{
 		resultInArg0:   true,
 		clobberFlags:   true,
 		faultOnNilArg1: true,
+		symEffect:      SymRead,
 		asm:            s390x.AMULLW,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -18148,6 +18383,7 @@ var opcodeTable = [...]opInfo{
 		resultInArg0:   true,
 		clobberFlags:   true,
 		faultOnNilArg1: true,
+		symEffect:      SymRead,
 		asm:            s390x.AAND,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -18166,6 +18402,7 @@ var opcodeTable = [...]opInfo{
 		resultInArg0:   true,
 		clobberFlags:   true,
 		faultOnNilArg1: true,
+		symEffect:      SymRead,
 		asm:            s390x.AANDW,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -18248,6 +18485,7 @@ var opcodeTable = [...]opInfo{
 		resultInArg0:   true,
 		clobberFlags:   true,
 		faultOnNilArg1: true,
+		symEffect:      SymRead,
 		asm:            s390x.AOR,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -18266,6 +18504,7 @@ var opcodeTable = [...]opInfo{
 		resultInArg0:   true,
 		clobberFlags:   true,
 		faultOnNilArg1: true,
+		symEffect:      SymRead,
 		asm:            s390x.AORW,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -18348,6 +18587,7 @@ var opcodeTable = [...]opInfo{
 		resultInArg0:   true,
 		clobberFlags:   true,
 		faultOnNilArg1: true,
+		symEffect:      SymRead,
 		asm:            s390x.AXOR,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -18366,6 +18606,7 @@ var opcodeTable = [...]opInfo{
 		resultInArg0:   true,
 		clobberFlags:   true,
 		faultOnNilArg1: true,
+		symEffect:      SymRead,
 		asm:            s390x.AXORW,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -19148,6 +19389,7 @@ var opcodeTable = [...]opInfo{
 		argLen:            1,
 		rematerializeable: true,
 		clobberFlags:      true,
+		symEffect:         SymRead,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{0, 4295000064}, // SP SB
@@ -19162,6 +19404,7 @@ var opcodeTable = [...]opInfo{
 		auxType:      auxSymOff,
 		argLen:       2,
 		clobberFlags: true,
+		symEffect:    SymRead,
 		reg: regInfo{
 			inputs: []inputInfo{
 				{0, 4295000064}, // SP SB
@@ -19178,6 +19421,7 @@ var opcodeTable = [...]opInfo{
 		argLen:         2,
 		clobberFlags:   true,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            s390x.AMOVBZ,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -19194,6 +19438,7 @@ var opcodeTable = [...]opInfo{
 		argLen:         2,
 		clobberFlags:   true,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            s390x.AMOVB,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -19210,6 +19455,7 @@ var opcodeTable = [...]opInfo{
 		argLen:         2,
 		clobberFlags:   true,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            s390x.AMOVHZ,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -19226,6 +19472,7 @@ var opcodeTable = [...]opInfo{
 		argLen:         2,
 		clobberFlags:   true,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            s390x.AMOVH,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -19242,6 +19489,7 @@ var opcodeTable = [...]opInfo{
 		argLen:         2,
 		clobberFlags:   true,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            s390x.AMOVWZ,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -19258,6 +19506,7 @@ var opcodeTable = [...]opInfo{
 		argLen:         2,
 		clobberFlags:   true,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            s390x.AMOVW,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -19274,6 +19523,7 @@ var opcodeTable = [...]opInfo{
 		argLen:         2,
 		clobberFlags:   true,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            s390x.AMOVD,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -19316,6 +19566,7 @@ var opcodeTable = [...]opInfo{
 		argLen:         2,
 		clobberFlags:   true,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            s390x.AMOVHBR,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -19332,6 +19583,7 @@ var opcodeTable = [...]opInfo{
 		argLen:         2,
 		clobberFlags:   true,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            s390x.AMOVWBR,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -19348,6 +19600,7 @@ var opcodeTable = [...]opInfo{
 		argLen:         2,
 		clobberFlags:   true,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            s390x.AMOVDBR,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -19364,6 +19617,7 @@ var opcodeTable = [...]opInfo{
 		argLen:         3,
 		clobberFlags:   true,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            s390x.AMOVB,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -19378,6 +19632,7 @@ var opcodeTable = [...]opInfo{
 		argLen:         3,
 		clobberFlags:   true,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            s390x.AMOVH,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -19392,6 +19647,7 @@ var opcodeTable = [...]opInfo{
 		argLen:         3,
 		clobberFlags:   true,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            s390x.AMOVW,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -19406,6 +19662,7 @@ var opcodeTable = [...]opInfo{
 		argLen:         3,
 		clobberFlags:   true,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            s390x.AMOVD,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -19420,6 +19677,7 @@ var opcodeTable = [...]opInfo{
 		argLen:         3,
 		clobberFlags:   true,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            s390x.AMOVHBR,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -19434,6 +19692,7 @@ var opcodeTable = [...]opInfo{
 		argLen:         3,
 		clobberFlags:   true,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            s390x.AMOVWBR,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -19448,6 +19707,7 @@ var opcodeTable = [...]opInfo{
 		argLen:         3,
 		clobberFlags:   true,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            s390x.AMOVDBR,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -19463,6 +19723,7 @@ var opcodeTable = [...]opInfo{
 		clobberFlags:   true,
 		faultOnNilArg0: true,
 		faultOnNilArg1: true,
+		symEffect:      SymNone,
 		asm:            s390x.AMVC,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -19476,6 +19737,7 @@ var opcodeTable = [...]opInfo{
 		auxType:      auxSymOff,
 		argLen:       3,
 		clobberFlags: true,
+		symEffect:    SymRead,
 		asm:          s390x.AMOVBZ,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -19492,6 +19754,7 @@ var opcodeTable = [...]opInfo{
 		auxType:      auxSymOff,
 		argLen:       3,
 		clobberFlags: true,
+		symEffect:    SymRead,
 		asm:          s390x.AMOVHZ,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -19508,6 +19771,7 @@ var opcodeTable = [...]opInfo{
 		auxType:      auxSymOff,
 		argLen:       3,
 		clobberFlags: true,
+		symEffect:    SymRead,
 		asm:          s390x.AMOVWZ,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -19524,6 +19788,7 @@ var opcodeTable = [...]opInfo{
 		auxType:      auxSymOff,
 		argLen:       3,
 		clobberFlags: true,
+		symEffect:    SymRead,
 		asm:          s390x.AMOVD,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -19540,6 +19805,7 @@ var opcodeTable = [...]opInfo{
 		auxType:      auxSymOff,
 		argLen:       3,
 		clobberFlags: true,
+		symEffect:    SymRead,
 		asm:          s390x.AMOVHBR,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -19556,6 +19822,7 @@ var opcodeTable = [...]opInfo{
 		auxType:      auxSymOff,
 		argLen:       3,
 		clobberFlags: true,
+		symEffect:    SymRead,
 		asm:          s390x.AMOVWBR,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -19572,6 +19839,7 @@ var opcodeTable = [...]opInfo{
 		auxType:      auxSymOff,
 		argLen:       3,
 		clobberFlags: true,
+		symEffect:    SymRead,
 		asm:          s390x.AMOVDBR,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -19588,6 +19856,7 @@ var opcodeTable = [...]opInfo{
 		auxType:      auxSymOff,
 		argLen:       4,
 		clobberFlags: true,
+		symEffect:    SymWrite,
 		asm:          s390x.AMOVB,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -19602,6 +19871,7 @@ var opcodeTable = [...]opInfo{
 		auxType:      auxSymOff,
 		argLen:       4,
 		clobberFlags: true,
+		symEffect:    SymWrite,
 		asm:          s390x.AMOVH,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -19616,6 +19886,7 @@ var opcodeTable = [...]opInfo{
 		auxType:      auxSymOff,
 		argLen:       4,
 		clobberFlags: true,
+		symEffect:    SymWrite,
 		asm:          s390x.AMOVW,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -19630,6 +19901,7 @@ var opcodeTable = [...]opInfo{
 		auxType:      auxSymOff,
 		argLen:       4,
 		clobberFlags: true,
+		symEffect:    SymWrite,
 		asm:          s390x.AMOVD,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -19644,6 +19916,7 @@ var opcodeTable = [...]opInfo{
 		auxType:      auxSymOff,
 		argLen:       4,
 		clobberFlags: true,
+		symEffect:    SymWrite,
 		asm:          s390x.AMOVHBR,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -19658,6 +19931,7 @@ var opcodeTable = [...]opInfo{
 		auxType:      auxSymOff,
 		argLen:       4,
 		clobberFlags: true,
+		symEffect:    SymWrite,
 		asm:          s390x.AMOVWBR,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -19672,6 +19946,7 @@ var opcodeTable = [...]opInfo{
 		auxType:      auxSymOff,
 		argLen:       4,
 		clobberFlags: true,
+		symEffect:    SymWrite,
 		asm:          s390x.AMOVDBR,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -19687,6 +19962,7 @@ var opcodeTable = [...]opInfo{
 		argLen:         2,
 		clobberFlags:   true,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            s390x.AMOVB,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -19700,6 +19976,7 @@ var opcodeTable = [...]opInfo{
 		argLen:         2,
 		clobberFlags:   true,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            s390x.AMOVH,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -19713,6 +19990,7 @@ var opcodeTable = [...]opInfo{
 		argLen:         2,
 		clobberFlags:   true,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            s390x.AMOVW,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -19726,6 +20004,7 @@ var opcodeTable = [...]opInfo{
 		argLen:         2,
 		clobberFlags:   true,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            s390x.AMOVD,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -19739,6 +20018,7 @@ var opcodeTable = [...]opInfo{
 		argLen:         2,
 		clobberFlags:   true,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            s390x.ACLEAR,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -19752,6 +20032,7 @@ var opcodeTable = [...]opInfo{
 		argLen:       1,
 		clobberFlags: true,
 		call:         true,
+		symEffect:    SymNone,
 		reg: regInfo{
 			clobbers: 4294923263, // R0 R1 R2 R3 R4 R5 R6 R7 R8 R9 R12 R14 F0 F1 F2 F3 F4 F5 F6 F7 F8 F9 F10 F11 F12 F13 F14 F15
 		},
@@ -19877,6 +20158,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            s390x.AMOVWZ,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -19892,6 +20174,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         2,
 		faultOnNilArg0: true,
+		symEffect:      SymRead,
 		asm:            s390x.AMOVD,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -19909,6 +20192,7 @@ var opcodeTable = [...]opInfo{
 		clobberFlags:   true,
 		faultOnNilArg0: true,
 		hasSideEffects: true,
+		symEffect:      SymWrite,
 		asm:            s390x.AMOVW,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -19924,6 +20208,7 @@ var opcodeTable = [...]opInfo{
 		clobberFlags:   true,
 		faultOnNilArg0: true,
 		hasSideEffects: true,
+		symEffect:      SymWrite,
 		asm:            s390x.AMOVD,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -19938,6 +20223,7 @@ var opcodeTable = [...]opInfo{
 		argLen:         3,
 		faultOnNilArg0: true,
 		hasSideEffects: true,
+		symEffect:      SymRdWr,
 		asm:            s390x.ALAA,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -19955,6 +20241,7 @@ var opcodeTable = [...]opInfo{
 		argLen:         3,
 		faultOnNilArg0: true,
 		hasSideEffects: true,
+		symEffect:      SymRdWr,
 		asm:            s390x.ALAAG,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -19983,6 +20270,7 @@ var opcodeTable = [...]opInfo{
 		clobberFlags:   true,
 		faultOnNilArg0: true,
 		hasSideEffects: true,
+		symEffect:      SymRdWr,
 		asm:            s390x.ACS,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -20004,6 +20292,7 @@ var opcodeTable = [...]opInfo{
 		clobberFlags:   true,
 		faultOnNilArg0: true,
 		hasSideEffects: true,
+		symEffect:      SymRdWr,
 		asm:            s390x.ACSG,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -20025,6 +20314,7 @@ var opcodeTable = [...]opInfo{
 		clobberFlags:   true,
 		faultOnNilArg0: true,
 		hasSideEffects: true,
+		symEffect:      SymRdWr,
 		asm:            s390x.ACS,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -20044,6 +20334,7 @@ var opcodeTable = [...]opInfo{
 		clobberFlags:   true,
 		faultOnNilArg0: true,
 		hasSideEffects: true,
+		symEffect:      SymRdWr,
 		asm:            s390x.ACSG,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -20076,6 +20367,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         4,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            s390x.ASTMG,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -20090,6 +20382,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         5,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            s390x.ASTMG,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -20105,6 +20398,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         6,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            s390x.ASTMG,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -20121,6 +20415,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         4,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            s390x.ASTMY,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -20135,6 +20430,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         5,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            s390x.ASTMY,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -20150,6 +20446,7 @@ var opcodeTable = [...]opInfo{
 		auxType:        auxSymOff,
 		argLen:         6,
 		faultOnNilArg0: true,
+		symEffect:      SymWrite,
 		asm:            s390x.ASTMY,
 		reg: regInfo{
 			inputs: []inputInfo{
@@ -21231,16 +21528,18 @@ var opcodeTable = [...]opInfo{
 		generic: true,
 	},
 	{
-		name:    "Arg",
-		auxType: auxSymOff,
-		argLen:  0,
-		generic: true,
+		name:      "Arg",
+		auxType:   auxSymOff,
+		argLen:    0,
+		symEffect: SymNone,
+		generic:   true,
 	},
 	{
-		name:    "Addr",
-		auxType: auxSym,
-		argLen:  1,
-		generic: true,
+		name:      "Addr",
+		auxType:   auxSym,
+		argLen:    1,
+		symEffect: SymAddr,
+		generic:   true,
 	},
 	{
 		name:    "SP",
@@ -21249,12 +21548,6 @@ var opcodeTable = [...]opInfo{
 	},
 	{
 		name:    "SB",
-		argLen:  0,
-		generic: true,
-	},
-	{
-		name:    "Func",
-		auxType: auxSym,
 		argLen:  0,
 		generic: true,
 	},
@@ -21288,16 +21581,18 @@ var opcodeTable = [...]opInfo{
 		generic: true,
 	},
 	{
-		name:    "MoveWB",
-		auxType: auxSymSizeAndAlign,
-		argLen:  3,
-		generic: true,
+		name:      "MoveWB",
+		auxType:   auxSymSizeAndAlign,
+		argLen:    3,
+		symEffect: SymNone,
+		generic:   true,
 	},
 	{
-		name:    "ZeroWB",
-		auxType: auxSymSizeAndAlign,
-		argLen:  2,
-		generic: true,
+		name:      "ZeroWB",
+		auxType:   auxSymSizeAndAlign,
+		argLen:    2,
+		symEffect: SymNone,
+		generic:   true,
 	},
 	{
 		name:    "ClosureCall",
@@ -21307,11 +21602,12 @@ var opcodeTable = [...]opInfo{
 		generic: true,
 	},
 	{
-		name:    "StaticCall",
-		auxType: auxSymOff,
-		argLen:  1,
-		call:    true,
-		generic: true,
+		name:      "StaticCall",
+		auxType:   auxSymOff,
+		argLen:    1,
+		call:      true,
+		symEffect: SymNone,
+		generic:   true,
 	},
 	{
 		name:    "InterCall",
@@ -21634,10 +21930,11 @@ var opcodeTable = [...]opInfo{
 		generic: true,
 	},
 	{
-		name:    "FwdRef",
-		auxType: auxSym,
-		argLen:  0,
-		generic: true,
+		name:      "FwdRef",
+		auxType:   auxSym,
+		argLen:    0,
+		symEffect: SymNone,
+		generic:   true,
 	},
 	{
 		name:    "Unknown",
@@ -21645,22 +21942,25 @@ var opcodeTable = [...]opInfo{
 		generic: true,
 	},
 	{
-		name:    "VarDef",
-		auxType: auxSym,
-		argLen:  1,
-		generic: true,
+		name:      "VarDef",
+		auxType:   auxSym,
+		argLen:    1,
+		symEffect: SymNone,
+		generic:   true,
 	},
 	{
-		name:    "VarKill",
-		auxType: auxSym,
-		argLen:  1,
-		generic: true,
+		name:      "VarKill",
+		auxType:   auxSym,
+		argLen:    1,
+		symEffect: SymNone,
+		generic:   true,
 	},
 	{
-		name:    "VarLive",
-		auxType: auxSym,
-		argLen:  1,
-		generic: true,
+		name:      "VarLive",
+		auxType:   auxSym,
+		argLen:    1,
+		symEffect: SymNone,
+		generic:   true,
 	},
 	{
 		name:    "KeepAlive",
@@ -21852,9 +22152,11 @@ var opcodeTable = [...]opInfo{
 	},
 }
 
-func (o Op) Asm() obj.As       { return opcodeTable[o].asm }
-func (o Op) String() string    { return opcodeTable[o].name }
-func (o Op) UsesScratch() bool { return opcodeTable[o].usesScratch }
+func (o Op) Asm() obj.As          { return opcodeTable[o].asm }
+func (o Op) String() string       { return opcodeTable[o].name }
+func (o Op) UsesScratch() bool    { return opcodeTable[o].usesScratch }
+func (o Op) SymEffect() SymEffect { return opcodeTable[o].symEffect }
+func (o Op) IsCall() bool         { return opcodeTable[o].call }
 
 var registers386 = [...]Register{
 	{0, x86.REG_AX, "AX"},
