@@ -5,13 +5,14 @@
 package ssa
 
 import (
-	"cmd/internal/obj"
 	"crypto/sha1"
 	"fmt"
 	"math"
 	"os"
 	"path/filepath"
 	"strings"
+
+	"github.com/bjwbell/cmd/obj"
 )
 
 func applyRewrite(f *Func, rb func(*Block, *Config) bool, rv func(*Value, *Config) bool) {
