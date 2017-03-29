@@ -6,716 +6,716 @@ package ssa
 import "math"
 
 var _ = math.MinInt8 // in case not otherwise used
-func rewriteValueS390X(v *Value, config *Config) bool {
+func rewriteValueS390X(v *Value) bool {
 	switch v.Op {
 	case OpAdd16:
-		return rewriteValueS390X_OpAdd16(v, config)
+		return rewriteValueS390X_OpAdd16(v)
 	case OpAdd32:
-		return rewriteValueS390X_OpAdd32(v, config)
+		return rewriteValueS390X_OpAdd32(v)
 	case OpAdd32F:
-		return rewriteValueS390X_OpAdd32F(v, config)
+		return rewriteValueS390X_OpAdd32F(v)
 	case OpAdd64:
-		return rewriteValueS390X_OpAdd64(v, config)
+		return rewriteValueS390X_OpAdd64(v)
 	case OpAdd64F:
-		return rewriteValueS390X_OpAdd64F(v, config)
+		return rewriteValueS390X_OpAdd64F(v)
 	case OpAdd8:
-		return rewriteValueS390X_OpAdd8(v, config)
+		return rewriteValueS390X_OpAdd8(v)
 	case OpAddPtr:
-		return rewriteValueS390X_OpAddPtr(v, config)
+		return rewriteValueS390X_OpAddPtr(v)
 	case OpAddr:
-		return rewriteValueS390X_OpAddr(v, config)
+		return rewriteValueS390X_OpAddr(v)
 	case OpAnd16:
-		return rewriteValueS390X_OpAnd16(v, config)
+		return rewriteValueS390X_OpAnd16(v)
 	case OpAnd32:
-		return rewriteValueS390X_OpAnd32(v, config)
+		return rewriteValueS390X_OpAnd32(v)
 	case OpAnd64:
-		return rewriteValueS390X_OpAnd64(v, config)
+		return rewriteValueS390X_OpAnd64(v)
 	case OpAnd8:
-		return rewriteValueS390X_OpAnd8(v, config)
+		return rewriteValueS390X_OpAnd8(v)
 	case OpAndB:
-		return rewriteValueS390X_OpAndB(v, config)
+		return rewriteValueS390X_OpAndB(v)
 	case OpAtomicAdd32:
-		return rewriteValueS390X_OpAtomicAdd32(v, config)
+		return rewriteValueS390X_OpAtomicAdd32(v)
 	case OpAtomicAdd64:
-		return rewriteValueS390X_OpAtomicAdd64(v, config)
+		return rewriteValueS390X_OpAtomicAdd64(v)
 	case OpAtomicCompareAndSwap32:
-		return rewriteValueS390X_OpAtomicCompareAndSwap32(v, config)
+		return rewriteValueS390X_OpAtomicCompareAndSwap32(v)
 	case OpAtomicCompareAndSwap64:
-		return rewriteValueS390X_OpAtomicCompareAndSwap64(v, config)
+		return rewriteValueS390X_OpAtomicCompareAndSwap64(v)
 	case OpAtomicExchange32:
-		return rewriteValueS390X_OpAtomicExchange32(v, config)
+		return rewriteValueS390X_OpAtomicExchange32(v)
 	case OpAtomicExchange64:
-		return rewriteValueS390X_OpAtomicExchange64(v, config)
+		return rewriteValueS390X_OpAtomicExchange64(v)
 	case OpAtomicLoad32:
-		return rewriteValueS390X_OpAtomicLoad32(v, config)
+		return rewriteValueS390X_OpAtomicLoad32(v)
 	case OpAtomicLoad64:
-		return rewriteValueS390X_OpAtomicLoad64(v, config)
+		return rewriteValueS390X_OpAtomicLoad64(v)
 	case OpAtomicLoadPtr:
-		return rewriteValueS390X_OpAtomicLoadPtr(v, config)
+		return rewriteValueS390X_OpAtomicLoadPtr(v)
 	case OpAtomicStore32:
-		return rewriteValueS390X_OpAtomicStore32(v, config)
+		return rewriteValueS390X_OpAtomicStore32(v)
 	case OpAtomicStore64:
-		return rewriteValueS390X_OpAtomicStore64(v, config)
+		return rewriteValueS390X_OpAtomicStore64(v)
 	case OpAtomicStorePtrNoWB:
-		return rewriteValueS390X_OpAtomicStorePtrNoWB(v, config)
+		return rewriteValueS390X_OpAtomicStorePtrNoWB(v)
 	case OpAvg64u:
-		return rewriteValueS390X_OpAvg64u(v, config)
+		return rewriteValueS390X_OpAvg64u(v)
+	case OpBitLen64:
+		return rewriteValueS390X_OpBitLen64(v)
 	case OpBswap32:
-		return rewriteValueS390X_OpBswap32(v, config)
+		return rewriteValueS390X_OpBswap32(v)
 	case OpBswap64:
-		return rewriteValueS390X_OpBswap64(v, config)
+		return rewriteValueS390X_OpBswap64(v)
 	case OpClosureCall:
-		return rewriteValueS390X_OpClosureCall(v, config)
+		return rewriteValueS390X_OpClosureCall(v)
 	case OpCom16:
-		return rewriteValueS390X_OpCom16(v, config)
+		return rewriteValueS390X_OpCom16(v)
 	case OpCom32:
-		return rewriteValueS390X_OpCom32(v, config)
+		return rewriteValueS390X_OpCom32(v)
 	case OpCom64:
-		return rewriteValueS390X_OpCom64(v, config)
+		return rewriteValueS390X_OpCom64(v)
 	case OpCom8:
-		return rewriteValueS390X_OpCom8(v, config)
+		return rewriteValueS390X_OpCom8(v)
 	case OpConst16:
-		return rewriteValueS390X_OpConst16(v, config)
+		return rewriteValueS390X_OpConst16(v)
 	case OpConst32:
-		return rewriteValueS390X_OpConst32(v, config)
+		return rewriteValueS390X_OpConst32(v)
 	case OpConst32F:
-		return rewriteValueS390X_OpConst32F(v, config)
+		return rewriteValueS390X_OpConst32F(v)
 	case OpConst64:
-		return rewriteValueS390X_OpConst64(v, config)
+		return rewriteValueS390X_OpConst64(v)
 	case OpConst64F:
-		return rewriteValueS390X_OpConst64F(v, config)
+		return rewriteValueS390X_OpConst64F(v)
 	case OpConst8:
-		return rewriteValueS390X_OpConst8(v, config)
+		return rewriteValueS390X_OpConst8(v)
 	case OpConstBool:
-		return rewriteValueS390X_OpConstBool(v, config)
+		return rewriteValueS390X_OpConstBool(v)
 	case OpConstNil:
-		return rewriteValueS390X_OpConstNil(v, config)
+		return rewriteValueS390X_OpConstNil(v)
 	case OpConvert:
-		return rewriteValueS390X_OpConvert(v, config)
+		return rewriteValueS390X_OpConvert(v)
 	case OpCtz32:
-		return rewriteValueS390X_OpCtz32(v, config)
+		return rewriteValueS390X_OpCtz32(v)
 	case OpCtz64:
-		return rewriteValueS390X_OpCtz64(v, config)
+		return rewriteValueS390X_OpCtz64(v)
 	case OpCvt32Fto32:
-		return rewriteValueS390X_OpCvt32Fto32(v, config)
+		return rewriteValueS390X_OpCvt32Fto32(v)
 	case OpCvt32Fto64:
-		return rewriteValueS390X_OpCvt32Fto64(v, config)
+		return rewriteValueS390X_OpCvt32Fto64(v)
 	case OpCvt32Fto64F:
-		return rewriteValueS390X_OpCvt32Fto64F(v, config)
+		return rewriteValueS390X_OpCvt32Fto64F(v)
 	case OpCvt32to32F:
-		return rewriteValueS390X_OpCvt32to32F(v, config)
+		return rewriteValueS390X_OpCvt32to32F(v)
 	case OpCvt32to64F:
-		return rewriteValueS390X_OpCvt32to64F(v, config)
+		return rewriteValueS390X_OpCvt32to64F(v)
 	case OpCvt64Fto32:
-		return rewriteValueS390X_OpCvt64Fto32(v, config)
+		return rewriteValueS390X_OpCvt64Fto32(v)
 	case OpCvt64Fto32F:
-		return rewriteValueS390X_OpCvt64Fto32F(v, config)
+		return rewriteValueS390X_OpCvt64Fto32F(v)
 	case OpCvt64Fto64:
-		return rewriteValueS390X_OpCvt64Fto64(v, config)
+		return rewriteValueS390X_OpCvt64Fto64(v)
 	case OpCvt64to32F:
-		return rewriteValueS390X_OpCvt64to32F(v, config)
+		return rewriteValueS390X_OpCvt64to32F(v)
 	case OpCvt64to64F:
-		return rewriteValueS390X_OpCvt64to64F(v, config)
+		return rewriteValueS390X_OpCvt64to64F(v)
 	case OpDiv16:
-		return rewriteValueS390X_OpDiv16(v, config)
+		return rewriteValueS390X_OpDiv16(v)
 	case OpDiv16u:
-		return rewriteValueS390X_OpDiv16u(v, config)
+		return rewriteValueS390X_OpDiv16u(v)
 	case OpDiv32:
-		return rewriteValueS390X_OpDiv32(v, config)
+		return rewriteValueS390X_OpDiv32(v)
 	case OpDiv32F:
-		return rewriteValueS390X_OpDiv32F(v, config)
+		return rewriteValueS390X_OpDiv32F(v)
 	case OpDiv32u:
-		return rewriteValueS390X_OpDiv32u(v, config)
+		return rewriteValueS390X_OpDiv32u(v)
 	case OpDiv64:
-		return rewriteValueS390X_OpDiv64(v, config)
+		return rewriteValueS390X_OpDiv64(v)
 	case OpDiv64F:
-		return rewriteValueS390X_OpDiv64F(v, config)
+		return rewriteValueS390X_OpDiv64F(v)
 	case OpDiv64u:
-		return rewriteValueS390X_OpDiv64u(v, config)
+		return rewriteValueS390X_OpDiv64u(v)
 	case OpDiv8:
-		return rewriteValueS390X_OpDiv8(v, config)
+		return rewriteValueS390X_OpDiv8(v)
 	case OpDiv8u:
-		return rewriteValueS390X_OpDiv8u(v, config)
+		return rewriteValueS390X_OpDiv8u(v)
 	case OpEq16:
-		return rewriteValueS390X_OpEq16(v, config)
+		return rewriteValueS390X_OpEq16(v)
 	case OpEq32:
-		return rewriteValueS390X_OpEq32(v, config)
+		return rewriteValueS390X_OpEq32(v)
 	case OpEq32F:
-		return rewriteValueS390X_OpEq32F(v, config)
+		return rewriteValueS390X_OpEq32F(v)
 	case OpEq64:
-		return rewriteValueS390X_OpEq64(v, config)
+		return rewriteValueS390X_OpEq64(v)
 	case OpEq64F:
-		return rewriteValueS390X_OpEq64F(v, config)
+		return rewriteValueS390X_OpEq64F(v)
 	case OpEq8:
-		return rewriteValueS390X_OpEq8(v, config)
+		return rewriteValueS390X_OpEq8(v)
 	case OpEqB:
-		return rewriteValueS390X_OpEqB(v, config)
+		return rewriteValueS390X_OpEqB(v)
 	case OpEqPtr:
-		return rewriteValueS390X_OpEqPtr(v, config)
+		return rewriteValueS390X_OpEqPtr(v)
 	case OpGeq16:
-		return rewriteValueS390X_OpGeq16(v, config)
+		return rewriteValueS390X_OpGeq16(v)
 	case OpGeq16U:
-		return rewriteValueS390X_OpGeq16U(v, config)
+		return rewriteValueS390X_OpGeq16U(v)
 	case OpGeq32:
-		return rewriteValueS390X_OpGeq32(v, config)
+		return rewriteValueS390X_OpGeq32(v)
 	case OpGeq32F:
-		return rewriteValueS390X_OpGeq32F(v, config)
+		return rewriteValueS390X_OpGeq32F(v)
 	case OpGeq32U:
-		return rewriteValueS390X_OpGeq32U(v, config)
+		return rewriteValueS390X_OpGeq32U(v)
 	case OpGeq64:
-		return rewriteValueS390X_OpGeq64(v, config)
+		return rewriteValueS390X_OpGeq64(v)
 	case OpGeq64F:
-		return rewriteValueS390X_OpGeq64F(v, config)
+		return rewriteValueS390X_OpGeq64F(v)
 	case OpGeq64U:
-		return rewriteValueS390X_OpGeq64U(v, config)
+		return rewriteValueS390X_OpGeq64U(v)
 	case OpGeq8:
-		return rewriteValueS390X_OpGeq8(v, config)
+		return rewriteValueS390X_OpGeq8(v)
 	case OpGeq8U:
-		return rewriteValueS390X_OpGeq8U(v, config)
+		return rewriteValueS390X_OpGeq8U(v)
 	case OpGetClosurePtr:
-		return rewriteValueS390X_OpGetClosurePtr(v, config)
+		return rewriteValueS390X_OpGetClosurePtr(v)
 	case OpGetG:
-		return rewriteValueS390X_OpGetG(v, config)
+		return rewriteValueS390X_OpGetG(v)
 	case OpGreater16:
-		return rewriteValueS390X_OpGreater16(v, config)
+		return rewriteValueS390X_OpGreater16(v)
 	case OpGreater16U:
-		return rewriteValueS390X_OpGreater16U(v, config)
+		return rewriteValueS390X_OpGreater16U(v)
 	case OpGreater32:
-		return rewriteValueS390X_OpGreater32(v, config)
+		return rewriteValueS390X_OpGreater32(v)
 	case OpGreater32F:
-		return rewriteValueS390X_OpGreater32F(v, config)
+		return rewriteValueS390X_OpGreater32F(v)
 	case OpGreater32U:
-		return rewriteValueS390X_OpGreater32U(v, config)
+		return rewriteValueS390X_OpGreater32U(v)
 	case OpGreater64:
-		return rewriteValueS390X_OpGreater64(v, config)
+		return rewriteValueS390X_OpGreater64(v)
 	case OpGreater64F:
-		return rewriteValueS390X_OpGreater64F(v, config)
+		return rewriteValueS390X_OpGreater64F(v)
 	case OpGreater64U:
-		return rewriteValueS390X_OpGreater64U(v, config)
+		return rewriteValueS390X_OpGreater64U(v)
 	case OpGreater8:
-		return rewriteValueS390X_OpGreater8(v, config)
+		return rewriteValueS390X_OpGreater8(v)
 	case OpGreater8U:
-		return rewriteValueS390X_OpGreater8U(v, config)
+		return rewriteValueS390X_OpGreater8U(v)
 	case OpHmul32:
-		return rewriteValueS390X_OpHmul32(v, config)
+		return rewriteValueS390X_OpHmul32(v)
 	case OpHmul32u:
-		return rewriteValueS390X_OpHmul32u(v, config)
+		return rewriteValueS390X_OpHmul32u(v)
 	case OpHmul64:
-		return rewriteValueS390X_OpHmul64(v, config)
+		return rewriteValueS390X_OpHmul64(v)
 	case OpHmul64u:
-		return rewriteValueS390X_OpHmul64u(v, config)
+		return rewriteValueS390X_OpHmul64u(v)
 	case OpITab:
-		return rewriteValueS390X_OpITab(v, config)
+		return rewriteValueS390X_OpITab(v)
 	case OpInterCall:
-		return rewriteValueS390X_OpInterCall(v, config)
+		return rewriteValueS390X_OpInterCall(v)
 	case OpIsInBounds:
-		return rewriteValueS390X_OpIsInBounds(v, config)
+		return rewriteValueS390X_OpIsInBounds(v)
 	case OpIsNonNil:
-		return rewriteValueS390X_OpIsNonNil(v, config)
+		return rewriteValueS390X_OpIsNonNil(v)
 	case OpIsSliceInBounds:
-		return rewriteValueS390X_OpIsSliceInBounds(v, config)
+		return rewriteValueS390X_OpIsSliceInBounds(v)
 	case OpLeq16:
-		return rewriteValueS390X_OpLeq16(v, config)
+		return rewriteValueS390X_OpLeq16(v)
 	case OpLeq16U:
-		return rewriteValueS390X_OpLeq16U(v, config)
+		return rewriteValueS390X_OpLeq16U(v)
 	case OpLeq32:
-		return rewriteValueS390X_OpLeq32(v, config)
+		return rewriteValueS390X_OpLeq32(v)
 	case OpLeq32F:
-		return rewriteValueS390X_OpLeq32F(v, config)
+		return rewriteValueS390X_OpLeq32F(v)
 	case OpLeq32U:
-		return rewriteValueS390X_OpLeq32U(v, config)
+		return rewriteValueS390X_OpLeq32U(v)
 	case OpLeq64:
-		return rewriteValueS390X_OpLeq64(v, config)
+		return rewriteValueS390X_OpLeq64(v)
 	case OpLeq64F:
-		return rewriteValueS390X_OpLeq64F(v, config)
+		return rewriteValueS390X_OpLeq64F(v)
 	case OpLeq64U:
-		return rewriteValueS390X_OpLeq64U(v, config)
+		return rewriteValueS390X_OpLeq64U(v)
 	case OpLeq8:
-		return rewriteValueS390X_OpLeq8(v, config)
+		return rewriteValueS390X_OpLeq8(v)
 	case OpLeq8U:
-		return rewriteValueS390X_OpLeq8U(v, config)
+		return rewriteValueS390X_OpLeq8U(v)
 	case OpLess16:
-		return rewriteValueS390X_OpLess16(v, config)
+		return rewriteValueS390X_OpLess16(v)
 	case OpLess16U:
-		return rewriteValueS390X_OpLess16U(v, config)
+		return rewriteValueS390X_OpLess16U(v)
 	case OpLess32:
-		return rewriteValueS390X_OpLess32(v, config)
+		return rewriteValueS390X_OpLess32(v)
 	case OpLess32F:
-		return rewriteValueS390X_OpLess32F(v, config)
+		return rewriteValueS390X_OpLess32F(v)
 	case OpLess32U:
-		return rewriteValueS390X_OpLess32U(v, config)
+		return rewriteValueS390X_OpLess32U(v)
 	case OpLess64:
-		return rewriteValueS390X_OpLess64(v, config)
+		return rewriteValueS390X_OpLess64(v)
 	case OpLess64F:
-		return rewriteValueS390X_OpLess64F(v, config)
+		return rewriteValueS390X_OpLess64F(v)
 	case OpLess64U:
-		return rewriteValueS390X_OpLess64U(v, config)
+		return rewriteValueS390X_OpLess64U(v)
 	case OpLess8:
-		return rewriteValueS390X_OpLess8(v, config)
+		return rewriteValueS390X_OpLess8(v)
 	case OpLess8U:
-		return rewriteValueS390X_OpLess8U(v, config)
+		return rewriteValueS390X_OpLess8U(v)
 	case OpLoad:
-		return rewriteValueS390X_OpLoad(v, config)
+		return rewriteValueS390X_OpLoad(v)
 	case OpLsh16x16:
-		return rewriteValueS390X_OpLsh16x16(v, config)
+		return rewriteValueS390X_OpLsh16x16(v)
 	case OpLsh16x32:
-		return rewriteValueS390X_OpLsh16x32(v, config)
+		return rewriteValueS390X_OpLsh16x32(v)
 	case OpLsh16x64:
-		return rewriteValueS390X_OpLsh16x64(v, config)
+		return rewriteValueS390X_OpLsh16x64(v)
 	case OpLsh16x8:
-		return rewriteValueS390X_OpLsh16x8(v, config)
+		return rewriteValueS390X_OpLsh16x8(v)
 	case OpLsh32x16:
-		return rewriteValueS390X_OpLsh32x16(v, config)
+		return rewriteValueS390X_OpLsh32x16(v)
 	case OpLsh32x32:
-		return rewriteValueS390X_OpLsh32x32(v, config)
+		return rewriteValueS390X_OpLsh32x32(v)
 	case OpLsh32x64:
-		return rewriteValueS390X_OpLsh32x64(v, config)
+		return rewriteValueS390X_OpLsh32x64(v)
 	case OpLsh32x8:
-		return rewriteValueS390X_OpLsh32x8(v, config)
+		return rewriteValueS390X_OpLsh32x8(v)
 	case OpLsh64x16:
-		return rewriteValueS390X_OpLsh64x16(v, config)
+		return rewriteValueS390X_OpLsh64x16(v)
 	case OpLsh64x32:
-		return rewriteValueS390X_OpLsh64x32(v, config)
+		return rewriteValueS390X_OpLsh64x32(v)
 	case OpLsh64x64:
-		return rewriteValueS390X_OpLsh64x64(v, config)
+		return rewriteValueS390X_OpLsh64x64(v)
 	case OpLsh64x8:
-		return rewriteValueS390X_OpLsh64x8(v, config)
+		return rewriteValueS390X_OpLsh64x8(v)
 	case OpLsh8x16:
-		return rewriteValueS390X_OpLsh8x16(v, config)
+		return rewriteValueS390X_OpLsh8x16(v)
 	case OpLsh8x32:
-		return rewriteValueS390X_OpLsh8x32(v, config)
+		return rewriteValueS390X_OpLsh8x32(v)
 	case OpLsh8x64:
-		return rewriteValueS390X_OpLsh8x64(v, config)
+		return rewriteValueS390X_OpLsh8x64(v)
 	case OpLsh8x8:
-		return rewriteValueS390X_OpLsh8x8(v, config)
+		return rewriteValueS390X_OpLsh8x8(v)
 	case OpMod16:
-		return rewriteValueS390X_OpMod16(v, config)
+		return rewriteValueS390X_OpMod16(v)
 	case OpMod16u:
-		return rewriteValueS390X_OpMod16u(v, config)
+		return rewriteValueS390X_OpMod16u(v)
 	case OpMod32:
-		return rewriteValueS390X_OpMod32(v, config)
+		return rewriteValueS390X_OpMod32(v)
 	case OpMod32u:
-		return rewriteValueS390X_OpMod32u(v, config)
+		return rewriteValueS390X_OpMod32u(v)
 	case OpMod64:
-		return rewriteValueS390X_OpMod64(v, config)
+		return rewriteValueS390X_OpMod64(v)
 	case OpMod64u:
-		return rewriteValueS390X_OpMod64u(v, config)
+		return rewriteValueS390X_OpMod64u(v)
 	case OpMod8:
-		return rewriteValueS390X_OpMod8(v, config)
+		return rewriteValueS390X_OpMod8(v)
 	case OpMod8u:
-		return rewriteValueS390X_OpMod8u(v, config)
+		return rewriteValueS390X_OpMod8u(v)
 	case OpMove:
-		return rewriteValueS390X_OpMove(v, config)
+		return rewriteValueS390X_OpMove(v)
 	case OpMul16:
-		return rewriteValueS390X_OpMul16(v, config)
+		return rewriteValueS390X_OpMul16(v)
 	case OpMul32:
-		return rewriteValueS390X_OpMul32(v, config)
+		return rewriteValueS390X_OpMul32(v)
 	case OpMul32F:
-		return rewriteValueS390X_OpMul32F(v, config)
+		return rewriteValueS390X_OpMul32F(v)
 	case OpMul64:
-		return rewriteValueS390X_OpMul64(v, config)
+		return rewriteValueS390X_OpMul64(v)
 	case OpMul64F:
-		return rewriteValueS390X_OpMul64F(v, config)
+		return rewriteValueS390X_OpMul64F(v)
 	case OpMul8:
-		return rewriteValueS390X_OpMul8(v, config)
+		return rewriteValueS390X_OpMul8(v)
 	case OpNeg16:
-		return rewriteValueS390X_OpNeg16(v, config)
+		return rewriteValueS390X_OpNeg16(v)
 	case OpNeg32:
-		return rewriteValueS390X_OpNeg32(v, config)
+		return rewriteValueS390X_OpNeg32(v)
 	case OpNeg32F:
-		return rewriteValueS390X_OpNeg32F(v, config)
+		return rewriteValueS390X_OpNeg32F(v)
 	case OpNeg64:
-		return rewriteValueS390X_OpNeg64(v, config)
+		return rewriteValueS390X_OpNeg64(v)
 	case OpNeg64F:
-		return rewriteValueS390X_OpNeg64F(v, config)
+		return rewriteValueS390X_OpNeg64F(v)
 	case OpNeg8:
-		return rewriteValueS390X_OpNeg8(v, config)
+		return rewriteValueS390X_OpNeg8(v)
 	case OpNeq16:
-		return rewriteValueS390X_OpNeq16(v, config)
+		return rewriteValueS390X_OpNeq16(v)
 	case OpNeq32:
-		return rewriteValueS390X_OpNeq32(v, config)
+		return rewriteValueS390X_OpNeq32(v)
 	case OpNeq32F:
-		return rewriteValueS390X_OpNeq32F(v, config)
+		return rewriteValueS390X_OpNeq32F(v)
 	case OpNeq64:
-		return rewriteValueS390X_OpNeq64(v, config)
+		return rewriteValueS390X_OpNeq64(v)
 	case OpNeq64F:
-		return rewriteValueS390X_OpNeq64F(v, config)
+		return rewriteValueS390X_OpNeq64F(v)
 	case OpNeq8:
-		return rewriteValueS390X_OpNeq8(v, config)
+		return rewriteValueS390X_OpNeq8(v)
 	case OpNeqB:
-		return rewriteValueS390X_OpNeqB(v, config)
+		return rewriteValueS390X_OpNeqB(v)
 	case OpNeqPtr:
-		return rewriteValueS390X_OpNeqPtr(v, config)
+		return rewriteValueS390X_OpNeqPtr(v)
 	case OpNilCheck:
-		return rewriteValueS390X_OpNilCheck(v, config)
+		return rewriteValueS390X_OpNilCheck(v)
 	case OpNot:
-		return rewriteValueS390X_OpNot(v, config)
+		return rewriteValueS390X_OpNot(v)
 	case OpOffPtr:
-		return rewriteValueS390X_OpOffPtr(v, config)
+		return rewriteValueS390X_OpOffPtr(v)
 	case OpOr16:
-		return rewriteValueS390X_OpOr16(v, config)
+		return rewriteValueS390X_OpOr16(v)
 	case OpOr32:
-		return rewriteValueS390X_OpOr32(v, config)
+		return rewriteValueS390X_OpOr32(v)
 	case OpOr64:
-		return rewriteValueS390X_OpOr64(v, config)
+		return rewriteValueS390X_OpOr64(v)
 	case OpOr8:
-		return rewriteValueS390X_OpOr8(v, config)
+		return rewriteValueS390X_OpOr8(v)
 	case OpOrB:
-		return rewriteValueS390X_OpOrB(v, config)
+		return rewriteValueS390X_OpOrB(v)
 	case OpRound32F:
-		return rewriteValueS390X_OpRound32F(v, config)
+		return rewriteValueS390X_OpRound32F(v)
 	case OpRound64F:
-		return rewriteValueS390X_OpRound64F(v, config)
+		return rewriteValueS390X_OpRound64F(v)
 	case OpRsh16Ux16:
-		return rewriteValueS390X_OpRsh16Ux16(v, config)
+		return rewriteValueS390X_OpRsh16Ux16(v)
 	case OpRsh16Ux32:
-		return rewriteValueS390X_OpRsh16Ux32(v, config)
+		return rewriteValueS390X_OpRsh16Ux32(v)
 	case OpRsh16Ux64:
-		return rewriteValueS390X_OpRsh16Ux64(v, config)
+		return rewriteValueS390X_OpRsh16Ux64(v)
 	case OpRsh16Ux8:
-		return rewriteValueS390X_OpRsh16Ux8(v, config)
+		return rewriteValueS390X_OpRsh16Ux8(v)
 	case OpRsh16x16:
-		return rewriteValueS390X_OpRsh16x16(v, config)
+		return rewriteValueS390X_OpRsh16x16(v)
 	case OpRsh16x32:
-		return rewriteValueS390X_OpRsh16x32(v, config)
+		return rewriteValueS390X_OpRsh16x32(v)
 	case OpRsh16x64:
-		return rewriteValueS390X_OpRsh16x64(v, config)
+		return rewriteValueS390X_OpRsh16x64(v)
 	case OpRsh16x8:
-		return rewriteValueS390X_OpRsh16x8(v, config)
+		return rewriteValueS390X_OpRsh16x8(v)
 	case OpRsh32Ux16:
-		return rewriteValueS390X_OpRsh32Ux16(v, config)
+		return rewriteValueS390X_OpRsh32Ux16(v)
 	case OpRsh32Ux32:
-		return rewriteValueS390X_OpRsh32Ux32(v, config)
+		return rewriteValueS390X_OpRsh32Ux32(v)
 	case OpRsh32Ux64:
-		return rewriteValueS390X_OpRsh32Ux64(v, config)
+		return rewriteValueS390X_OpRsh32Ux64(v)
 	case OpRsh32Ux8:
-		return rewriteValueS390X_OpRsh32Ux8(v, config)
+		return rewriteValueS390X_OpRsh32Ux8(v)
 	case OpRsh32x16:
-		return rewriteValueS390X_OpRsh32x16(v, config)
+		return rewriteValueS390X_OpRsh32x16(v)
 	case OpRsh32x32:
-		return rewriteValueS390X_OpRsh32x32(v, config)
+		return rewriteValueS390X_OpRsh32x32(v)
 	case OpRsh32x64:
-		return rewriteValueS390X_OpRsh32x64(v, config)
+		return rewriteValueS390X_OpRsh32x64(v)
 	case OpRsh32x8:
-		return rewriteValueS390X_OpRsh32x8(v, config)
+		return rewriteValueS390X_OpRsh32x8(v)
 	case OpRsh64Ux16:
-		return rewriteValueS390X_OpRsh64Ux16(v, config)
+		return rewriteValueS390X_OpRsh64Ux16(v)
 	case OpRsh64Ux32:
-		return rewriteValueS390X_OpRsh64Ux32(v, config)
+		return rewriteValueS390X_OpRsh64Ux32(v)
 	case OpRsh64Ux64:
-		return rewriteValueS390X_OpRsh64Ux64(v, config)
+		return rewriteValueS390X_OpRsh64Ux64(v)
 	case OpRsh64Ux8:
-		return rewriteValueS390X_OpRsh64Ux8(v, config)
+		return rewriteValueS390X_OpRsh64Ux8(v)
 	case OpRsh64x16:
-		return rewriteValueS390X_OpRsh64x16(v, config)
+		return rewriteValueS390X_OpRsh64x16(v)
 	case OpRsh64x32:
-		return rewriteValueS390X_OpRsh64x32(v, config)
+		return rewriteValueS390X_OpRsh64x32(v)
 	case OpRsh64x64:
-		return rewriteValueS390X_OpRsh64x64(v, config)
+		return rewriteValueS390X_OpRsh64x64(v)
 	case OpRsh64x8:
-		return rewriteValueS390X_OpRsh64x8(v, config)
+		return rewriteValueS390X_OpRsh64x8(v)
 	case OpRsh8Ux16:
-		return rewriteValueS390X_OpRsh8Ux16(v, config)
+		return rewriteValueS390X_OpRsh8Ux16(v)
 	case OpRsh8Ux32:
-		return rewriteValueS390X_OpRsh8Ux32(v, config)
+		return rewriteValueS390X_OpRsh8Ux32(v)
 	case OpRsh8Ux64:
-		return rewriteValueS390X_OpRsh8Ux64(v, config)
+		return rewriteValueS390X_OpRsh8Ux64(v)
 	case OpRsh8Ux8:
-		return rewriteValueS390X_OpRsh8Ux8(v, config)
+		return rewriteValueS390X_OpRsh8Ux8(v)
 	case OpRsh8x16:
-		return rewriteValueS390X_OpRsh8x16(v, config)
+		return rewriteValueS390X_OpRsh8x16(v)
 	case OpRsh8x32:
-		return rewriteValueS390X_OpRsh8x32(v, config)
+		return rewriteValueS390X_OpRsh8x32(v)
 	case OpRsh8x64:
-		return rewriteValueS390X_OpRsh8x64(v, config)
+		return rewriteValueS390X_OpRsh8x64(v)
 	case OpRsh8x8:
-		return rewriteValueS390X_OpRsh8x8(v, config)
+		return rewriteValueS390X_OpRsh8x8(v)
 	case OpS390XADD:
-		return rewriteValueS390X_OpS390XADD(v, config)
+		return rewriteValueS390X_OpS390XADD(v)
 	case OpS390XADDW:
-		return rewriteValueS390X_OpS390XADDW(v, config)
+		return rewriteValueS390X_OpS390XADDW(v)
 	case OpS390XADDWconst:
-		return rewriteValueS390X_OpS390XADDWconst(v, config)
+		return rewriteValueS390X_OpS390XADDWconst(v)
 	case OpS390XADDconst:
-		return rewriteValueS390X_OpS390XADDconst(v, config)
+		return rewriteValueS390X_OpS390XADDconst(v)
 	case OpS390XAND:
-		return rewriteValueS390X_OpS390XAND(v, config)
+		return rewriteValueS390X_OpS390XAND(v)
 	case OpS390XANDW:
-		return rewriteValueS390X_OpS390XANDW(v, config)
+		return rewriteValueS390X_OpS390XANDW(v)
 	case OpS390XANDWconst:
-		return rewriteValueS390X_OpS390XANDWconst(v, config)
+		return rewriteValueS390X_OpS390XANDWconst(v)
 	case OpS390XANDconst:
-		return rewriteValueS390X_OpS390XANDconst(v, config)
+		return rewriteValueS390X_OpS390XANDconst(v)
 	case OpS390XCMP:
-		return rewriteValueS390X_OpS390XCMP(v, config)
+		return rewriteValueS390X_OpS390XCMP(v)
 	case OpS390XCMPU:
-		return rewriteValueS390X_OpS390XCMPU(v, config)
+		return rewriteValueS390X_OpS390XCMPU(v)
 	case OpS390XCMPUconst:
-		return rewriteValueS390X_OpS390XCMPUconst(v, config)
+		return rewriteValueS390X_OpS390XCMPUconst(v)
 	case OpS390XCMPW:
-		return rewriteValueS390X_OpS390XCMPW(v, config)
+		return rewriteValueS390X_OpS390XCMPW(v)
 	case OpS390XCMPWU:
-		return rewriteValueS390X_OpS390XCMPWU(v, config)
+		return rewriteValueS390X_OpS390XCMPWU(v)
 	case OpS390XCMPWUconst:
-		return rewriteValueS390X_OpS390XCMPWUconst(v, config)
+		return rewriteValueS390X_OpS390XCMPWUconst(v)
 	case OpS390XCMPWconst:
-		return rewriteValueS390X_OpS390XCMPWconst(v, config)
+		return rewriteValueS390X_OpS390XCMPWconst(v)
 	case OpS390XCMPconst:
-		return rewriteValueS390X_OpS390XCMPconst(v, config)
+		return rewriteValueS390X_OpS390XCMPconst(v)
 	case OpS390XFADD:
-		return rewriteValueS390X_OpS390XFADD(v, config)
+		return rewriteValueS390X_OpS390XFADD(v)
 	case OpS390XFADDS:
-		return rewriteValueS390X_OpS390XFADDS(v, config)
+		return rewriteValueS390X_OpS390XFADDS(v)
 	case OpS390XFMOVDload:
-		return rewriteValueS390X_OpS390XFMOVDload(v, config)
+		return rewriteValueS390X_OpS390XFMOVDload(v)
 	case OpS390XFMOVDloadidx:
-		return rewriteValueS390X_OpS390XFMOVDloadidx(v, config)
+		return rewriteValueS390X_OpS390XFMOVDloadidx(v)
 	case OpS390XFMOVDstore:
-		return rewriteValueS390X_OpS390XFMOVDstore(v, config)
+		return rewriteValueS390X_OpS390XFMOVDstore(v)
 	case OpS390XFMOVDstoreidx:
-		return rewriteValueS390X_OpS390XFMOVDstoreidx(v, config)
+		return rewriteValueS390X_OpS390XFMOVDstoreidx(v)
 	case OpS390XFMOVSload:
-		return rewriteValueS390X_OpS390XFMOVSload(v, config)
+		return rewriteValueS390X_OpS390XFMOVSload(v)
 	case OpS390XFMOVSloadidx:
-		return rewriteValueS390X_OpS390XFMOVSloadidx(v, config)
+		return rewriteValueS390X_OpS390XFMOVSloadidx(v)
 	case OpS390XFMOVSstore:
-		return rewriteValueS390X_OpS390XFMOVSstore(v, config)
+		return rewriteValueS390X_OpS390XFMOVSstore(v)
 	case OpS390XFMOVSstoreidx:
-		return rewriteValueS390X_OpS390XFMOVSstoreidx(v, config)
+		return rewriteValueS390X_OpS390XFMOVSstoreidx(v)
 	case OpS390XFSUB:
-		return rewriteValueS390X_OpS390XFSUB(v, config)
+		return rewriteValueS390X_OpS390XFSUB(v)
 	case OpS390XFSUBS:
-		return rewriteValueS390X_OpS390XFSUBS(v, config)
+		return rewriteValueS390X_OpS390XFSUBS(v)
 	case OpS390XLoweredRound32F:
-		return rewriteValueS390X_OpS390XLoweredRound32F(v, config)
+		return rewriteValueS390X_OpS390XLoweredRound32F(v)
 	case OpS390XLoweredRound64F:
-		return rewriteValueS390X_OpS390XLoweredRound64F(v, config)
+		return rewriteValueS390X_OpS390XLoweredRound64F(v)
 	case OpS390XMOVBZload:
-		return rewriteValueS390X_OpS390XMOVBZload(v, config)
+		return rewriteValueS390X_OpS390XMOVBZload(v)
 	case OpS390XMOVBZloadidx:
-		return rewriteValueS390X_OpS390XMOVBZloadidx(v, config)
+		return rewriteValueS390X_OpS390XMOVBZloadidx(v)
 	case OpS390XMOVBZreg:
-		return rewriteValueS390X_OpS390XMOVBZreg(v, config)
+		return rewriteValueS390X_OpS390XMOVBZreg(v)
 	case OpS390XMOVBload:
-		return rewriteValueS390X_OpS390XMOVBload(v, config)
+		return rewriteValueS390X_OpS390XMOVBload(v)
 	case OpS390XMOVBreg:
-		return rewriteValueS390X_OpS390XMOVBreg(v, config)
+		return rewriteValueS390X_OpS390XMOVBreg(v)
 	case OpS390XMOVBstore:
-		return rewriteValueS390X_OpS390XMOVBstore(v, config)
+		return rewriteValueS390X_OpS390XMOVBstore(v)
 	case OpS390XMOVBstoreconst:
-		return rewriteValueS390X_OpS390XMOVBstoreconst(v, config)
+		return rewriteValueS390X_OpS390XMOVBstoreconst(v)
 	case OpS390XMOVBstoreidx:
-		return rewriteValueS390X_OpS390XMOVBstoreidx(v, config)
+		return rewriteValueS390X_OpS390XMOVBstoreidx(v)
 	case OpS390XMOVDEQ:
-		return rewriteValueS390X_OpS390XMOVDEQ(v, config)
+		return rewriteValueS390X_OpS390XMOVDEQ(v)
 	case OpS390XMOVDGE:
-		return rewriteValueS390X_OpS390XMOVDGE(v, config)
+		return rewriteValueS390X_OpS390XMOVDGE(v)
 	case OpS390XMOVDGT:
-		return rewriteValueS390X_OpS390XMOVDGT(v, config)
+		return rewriteValueS390X_OpS390XMOVDGT(v)
 	case OpS390XMOVDLE:
-		return rewriteValueS390X_OpS390XMOVDLE(v, config)
+		return rewriteValueS390X_OpS390XMOVDLE(v)
 	case OpS390XMOVDLT:
-		return rewriteValueS390X_OpS390XMOVDLT(v, config)
+		return rewriteValueS390X_OpS390XMOVDLT(v)
 	case OpS390XMOVDNE:
-		return rewriteValueS390X_OpS390XMOVDNE(v, config)
+		return rewriteValueS390X_OpS390XMOVDNE(v)
 	case OpS390XMOVDaddridx:
-		return rewriteValueS390X_OpS390XMOVDaddridx(v, config)
+		return rewriteValueS390X_OpS390XMOVDaddridx(v)
 	case OpS390XMOVDload:
-		return rewriteValueS390X_OpS390XMOVDload(v, config)
+		return rewriteValueS390X_OpS390XMOVDload(v)
 	case OpS390XMOVDloadidx:
-		return rewriteValueS390X_OpS390XMOVDloadidx(v, config)
+		return rewriteValueS390X_OpS390XMOVDloadidx(v)
 	case OpS390XMOVDnop:
-		return rewriteValueS390X_OpS390XMOVDnop(v, config)
+		return rewriteValueS390X_OpS390XMOVDnop(v)
 	case OpS390XMOVDreg:
-		return rewriteValueS390X_OpS390XMOVDreg(v, config)
+		return rewriteValueS390X_OpS390XMOVDreg(v)
 	case OpS390XMOVDstore:
-		return rewriteValueS390X_OpS390XMOVDstore(v, config)
+		return rewriteValueS390X_OpS390XMOVDstore(v)
 	case OpS390XMOVDstoreconst:
-		return rewriteValueS390X_OpS390XMOVDstoreconst(v, config)
+		return rewriteValueS390X_OpS390XMOVDstoreconst(v)
 	case OpS390XMOVDstoreidx:
-		return rewriteValueS390X_OpS390XMOVDstoreidx(v, config)
+		return rewriteValueS390X_OpS390XMOVDstoreidx(v)
 	case OpS390XMOVHBRstore:
-		return rewriteValueS390X_OpS390XMOVHBRstore(v, config)
+		return rewriteValueS390X_OpS390XMOVHBRstore(v)
 	case OpS390XMOVHBRstoreidx:
-		return rewriteValueS390X_OpS390XMOVHBRstoreidx(v, config)
+		return rewriteValueS390X_OpS390XMOVHBRstoreidx(v)
 	case OpS390XMOVHZload:
-		return rewriteValueS390X_OpS390XMOVHZload(v, config)
+		return rewriteValueS390X_OpS390XMOVHZload(v)
 	case OpS390XMOVHZloadidx:
-		return rewriteValueS390X_OpS390XMOVHZloadidx(v, config)
+		return rewriteValueS390X_OpS390XMOVHZloadidx(v)
 	case OpS390XMOVHZreg:
-		return rewriteValueS390X_OpS390XMOVHZreg(v, config)
+		return rewriteValueS390X_OpS390XMOVHZreg(v)
 	case OpS390XMOVHload:
-		return rewriteValueS390X_OpS390XMOVHload(v, config)
+		return rewriteValueS390X_OpS390XMOVHload(v)
 	case OpS390XMOVHreg:
-		return rewriteValueS390X_OpS390XMOVHreg(v, config)
+		return rewriteValueS390X_OpS390XMOVHreg(v)
 	case OpS390XMOVHstore:
-		return rewriteValueS390X_OpS390XMOVHstore(v, config)
+		return rewriteValueS390X_OpS390XMOVHstore(v)
 	case OpS390XMOVHstoreconst:
-		return rewriteValueS390X_OpS390XMOVHstoreconst(v, config)
+		return rewriteValueS390X_OpS390XMOVHstoreconst(v)
 	case OpS390XMOVHstoreidx:
-		return rewriteValueS390X_OpS390XMOVHstoreidx(v, config)
+		return rewriteValueS390X_OpS390XMOVHstoreidx(v)
 	case OpS390XMOVWBRstore:
-		return rewriteValueS390X_OpS390XMOVWBRstore(v, config)
+		return rewriteValueS390X_OpS390XMOVWBRstore(v)
 	case OpS390XMOVWBRstoreidx:
-		return rewriteValueS390X_OpS390XMOVWBRstoreidx(v, config)
+		return rewriteValueS390X_OpS390XMOVWBRstoreidx(v)
 	case OpS390XMOVWZload:
-		return rewriteValueS390X_OpS390XMOVWZload(v, config)
+		return rewriteValueS390X_OpS390XMOVWZload(v)
 	case OpS390XMOVWZloadidx:
-		return rewriteValueS390X_OpS390XMOVWZloadidx(v, config)
+		return rewriteValueS390X_OpS390XMOVWZloadidx(v)
 	case OpS390XMOVWZreg:
-		return rewriteValueS390X_OpS390XMOVWZreg(v, config)
+		return rewriteValueS390X_OpS390XMOVWZreg(v)
 	case OpS390XMOVWload:
-		return rewriteValueS390X_OpS390XMOVWload(v, config)
+		return rewriteValueS390X_OpS390XMOVWload(v)
 	case OpS390XMOVWreg:
-		return rewriteValueS390X_OpS390XMOVWreg(v, config)
+		return rewriteValueS390X_OpS390XMOVWreg(v)
 	case OpS390XMOVWstore:
-		return rewriteValueS390X_OpS390XMOVWstore(v, config)
+		return rewriteValueS390X_OpS390XMOVWstore(v)
 	case OpS390XMOVWstoreconst:
-		return rewriteValueS390X_OpS390XMOVWstoreconst(v, config)
+		return rewriteValueS390X_OpS390XMOVWstoreconst(v)
 	case OpS390XMOVWstoreidx:
-		return rewriteValueS390X_OpS390XMOVWstoreidx(v, config)
+		return rewriteValueS390X_OpS390XMOVWstoreidx(v)
 	case OpS390XMULLD:
-		return rewriteValueS390X_OpS390XMULLD(v, config)
+		return rewriteValueS390X_OpS390XMULLD(v)
 	case OpS390XMULLDconst:
-		return rewriteValueS390X_OpS390XMULLDconst(v, config)
+		return rewriteValueS390X_OpS390XMULLDconst(v)
 	case OpS390XMULLW:
-		return rewriteValueS390X_OpS390XMULLW(v, config)
+		return rewriteValueS390X_OpS390XMULLW(v)
 	case OpS390XMULLWconst:
-		return rewriteValueS390X_OpS390XMULLWconst(v, config)
+		return rewriteValueS390X_OpS390XMULLWconst(v)
 	case OpS390XNEG:
-		return rewriteValueS390X_OpS390XNEG(v, config)
+		return rewriteValueS390X_OpS390XNEG(v)
 	case OpS390XNEGW:
-		return rewriteValueS390X_OpS390XNEGW(v, config)
+		return rewriteValueS390X_OpS390XNEGW(v)
 	case OpS390XNOT:
-		return rewriteValueS390X_OpS390XNOT(v, config)
+		return rewriteValueS390X_OpS390XNOT(v)
 	case OpS390XNOTW:
-		return rewriteValueS390X_OpS390XNOTW(v, config)
+		return rewriteValueS390X_OpS390XNOTW(v)
 	case OpS390XOR:
-		return rewriteValueS390X_OpS390XOR(v, config)
+		return rewriteValueS390X_OpS390XOR(v)
 	case OpS390XORW:
-		return rewriteValueS390X_OpS390XORW(v, config)
+		return rewriteValueS390X_OpS390XORW(v)
 	case OpS390XORWconst:
-		return rewriteValueS390X_OpS390XORWconst(v, config)
+		return rewriteValueS390X_OpS390XORWconst(v)
 	case OpS390XORconst:
-		return rewriteValueS390X_OpS390XORconst(v, config)
+		return rewriteValueS390X_OpS390XORconst(v)
 	case OpS390XSLD:
-		return rewriteValueS390X_OpS390XSLD(v, config)
+		return rewriteValueS390X_OpS390XSLD(v)
 	case OpS390XSLW:
-		return rewriteValueS390X_OpS390XSLW(v, config)
+		return rewriteValueS390X_OpS390XSLW(v)
 	case OpS390XSRAD:
-		return rewriteValueS390X_OpS390XSRAD(v, config)
+		return rewriteValueS390X_OpS390XSRAD(v)
 	case OpS390XSRADconst:
-		return rewriteValueS390X_OpS390XSRADconst(v, config)
+		return rewriteValueS390X_OpS390XSRADconst(v)
 	case OpS390XSRAW:
-		return rewriteValueS390X_OpS390XSRAW(v, config)
+		return rewriteValueS390X_OpS390XSRAW(v)
 	case OpS390XSRAWconst:
-		return rewriteValueS390X_OpS390XSRAWconst(v, config)
+		return rewriteValueS390X_OpS390XSRAWconst(v)
 	case OpS390XSRD:
-		return rewriteValueS390X_OpS390XSRD(v, config)
+		return rewriteValueS390X_OpS390XSRD(v)
 	case OpS390XSRW:
-		return rewriteValueS390X_OpS390XSRW(v, config)
+		return rewriteValueS390X_OpS390XSRW(v)
 	case OpS390XSTM2:
-		return rewriteValueS390X_OpS390XSTM2(v, config)
+		return rewriteValueS390X_OpS390XSTM2(v)
 	case OpS390XSTMG2:
-		return rewriteValueS390X_OpS390XSTMG2(v, config)
+		return rewriteValueS390X_OpS390XSTMG2(v)
 	case OpS390XSUB:
-		return rewriteValueS390X_OpS390XSUB(v, config)
+		return rewriteValueS390X_OpS390XSUB(v)
 	case OpS390XSUBEWcarrymask:
-		return rewriteValueS390X_OpS390XSUBEWcarrymask(v, config)
+		return rewriteValueS390X_OpS390XSUBEWcarrymask(v)
 	case OpS390XSUBEcarrymask:
-		return rewriteValueS390X_OpS390XSUBEcarrymask(v, config)
+		return rewriteValueS390X_OpS390XSUBEcarrymask(v)
 	case OpS390XSUBW:
-		return rewriteValueS390X_OpS390XSUBW(v, config)
+		return rewriteValueS390X_OpS390XSUBW(v)
 	case OpS390XSUBWconst:
-		return rewriteValueS390X_OpS390XSUBWconst(v, config)
+		return rewriteValueS390X_OpS390XSUBWconst(v)
 	case OpS390XSUBconst:
-		return rewriteValueS390X_OpS390XSUBconst(v, config)
+		return rewriteValueS390X_OpS390XSUBconst(v)
 	case OpS390XXOR:
-		return rewriteValueS390X_OpS390XXOR(v, config)
+		return rewriteValueS390X_OpS390XXOR(v)
 	case OpS390XXORW:
-		return rewriteValueS390X_OpS390XXORW(v, config)
+		return rewriteValueS390X_OpS390XXORW(v)
 	case OpS390XXORWconst:
-		return rewriteValueS390X_OpS390XXORWconst(v, config)
+		return rewriteValueS390X_OpS390XXORWconst(v)
 	case OpS390XXORconst:
-		return rewriteValueS390X_OpS390XXORconst(v, config)
+		return rewriteValueS390X_OpS390XXORconst(v)
 	case OpSelect0:
-		return rewriteValueS390X_OpSelect0(v, config)
+		return rewriteValueS390X_OpSelect0(v)
 	case OpSelect1:
-		return rewriteValueS390X_OpSelect1(v, config)
+		return rewriteValueS390X_OpSelect1(v)
 	case OpSignExt16to32:
-		return rewriteValueS390X_OpSignExt16to32(v, config)
+		return rewriteValueS390X_OpSignExt16to32(v)
 	case OpSignExt16to64:
-		return rewriteValueS390X_OpSignExt16to64(v, config)
+		return rewriteValueS390X_OpSignExt16to64(v)
 	case OpSignExt32to64:
-		return rewriteValueS390X_OpSignExt32to64(v, config)
+		return rewriteValueS390X_OpSignExt32to64(v)
 	case OpSignExt8to16:
-		return rewriteValueS390X_OpSignExt8to16(v, config)
+		return rewriteValueS390X_OpSignExt8to16(v)
 	case OpSignExt8to32:
-		return rewriteValueS390X_OpSignExt8to32(v, config)
+		return rewriteValueS390X_OpSignExt8to32(v)
 	case OpSignExt8to64:
-		return rewriteValueS390X_OpSignExt8to64(v, config)
+		return rewriteValueS390X_OpSignExt8to64(v)
 	case OpSlicemask:
-		return rewriteValueS390X_OpSlicemask(v, config)
+		return rewriteValueS390X_OpSlicemask(v)
 	case OpSqrt:
-		return rewriteValueS390X_OpSqrt(v, config)
+		return rewriteValueS390X_OpSqrt(v)
 	case OpStaticCall:
-		return rewriteValueS390X_OpStaticCall(v, config)
+		return rewriteValueS390X_OpStaticCall(v)
 	case OpStore:
-		return rewriteValueS390X_OpStore(v, config)
+		return rewriteValueS390X_OpStore(v)
 	case OpSub16:
-		return rewriteValueS390X_OpSub16(v, config)
+		return rewriteValueS390X_OpSub16(v)
 	case OpSub32:
-		return rewriteValueS390X_OpSub32(v, config)
+		return rewriteValueS390X_OpSub32(v)
 	case OpSub32F:
-		return rewriteValueS390X_OpSub32F(v, config)
+		return rewriteValueS390X_OpSub32F(v)
 	case OpSub64:
-		return rewriteValueS390X_OpSub64(v, config)
+		return rewriteValueS390X_OpSub64(v)
 	case OpSub64F:
-		return rewriteValueS390X_OpSub64F(v, config)
+		return rewriteValueS390X_OpSub64F(v)
 	case OpSub8:
-		return rewriteValueS390X_OpSub8(v, config)
+		return rewriteValueS390X_OpSub8(v)
 	case OpSubPtr:
-		return rewriteValueS390X_OpSubPtr(v, config)
+		return rewriteValueS390X_OpSubPtr(v)
 	case OpTrunc16to8:
-		return rewriteValueS390X_OpTrunc16to8(v, config)
+		return rewriteValueS390X_OpTrunc16to8(v)
 	case OpTrunc32to16:
-		return rewriteValueS390X_OpTrunc32to16(v, config)
+		return rewriteValueS390X_OpTrunc32to16(v)
 	case OpTrunc32to8:
-		return rewriteValueS390X_OpTrunc32to8(v, config)
+		return rewriteValueS390X_OpTrunc32to8(v)
 	case OpTrunc64to16:
-		return rewriteValueS390X_OpTrunc64to16(v, config)
+		return rewriteValueS390X_OpTrunc64to16(v)
 	case OpTrunc64to32:
-		return rewriteValueS390X_OpTrunc64to32(v, config)
+		return rewriteValueS390X_OpTrunc64to32(v)
 	case OpTrunc64to8:
-		return rewriteValueS390X_OpTrunc64to8(v, config)
+		return rewriteValueS390X_OpTrunc64to8(v)
 	case OpXor16:
-		return rewriteValueS390X_OpXor16(v, config)
+		return rewriteValueS390X_OpXor16(v)
 	case OpXor32:
-		return rewriteValueS390X_OpXor32(v, config)
+		return rewriteValueS390X_OpXor32(v)
 	case OpXor64:
-		return rewriteValueS390X_OpXor64(v, config)
+		return rewriteValueS390X_OpXor64(v)
 	case OpXor8:
-		return rewriteValueS390X_OpXor8(v, config)
+		return rewriteValueS390X_OpXor8(v)
 	case OpZero:
-		return rewriteValueS390X_OpZero(v, config)
+		return rewriteValueS390X_OpZero(v)
 	case OpZeroExt16to32:
-		return rewriteValueS390X_OpZeroExt16to32(v, config)
+		return rewriteValueS390X_OpZeroExt16to32(v)
 	case OpZeroExt16to64:
-		return rewriteValueS390X_OpZeroExt16to64(v, config)
+		return rewriteValueS390X_OpZeroExt16to64(v)
 	case OpZeroExt32to64:
-		return rewriteValueS390X_OpZeroExt32to64(v, config)
+		return rewriteValueS390X_OpZeroExt32to64(v)
 	case OpZeroExt8to16:
-		return rewriteValueS390X_OpZeroExt8to16(v, config)
+		return rewriteValueS390X_OpZeroExt8to16(v)
 	case OpZeroExt8to32:
-		return rewriteValueS390X_OpZeroExt8to32(v, config)
+		return rewriteValueS390X_OpZeroExt8to32(v)
 	case OpZeroExt8to64:
-		return rewriteValueS390X_OpZeroExt8to64(v, config)
+		return rewriteValueS390X_OpZeroExt8to64(v)
 	}
 	return false
 }
-func rewriteValueS390X_OpAdd16(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpAdd16(v *Value) bool {
 	// match: (Add16  x y)
 	// cond:
 	// result: (ADDW  x y)
@@ -728,9 +728,7 @@ func rewriteValueS390X_OpAdd16(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpAdd32(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpAdd32(v *Value) bool {
 	// match: (Add32  x y)
 	// cond:
 	// result: (ADDW  x y)
@@ -743,9 +741,7 @@ func rewriteValueS390X_OpAdd32(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpAdd32F(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpAdd32F(v *Value) bool {
 	// match: (Add32F x y)
 	// cond:
 	// result: (FADDS x y)
@@ -758,9 +754,7 @@ func rewriteValueS390X_OpAdd32F(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpAdd64(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpAdd64(v *Value) bool {
 	// match: (Add64  x y)
 	// cond:
 	// result: (ADD  x y)
@@ -773,9 +767,7 @@ func rewriteValueS390X_OpAdd64(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpAdd64F(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpAdd64F(v *Value) bool {
 	// match: (Add64F x y)
 	// cond:
 	// result: (FADD x y)
@@ -788,9 +780,7 @@ func rewriteValueS390X_OpAdd64F(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpAdd8(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpAdd8(v *Value) bool {
 	// match: (Add8   x y)
 	// cond:
 	// result: (ADDW  x y)
@@ -803,9 +793,7 @@ func rewriteValueS390X_OpAdd8(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpAddPtr(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpAddPtr(v *Value) bool {
 	// match: (AddPtr x y)
 	// cond:
 	// result: (ADD  x y)
@@ -818,9 +806,7 @@ func rewriteValueS390X_OpAddPtr(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpAddr(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpAddr(v *Value) bool {
 	// match: (Addr {sym} base)
 	// cond:
 	// result: (MOVDaddr {sym} base)
@@ -833,9 +819,7 @@ func rewriteValueS390X_OpAddr(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpAnd16(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpAnd16(v *Value) bool {
 	// match: (And16 x y)
 	// cond:
 	// result: (ANDW x y)
@@ -848,9 +832,7 @@ func rewriteValueS390X_OpAnd16(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpAnd32(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpAnd32(v *Value) bool {
 	// match: (And32 x y)
 	// cond:
 	// result: (ANDW x y)
@@ -863,9 +845,7 @@ func rewriteValueS390X_OpAnd32(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpAnd64(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpAnd64(v *Value) bool {
 	// match: (And64 x y)
 	// cond:
 	// result: (AND x y)
@@ -878,9 +858,7 @@ func rewriteValueS390X_OpAnd64(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpAnd8(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpAnd8(v *Value) bool {
 	// match: (And8  x y)
 	// cond:
 	// result: (ANDW x y)
@@ -893,9 +871,7 @@ func rewriteValueS390X_OpAnd8(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpAndB(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpAndB(v *Value) bool {
 	// match: (AndB x y)
 	// cond:
 	// result: (ANDW x y)
@@ -908,9 +884,11 @@ func rewriteValueS390X_OpAndB(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpAtomicAdd32(v *Value, config *Config) bool {
+func rewriteValueS390X_OpAtomicAdd32(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (AtomicAdd32 ptr val mem)
 	// cond:
 	// result: (AddTupleFirst32 (LAA ptr val mem) val)
@@ -919,7 +897,7 @@ func rewriteValueS390X_OpAtomicAdd32(v *Value, config *Config) bool {
 		val := v.Args[1]
 		mem := v.Args[2]
 		v.reset(OpS390XAddTupleFirst32)
-		v0 := b.NewValue0(v.Pos, OpS390XLAA, MakeTuple(config.fe.TypeUInt32(), TypeMem))
+		v0 := b.NewValue0(v.Pos, OpS390XLAA, MakeTuple(types.UInt32, TypeMem))
 		v0.AddArg(ptr)
 		v0.AddArg(val)
 		v0.AddArg(mem)
@@ -928,9 +906,11 @@ func rewriteValueS390X_OpAtomicAdd32(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpAtomicAdd64(v *Value, config *Config) bool {
+func rewriteValueS390X_OpAtomicAdd64(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (AtomicAdd64 ptr val mem)
 	// cond:
 	// result: (AddTupleFirst64 (LAAG ptr val mem) val)
@@ -939,7 +919,7 @@ func rewriteValueS390X_OpAtomicAdd64(v *Value, config *Config) bool {
 		val := v.Args[1]
 		mem := v.Args[2]
 		v.reset(OpS390XAddTupleFirst64)
-		v0 := b.NewValue0(v.Pos, OpS390XLAAG, MakeTuple(config.fe.TypeUInt64(), TypeMem))
+		v0 := b.NewValue0(v.Pos, OpS390XLAAG, MakeTuple(types.UInt64, TypeMem))
 		v0.AddArg(ptr)
 		v0.AddArg(val)
 		v0.AddArg(mem)
@@ -948,9 +928,7 @@ func rewriteValueS390X_OpAtomicAdd64(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpAtomicCompareAndSwap32(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpAtomicCompareAndSwap32(v *Value) bool {
 	// match: (AtomicCompareAndSwap32 ptr old new_ mem)
 	// cond:
 	// result: (LoweredAtomicCas32 ptr old new_ mem)
@@ -967,9 +945,7 @@ func rewriteValueS390X_OpAtomicCompareAndSwap32(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpAtomicCompareAndSwap64(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpAtomicCompareAndSwap64(v *Value) bool {
 	// match: (AtomicCompareAndSwap64 ptr old new_ mem)
 	// cond:
 	// result: (LoweredAtomicCas64 ptr old new_ mem)
@@ -986,9 +962,7 @@ func rewriteValueS390X_OpAtomicCompareAndSwap64(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpAtomicExchange32(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpAtomicExchange32(v *Value) bool {
 	// match: (AtomicExchange32 ptr val mem)
 	// cond:
 	// result: (LoweredAtomicExchange32 ptr val mem)
@@ -1003,9 +977,7 @@ func rewriteValueS390X_OpAtomicExchange32(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpAtomicExchange64(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpAtomicExchange64(v *Value) bool {
 	// match: (AtomicExchange64 ptr val mem)
 	// cond:
 	// result: (LoweredAtomicExchange64 ptr val mem)
@@ -1020,9 +992,7 @@ func rewriteValueS390X_OpAtomicExchange64(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpAtomicLoad32(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpAtomicLoad32(v *Value) bool {
 	// match: (AtomicLoad32 ptr mem)
 	// cond:
 	// result: (MOVWZatomicload ptr mem)
@@ -1035,9 +1005,7 @@ func rewriteValueS390X_OpAtomicLoad32(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpAtomicLoad64(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpAtomicLoad64(v *Value) bool {
 	// match: (AtomicLoad64 ptr mem)
 	// cond:
 	// result: (MOVDatomicload ptr mem)
@@ -1050,9 +1018,7 @@ func rewriteValueS390X_OpAtomicLoad64(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpAtomicLoadPtr(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpAtomicLoadPtr(v *Value) bool {
 	// match: (AtomicLoadPtr ptr mem)
 	// cond:
 	// result: (MOVDatomicload ptr mem)
@@ -1065,9 +1031,7 @@ func rewriteValueS390X_OpAtomicLoadPtr(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpAtomicStore32(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpAtomicStore32(v *Value) bool {
 	// match: (AtomicStore32 ptr val mem)
 	// cond:
 	// result: (MOVWatomicstore ptr val mem)
@@ -1082,9 +1046,7 @@ func rewriteValueS390X_OpAtomicStore32(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpAtomicStore64(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpAtomicStore64(v *Value) bool {
 	// match: (AtomicStore64 ptr val mem)
 	// cond:
 	// result: (MOVDatomicstore ptr val mem)
@@ -1099,9 +1061,7 @@ func rewriteValueS390X_OpAtomicStore64(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpAtomicStorePtrNoWB(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpAtomicStorePtrNoWB(v *Value) bool {
 	// match: (AtomicStorePtrNoWB ptr val mem)
 	// cond:
 	// result: (MOVDatomicstore ptr val mem)
@@ -1116,7 +1076,7 @@ func rewriteValueS390X_OpAtomicStorePtrNoWB(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpAvg64u(v *Value, config *Config) bool {
+func rewriteValueS390X_OpAvg64u(v *Value) bool {
 	b := v.Block
 	_ = b
 	// match: (Avg64u <t> x y)
@@ -1138,9 +1098,27 @@ func rewriteValueS390X_OpAvg64u(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpBswap32(v *Value, config *Config) bool {
+func rewriteValueS390X_OpBitLen64(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
+	// match: (BitLen64 x)
+	// cond:
+	// result: (SUB (MOVDconst [64]) (FLOGR x))
+	for {
+		x := v.Args[0]
+		v.reset(OpS390XSUB)
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
+		v0.AuxInt = 64
+		v.AddArg(v0)
+		v1 := b.NewValue0(v.Pos, OpS390XFLOGR, types.UInt64)
+		v1.AddArg(x)
+		v.AddArg(v1)
+		return true
+	}
+}
+func rewriteValueS390X_OpBswap32(v *Value) bool {
 	// match: (Bswap32 x)
 	// cond:
 	// result: (MOVWBR x)
@@ -1151,9 +1129,7 @@ func rewriteValueS390X_OpBswap32(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpBswap64(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpBswap64(v *Value) bool {
 	// match: (Bswap64 x)
 	// cond:
 	// result: (MOVDBR x)
@@ -1164,9 +1140,7 @@ func rewriteValueS390X_OpBswap64(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpClosureCall(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpClosureCall(v *Value) bool {
 	// match: (ClosureCall [argwid] entry closure mem)
 	// cond:
 	// result: (CALLclosure [argwid] entry closure mem)
@@ -1183,9 +1157,7 @@ func rewriteValueS390X_OpClosureCall(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpCom16(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpCom16(v *Value) bool {
 	// match: (Com16 x)
 	// cond:
 	// result: (NOTW x)
@@ -1196,9 +1168,7 @@ func rewriteValueS390X_OpCom16(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpCom32(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpCom32(v *Value) bool {
 	// match: (Com32 x)
 	// cond:
 	// result: (NOTW x)
@@ -1209,9 +1179,7 @@ func rewriteValueS390X_OpCom32(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpCom64(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpCom64(v *Value) bool {
 	// match: (Com64 x)
 	// cond:
 	// result: (NOT x)
@@ -1222,9 +1190,7 @@ func rewriteValueS390X_OpCom64(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpCom8(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpCom8(v *Value) bool {
 	// match: (Com8  x)
 	// cond:
 	// result: (NOTW x)
@@ -1235,9 +1201,7 @@ func rewriteValueS390X_OpCom8(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpConst16(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpConst16(v *Value) bool {
 	// match: (Const16  [val])
 	// cond:
 	// result: (MOVDconst [val])
@@ -1248,9 +1212,7 @@ func rewriteValueS390X_OpConst16(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpConst32(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpConst32(v *Value) bool {
 	// match: (Const32  [val])
 	// cond:
 	// result: (MOVDconst [val])
@@ -1261,9 +1223,7 @@ func rewriteValueS390X_OpConst32(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpConst32F(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpConst32F(v *Value) bool {
 	// match: (Const32F [val])
 	// cond:
 	// result: (FMOVSconst [val])
@@ -1274,9 +1234,7 @@ func rewriteValueS390X_OpConst32F(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpConst64(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpConst64(v *Value) bool {
 	// match: (Const64  [val])
 	// cond:
 	// result: (MOVDconst [val])
@@ -1287,9 +1245,7 @@ func rewriteValueS390X_OpConst64(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpConst64F(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpConst64F(v *Value) bool {
 	// match: (Const64F [val])
 	// cond:
 	// result: (FMOVDconst [val])
@@ -1300,9 +1256,7 @@ func rewriteValueS390X_OpConst64F(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpConst8(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpConst8(v *Value) bool {
 	// match: (Const8   [val])
 	// cond:
 	// result: (MOVDconst [val])
@@ -1313,9 +1267,7 @@ func rewriteValueS390X_OpConst8(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpConstBool(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpConstBool(v *Value) bool {
 	// match: (ConstBool [b])
 	// cond:
 	// result: (MOVDconst [b])
@@ -1326,9 +1278,7 @@ func rewriteValueS390X_OpConstBool(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpConstNil(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpConstNil(v *Value) bool {
 	// match: (ConstNil)
 	// cond:
 	// result: (MOVDconst [0])
@@ -1338,9 +1288,7 @@ func rewriteValueS390X_OpConstNil(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpConvert(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpConvert(v *Value) bool {
 	// match: (Convert <t> x mem)
 	// cond:
 	// result: (MOVDconvert <t> x mem)
@@ -1355,9 +1303,11 @@ func rewriteValueS390X_OpConvert(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpCtz32(v *Value, config *Config) bool {
+func rewriteValueS390X_OpCtz32(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Ctz32 <t> x)
 	// cond:
 	// result: (SUB (MOVDconst [64]) (FLOGR (MOVWZreg (ANDW <t> (SUBWconst <t> [1] x) (NOTW <t> x)))))
@@ -1365,11 +1315,11 @@ func rewriteValueS390X_OpCtz32(v *Value, config *Config) bool {
 		t := v.Type
 		x := v.Args[0]
 		v.reset(OpS390XSUB)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 64
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XFLOGR, config.fe.TypeUInt64())
-		v2 := b.NewValue0(v.Pos, OpS390XMOVWZreg, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XFLOGR, types.UInt64)
+		v2 := b.NewValue0(v.Pos, OpS390XMOVWZreg, types.UInt64)
 		v3 := b.NewValue0(v.Pos, OpS390XANDW, t)
 		v4 := b.NewValue0(v.Pos, OpS390XSUBWconst, t)
 		v4.AuxInt = 1
@@ -1384,9 +1334,11 @@ func rewriteValueS390X_OpCtz32(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpCtz64(v *Value, config *Config) bool {
+func rewriteValueS390X_OpCtz64(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Ctz64 <t> x)
 	// cond:
 	// result: (SUB (MOVDconst [64]) (FLOGR (AND <t> (SUBconst <t> [1] x) (NOT <t> x))))
@@ -1394,10 +1346,10 @@ func rewriteValueS390X_OpCtz64(v *Value, config *Config) bool {
 		t := v.Type
 		x := v.Args[0]
 		v.reset(OpS390XSUB)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 64
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XFLOGR, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XFLOGR, types.UInt64)
 		v2 := b.NewValue0(v.Pos, OpS390XAND, t)
 		v3 := b.NewValue0(v.Pos, OpS390XSUBconst, t)
 		v3.AuxInt = 1
@@ -1411,9 +1363,7 @@ func rewriteValueS390X_OpCtz64(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpCvt32Fto32(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpCvt32Fto32(v *Value) bool {
 	// match: (Cvt32Fto32 x)
 	// cond:
 	// result: (CFEBRA x)
@@ -1424,9 +1374,7 @@ func rewriteValueS390X_OpCvt32Fto32(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpCvt32Fto64(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpCvt32Fto64(v *Value) bool {
 	// match: (Cvt32Fto64 x)
 	// cond:
 	// result: (CGEBRA x)
@@ -1437,9 +1385,7 @@ func rewriteValueS390X_OpCvt32Fto64(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpCvt32Fto64F(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpCvt32Fto64F(v *Value) bool {
 	// match: (Cvt32Fto64F x)
 	// cond:
 	// result: (LDEBR x)
@@ -1450,9 +1396,7 @@ func rewriteValueS390X_OpCvt32Fto64F(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpCvt32to32F(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpCvt32to32F(v *Value) bool {
 	// match: (Cvt32to32F x)
 	// cond:
 	// result: (CEFBRA x)
@@ -1463,9 +1407,7 @@ func rewriteValueS390X_OpCvt32to32F(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpCvt32to64F(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpCvt32to64F(v *Value) bool {
 	// match: (Cvt32to64F x)
 	// cond:
 	// result: (CDFBRA x)
@@ -1476,9 +1418,7 @@ func rewriteValueS390X_OpCvt32to64F(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpCvt64Fto32(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpCvt64Fto32(v *Value) bool {
 	// match: (Cvt64Fto32 x)
 	// cond:
 	// result: (CFDBRA x)
@@ -1489,9 +1429,7 @@ func rewriteValueS390X_OpCvt64Fto32(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpCvt64Fto32F(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpCvt64Fto32F(v *Value) bool {
 	// match: (Cvt64Fto32F x)
 	// cond:
 	// result: (LEDBR x)
@@ -1502,9 +1440,7 @@ func rewriteValueS390X_OpCvt64Fto32F(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpCvt64Fto64(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpCvt64Fto64(v *Value) bool {
 	// match: (Cvt64Fto64 x)
 	// cond:
 	// result: (CGDBRA x)
@@ -1515,9 +1451,7 @@ func rewriteValueS390X_OpCvt64Fto64(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpCvt64to32F(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpCvt64to32F(v *Value) bool {
 	// match: (Cvt64to32F x)
 	// cond:
 	// result: (CEGBRA x)
@@ -1528,9 +1462,7 @@ func rewriteValueS390X_OpCvt64to32F(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpCvt64to64F(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpCvt64to64F(v *Value) bool {
 	// match: (Cvt64to64F x)
 	// cond:
 	// result: (CDGBRA x)
@@ -1541,9 +1473,11 @@ func rewriteValueS390X_OpCvt64to64F(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpDiv16(v *Value, config *Config) bool {
+func rewriteValueS390X_OpDiv16(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Div16  x y)
 	// cond:
 	// result: (DIVW  (MOVHreg x) (MOVHreg y))
@@ -1551,18 +1485,20 @@ func rewriteValueS390X_OpDiv16(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XDIVW)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVHreg, config.fe.TypeInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVHreg, types.Int64)
 		v0.AddArg(x)
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVHreg, config.fe.TypeInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVHreg, types.Int64)
 		v1.AddArg(y)
 		v.AddArg(v1)
 		return true
 	}
 }
-func rewriteValueS390X_OpDiv16u(v *Value, config *Config) bool {
+func rewriteValueS390X_OpDiv16u(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Div16u x y)
 	// cond:
 	// result: (DIVWU (MOVHZreg x) (MOVHZreg y))
@@ -1570,18 +1506,20 @@ func rewriteValueS390X_OpDiv16u(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XDIVWU)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVHZreg, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVHZreg, types.UInt64)
 		v0.AddArg(x)
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVHZreg, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVHZreg, types.UInt64)
 		v1.AddArg(y)
 		v.AddArg(v1)
 		return true
 	}
 }
-func rewriteValueS390X_OpDiv32(v *Value, config *Config) bool {
+func rewriteValueS390X_OpDiv32(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Div32  x y)
 	// cond:
 	// result: (DIVW  (MOVWreg x) y)
@@ -1589,16 +1527,14 @@ func rewriteValueS390X_OpDiv32(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XDIVW)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVWreg, config.fe.TypeInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVWreg, types.Int64)
 		v0.AddArg(x)
 		v.AddArg(v0)
 		v.AddArg(y)
 		return true
 	}
 }
-func rewriteValueS390X_OpDiv32F(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpDiv32F(v *Value) bool {
 	// match: (Div32F x y)
 	// cond:
 	// result: (FDIVS x y)
@@ -1611,9 +1547,11 @@ func rewriteValueS390X_OpDiv32F(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpDiv32u(v *Value, config *Config) bool {
+func rewriteValueS390X_OpDiv32u(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Div32u x y)
 	// cond:
 	// result: (DIVWU (MOVWZreg x) y)
@@ -1621,16 +1559,14 @@ func rewriteValueS390X_OpDiv32u(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XDIVWU)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVWZreg, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVWZreg, types.UInt64)
 		v0.AddArg(x)
 		v.AddArg(v0)
 		v.AddArg(y)
 		return true
 	}
 }
-func rewriteValueS390X_OpDiv64(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpDiv64(v *Value) bool {
 	// match: (Div64  x y)
 	// cond:
 	// result: (DIVD  x y)
@@ -1643,9 +1579,7 @@ func rewriteValueS390X_OpDiv64(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpDiv64F(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpDiv64F(v *Value) bool {
 	// match: (Div64F x y)
 	// cond:
 	// result: (FDIV x y)
@@ -1658,9 +1592,7 @@ func rewriteValueS390X_OpDiv64F(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpDiv64u(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpDiv64u(v *Value) bool {
 	// match: (Div64u x y)
 	// cond:
 	// result: (DIVDU x y)
@@ -1673,9 +1605,11 @@ func rewriteValueS390X_OpDiv64u(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpDiv8(v *Value, config *Config) bool {
+func rewriteValueS390X_OpDiv8(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Div8   x y)
 	// cond:
 	// result: (DIVW  (MOVBreg x) (MOVBreg y))
@@ -1683,18 +1617,20 @@ func rewriteValueS390X_OpDiv8(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XDIVW)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVBreg, config.fe.TypeInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVBreg, types.Int64)
 		v0.AddArg(x)
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVBreg, config.fe.TypeInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVBreg, types.Int64)
 		v1.AddArg(y)
 		v.AddArg(v1)
 		return true
 	}
 }
-func rewriteValueS390X_OpDiv8u(v *Value, config *Config) bool {
+func rewriteValueS390X_OpDiv8u(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Div8u  x y)
 	// cond:
 	// result: (DIVWU (MOVBZreg x) (MOVBZreg y))
@@ -1702,18 +1638,20 @@ func rewriteValueS390X_OpDiv8u(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XDIVWU)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVBZreg, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVBZreg, types.UInt64)
 		v0.AddArg(x)
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVBZreg, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVBZreg, types.UInt64)
 		v1.AddArg(y)
 		v.AddArg(v1)
 		return true
 	}
 }
-func rewriteValueS390X_OpEq16(v *Value, config *Config) bool {
+func rewriteValueS390X_OpEq16(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Eq16  x y)
 	// cond:
 	// result: (MOVDEQ (MOVDconst [0]) (MOVDconst [1]) (CMP (MOVHreg x) (MOVHreg y)))
@@ -1721,26 +1659,28 @@ func rewriteValueS390X_OpEq16(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMOVDEQ)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XCMP, TypeFlags)
-		v3 := b.NewValue0(v.Pos, OpS390XMOVHreg, config.fe.TypeInt64())
+		v3 := b.NewValue0(v.Pos, OpS390XMOVHreg, types.Int64)
 		v3.AddArg(x)
 		v2.AddArg(v3)
-		v4 := b.NewValue0(v.Pos, OpS390XMOVHreg, config.fe.TypeInt64())
+		v4 := b.NewValue0(v.Pos, OpS390XMOVHreg, types.Int64)
 		v4.AddArg(y)
 		v2.AddArg(v4)
 		v.AddArg(v2)
 		return true
 	}
 }
-func rewriteValueS390X_OpEq32(v *Value, config *Config) bool {
+func rewriteValueS390X_OpEq32(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Eq32  x y)
 	// cond:
 	// result: (MOVDEQ (MOVDconst [0]) (MOVDconst [1]) (CMPW x y))
@@ -1748,10 +1688,10 @@ func rewriteValueS390X_OpEq32(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMOVDEQ)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XCMPW, TypeFlags)
@@ -1761,9 +1701,11 @@ func rewriteValueS390X_OpEq32(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpEq32F(v *Value, config *Config) bool {
+func rewriteValueS390X_OpEq32F(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Eq32F x y)
 	// cond:
 	// result: (MOVDEQ (MOVDconst [0]) (MOVDconst [1]) (FCMPS x y))
@@ -1771,10 +1713,10 @@ func rewriteValueS390X_OpEq32F(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMOVDEQ)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XFCMPS, TypeFlags)
@@ -1784,9 +1726,11 @@ func rewriteValueS390X_OpEq32F(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpEq64(v *Value, config *Config) bool {
+func rewriteValueS390X_OpEq64(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Eq64  x y)
 	// cond:
 	// result: (MOVDEQ (MOVDconst [0]) (MOVDconst [1]) (CMP x y))
@@ -1794,10 +1738,10 @@ func rewriteValueS390X_OpEq64(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMOVDEQ)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XCMP, TypeFlags)
@@ -1807,9 +1751,11 @@ func rewriteValueS390X_OpEq64(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpEq64F(v *Value, config *Config) bool {
+func rewriteValueS390X_OpEq64F(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Eq64F x y)
 	// cond:
 	// result: (MOVDEQ (MOVDconst [0]) (MOVDconst [1]) (FCMP x y))
@@ -1817,10 +1763,10 @@ func rewriteValueS390X_OpEq64F(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMOVDEQ)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XFCMP, TypeFlags)
@@ -1830,9 +1776,11 @@ func rewriteValueS390X_OpEq64F(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpEq8(v *Value, config *Config) bool {
+func rewriteValueS390X_OpEq8(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Eq8   x y)
 	// cond:
 	// result: (MOVDEQ (MOVDconst [0]) (MOVDconst [1]) (CMP (MOVBreg x) (MOVBreg y)))
@@ -1840,26 +1788,28 @@ func rewriteValueS390X_OpEq8(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMOVDEQ)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XCMP, TypeFlags)
-		v3 := b.NewValue0(v.Pos, OpS390XMOVBreg, config.fe.TypeInt64())
+		v3 := b.NewValue0(v.Pos, OpS390XMOVBreg, types.Int64)
 		v3.AddArg(x)
 		v2.AddArg(v3)
-		v4 := b.NewValue0(v.Pos, OpS390XMOVBreg, config.fe.TypeInt64())
+		v4 := b.NewValue0(v.Pos, OpS390XMOVBreg, types.Int64)
 		v4.AddArg(y)
 		v2.AddArg(v4)
 		v.AddArg(v2)
 		return true
 	}
 }
-func rewriteValueS390X_OpEqB(v *Value, config *Config) bool {
+func rewriteValueS390X_OpEqB(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (EqB   x y)
 	// cond:
 	// result: (MOVDEQ (MOVDconst [0]) (MOVDconst [1]) (CMP (MOVBreg x) (MOVBreg y)))
@@ -1867,26 +1817,28 @@ func rewriteValueS390X_OpEqB(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMOVDEQ)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XCMP, TypeFlags)
-		v3 := b.NewValue0(v.Pos, OpS390XMOVBreg, config.fe.TypeInt64())
+		v3 := b.NewValue0(v.Pos, OpS390XMOVBreg, types.Int64)
 		v3.AddArg(x)
 		v2.AddArg(v3)
-		v4 := b.NewValue0(v.Pos, OpS390XMOVBreg, config.fe.TypeInt64())
+		v4 := b.NewValue0(v.Pos, OpS390XMOVBreg, types.Int64)
 		v4.AddArg(y)
 		v2.AddArg(v4)
 		v.AddArg(v2)
 		return true
 	}
 }
-func rewriteValueS390X_OpEqPtr(v *Value, config *Config) bool {
+func rewriteValueS390X_OpEqPtr(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (EqPtr x y)
 	// cond:
 	// result: (MOVDEQ (MOVDconst [0]) (MOVDconst [1]) (CMP x y))
@@ -1894,10 +1846,10 @@ func rewriteValueS390X_OpEqPtr(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMOVDEQ)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XCMP, TypeFlags)
@@ -1907,9 +1859,11 @@ func rewriteValueS390X_OpEqPtr(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpGeq16(v *Value, config *Config) bool {
+func rewriteValueS390X_OpGeq16(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Geq16  x y)
 	// cond:
 	// result: (MOVDGE (MOVDconst [0]) (MOVDconst [1]) (CMP (MOVHreg x) (MOVHreg y)))
@@ -1917,26 +1871,28 @@ func rewriteValueS390X_OpGeq16(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMOVDGE)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XCMP, TypeFlags)
-		v3 := b.NewValue0(v.Pos, OpS390XMOVHreg, config.fe.TypeInt64())
+		v3 := b.NewValue0(v.Pos, OpS390XMOVHreg, types.Int64)
 		v3.AddArg(x)
 		v2.AddArg(v3)
-		v4 := b.NewValue0(v.Pos, OpS390XMOVHreg, config.fe.TypeInt64())
+		v4 := b.NewValue0(v.Pos, OpS390XMOVHreg, types.Int64)
 		v4.AddArg(y)
 		v2.AddArg(v4)
 		v.AddArg(v2)
 		return true
 	}
 }
-func rewriteValueS390X_OpGeq16U(v *Value, config *Config) bool {
+func rewriteValueS390X_OpGeq16U(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Geq16U x y)
 	// cond:
 	// result: (MOVDGE (MOVDconst [0]) (MOVDconst [1]) (CMPU (MOVHZreg x) (MOVHZreg y)))
@@ -1944,26 +1900,28 @@ func rewriteValueS390X_OpGeq16U(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMOVDGE)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XCMPU, TypeFlags)
-		v3 := b.NewValue0(v.Pos, OpS390XMOVHZreg, config.fe.TypeUInt64())
+		v3 := b.NewValue0(v.Pos, OpS390XMOVHZreg, types.UInt64)
 		v3.AddArg(x)
 		v2.AddArg(v3)
-		v4 := b.NewValue0(v.Pos, OpS390XMOVHZreg, config.fe.TypeUInt64())
+		v4 := b.NewValue0(v.Pos, OpS390XMOVHZreg, types.UInt64)
 		v4.AddArg(y)
 		v2.AddArg(v4)
 		v.AddArg(v2)
 		return true
 	}
 }
-func rewriteValueS390X_OpGeq32(v *Value, config *Config) bool {
+func rewriteValueS390X_OpGeq32(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Geq32  x y)
 	// cond:
 	// result: (MOVDGE (MOVDconst [0]) (MOVDconst [1]) (CMPW x y))
@@ -1971,10 +1929,10 @@ func rewriteValueS390X_OpGeq32(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMOVDGE)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XCMPW, TypeFlags)
@@ -1984,9 +1942,11 @@ func rewriteValueS390X_OpGeq32(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpGeq32F(v *Value, config *Config) bool {
+func rewriteValueS390X_OpGeq32F(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Geq32F x y)
 	// cond:
 	// result: (MOVDGEnoinv (MOVDconst [0]) (MOVDconst [1]) (FCMPS x y))
@@ -1994,10 +1954,10 @@ func rewriteValueS390X_OpGeq32F(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMOVDGEnoinv)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XFCMPS, TypeFlags)
@@ -2007,9 +1967,11 @@ func rewriteValueS390X_OpGeq32F(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpGeq32U(v *Value, config *Config) bool {
+func rewriteValueS390X_OpGeq32U(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Geq32U x y)
 	// cond:
 	// result: (MOVDGE (MOVDconst [0]) (MOVDconst [1]) (CMPWU x y))
@@ -2017,10 +1979,10 @@ func rewriteValueS390X_OpGeq32U(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMOVDGE)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XCMPWU, TypeFlags)
@@ -2030,9 +1992,11 @@ func rewriteValueS390X_OpGeq32U(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpGeq64(v *Value, config *Config) bool {
+func rewriteValueS390X_OpGeq64(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Geq64  x y)
 	// cond:
 	// result: (MOVDGE (MOVDconst [0]) (MOVDconst [1]) (CMP x y))
@@ -2040,10 +2004,10 @@ func rewriteValueS390X_OpGeq64(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMOVDGE)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XCMP, TypeFlags)
@@ -2053,9 +2017,11 @@ func rewriteValueS390X_OpGeq64(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpGeq64F(v *Value, config *Config) bool {
+func rewriteValueS390X_OpGeq64F(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Geq64F x y)
 	// cond:
 	// result: (MOVDGEnoinv (MOVDconst [0]) (MOVDconst [1]) (FCMP x y))
@@ -2063,10 +2029,10 @@ func rewriteValueS390X_OpGeq64F(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMOVDGEnoinv)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XFCMP, TypeFlags)
@@ -2076,9 +2042,11 @@ func rewriteValueS390X_OpGeq64F(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpGeq64U(v *Value, config *Config) bool {
+func rewriteValueS390X_OpGeq64U(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Geq64U x y)
 	// cond:
 	// result: (MOVDGE (MOVDconst [0]) (MOVDconst [1]) (CMPU x y))
@@ -2086,10 +2054,10 @@ func rewriteValueS390X_OpGeq64U(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMOVDGE)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XCMPU, TypeFlags)
@@ -2099,9 +2067,11 @@ func rewriteValueS390X_OpGeq64U(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpGeq8(v *Value, config *Config) bool {
+func rewriteValueS390X_OpGeq8(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Geq8   x y)
 	// cond:
 	// result: (MOVDGE (MOVDconst [0]) (MOVDconst [1]) (CMP (MOVBreg x) (MOVBreg y)))
@@ -2109,26 +2079,28 @@ func rewriteValueS390X_OpGeq8(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMOVDGE)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XCMP, TypeFlags)
-		v3 := b.NewValue0(v.Pos, OpS390XMOVBreg, config.fe.TypeInt64())
+		v3 := b.NewValue0(v.Pos, OpS390XMOVBreg, types.Int64)
 		v3.AddArg(x)
 		v2.AddArg(v3)
-		v4 := b.NewValue0(v.Pos, OpS390XMOVBreg, config.fe.TypeInt64())
+		v4 := b.NewValue0(v.Pos, OpS390XMOVBreg, types.Int64)
 		v4.AddArg(y)
 		v2.AddArg(v4)
 		v.AddArg(v2)
 		return true
 	}
 }
-func rewriteValueS390X_OpGeq8U(v *Value, config *Config) bool {
+func rewriteValueS390X_OpGeq8U(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Geq8U  x y)
 	// cond:
 	// result: (MOVDGE (MOVDconst [0]) (MOVDconst [1]) (CMPU (MOVBZreg x) (MOVBZreg y)))
@@ -2136,26 +2108,24 @@ func rewriteValueS390X_OpGeq8U(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMOVDGE)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XCMPU, TypeFlags)
-		v3 := b.NewValue0(v.Pos, OpS390XMOVBZreg, config.fe.TypeUInt64())
+		v3 := b.NewValue0(v.Pos, OpS390XMOVBZreg, types.UInt64)
 		v3.AddArg(x)
 		v2.AddArg(v3)
-		v4 := b.NewValue0(v.Pos, OpS390XMOVBZreg, config.fe.TypeUInt64())
+		v4 := b.NewValue0(v.Pos, OpS390XMOVBZreg, types.UInt64)
 		v4.AddArg(y)
 		v2.AddArg(v4)
 		v.AddArg(v2)
 		return true
 	}
 }
-func rewriteValueS390X_OpGetClosurePtr(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpGetClosurePtr(v *Value) bool {
 	// match: (GetClosurePtr)
 	// cond:
 	// result: (LoweredGetClosurePtr)
@@ -2164,9 +2134,7 @@ func rewriteValueS390X_OpGetClosurePtr(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpGetG(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpGetG(v *Value) bool {
 	// match: (GetG mem)
 	// cond:
 	// result: (LoweredGetG mem)
@@ -2177,9 +2145,11 @@ func rewriteValueS390X_OpGetG(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpGreater16(v *Value, config *Config) bool {
+func rewriteValueS390X_OpGreater16(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Greater16  x y)
 	// cond:
 	// result: (MOVDGT (MOVDconst [0]) (MOVDconst [1]) (CMP (MOVHreg x) (MOVHreg y)))
@@ -2187,26 +2157,28 @@ func rewriteValueS390X_OpGreater16(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMOVDGT)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XCMP, TypeFlags)
-		v3 := b.NewValue0(v.Pos, OpS390XMOVHreg, config.fe.TypeInt64())
+		v3 := b.NewValue0(v.Pos, OpS390XMOVHreg, types.Int64)
 		v3.AddArg(x)
 		v2.AddArg(v3)
-		v4 := b.NewValue0(v.Pos, OpS390XMOVHreg, config.fe.TypeInt64())
+		v4 := b.NewValue0(v.Pos, OpS390XMOVHreg, types.Int64)
 		v4.AddArg(y)
 		v2.AddArg(v4)
 		v.AddArg(v2)
 		return true
 	}
 }
-func rewriteValueS390X_OpGreater16U(v *Value, config *Config) bool {
+func rewriteValueS390X_OpGreater16U(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Greater16U x y)
 	// cond:
 	// result: (MOVDGT (MOVDconst [0]) (MOVDconst [1]) (CMPU (MOVHZreg x) (MOVHZreg y)))
@@ -2214,26 +2186,28 @@ func rewriteValueS390X_OpGreater16U(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMOVDGT)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XCMPU, TypeFlags)
-		v3 := b.NewValue0(v.Pos, OpS390XMOVHZreg, config.fe.TypeUInt64())
+		v3 := b.NewValue0(v.Pos, OpS390XMOVHZreg, types.UInt64)
 		v3.AddArg(x)
 		v2.AddArg(v3)
-		v4 := b.NewValue0(v.Pos, OpS390XMOVHZreg, config.fe.TypeUInt64())
+		v4 := b.NewValue0(v.Pos, OpS390XMOVHZreg, types.UInt64)
 		v4.AddArg(y)
 		v2.AddArg(v4)
 		v.AddArg(v2)
 		return true
 	}
 }
-func rewriteValueS390X_OpGreater32(v *Value, config *Config) bool {
+func rewriteValueS390X_OpGreater32(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Greater32  x y)
 	// cond:
 	// result: (MOVDGT (MOVDconst [0]) (MOVDconst [1]) (CMPW x y))
@@ -2241,10 +2215,10 @@ func rewriteValueS390X_OpGreater32(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMOVDGT)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XCMPW, TypeFlags)
@@ -2254,9 +2228,11 @@ func rewriteValueS390X_OpGreater32(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpGreater32F(v *Value, config *Config) bool {
+func rewriteValueS390X_OpGreater32F(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Greater32F x y)
 	// cond:
 	// result: (MOVDGTnoinv (MOVDconst [0]) (MOVDconst [1]) (FCMPS x y))
@@ -2264,10 +2240,10 @@ func rewriteValueS390X_OpGreater32F(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMOVDGTnoinv)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XFCMPS, TypeFlags)
@@ -2277,9 +2253,11 @@ func rewriteValueS390X_OpGreater32F(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpGreater32U(v *Value, config *Config) bool {
+func rewriteValueS390X_OpGreater32U(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Greater32U x y)
 	// cond:
 	// result: (MOVDGT (MOVDconst [0]) (MOVDconst [1]) (CMPWU x y))
@@ -2287,10 +2265,10 @@ func rewriteValueS390X_OpGreater32U(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMOVDGT)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XCMPWU, TypeFlags)
@@ -2300,9 +2278,11 @@ func rewriteValueS390X_OpGreater32U(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpGreater64(v *Value, config *Config) bool {
+func rewriteValueS390X_OpGreater64(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Greater64  x y)
 	// cond:
 	// result: (MOVDGT (MOVDconst [0]) (MOVDconst [1]) (CMP x y))
@@ -2310,10 +2290,10 @@ func rewriteValueS390X_OpGreater64(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMOVDGT)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XCMP, TypeFlags)
@@ -2323,9 +2303,11 @@ func rewriteValueS390X_OpGreater64(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpGreater64F(v *Value, config *Config) bool {
+func rewriteValueS390X_OpGreater64F(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Greater64F x y)
 	// cond:
 	// result: (MOVDGTnoinv (MOVDconst [0]) (MOVDconst [1]) (FCMP x y))
@@ -2333,10 +2315,10 @@ func rewriteValueS390X_OpGreater64F(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMOVDGTnoinv)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XFCMP, TypeFlags)
@@ -2346,9 +2328,11 @@ func rewriteValueS390X_OpGreater64F(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpGreater64U(v *Value, config *Config) bool {
+func rewriteValueS390X_OpGreater64U(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Greater64U x y)
 	// cond:
 	// result: (MOVDGT (MOVDconst [0]) (MOVDconst [1]) (CMPU x y))
@@ -2356,10 +2340,10 @@ func rewriteValueS390X_OpGreater64U(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMOVDGT)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XCMPU, TypeFlags)
@@ -2369,9 +2353,11 @@ func rewriteValueS390X_OpGreater64U(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpGreater8(v *Value, config *Config) bool {
+func rewriteValueS390X_OpGreater8(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Greater8   x y)
 	// cond:
 	// result: (MOVDGT (MOVDconst [0]) (MOVDconst [1]) (CMP (MOVBreg x) (MOVBreg y)))
@@ -2379,26 +2365,28 @@ func rewriteValueS390X_OpGreater8(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMOVDGT)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XCMP, TypeFlags)
-		v3 := b.NewValue0(v.Pos, OpS390XMOVBreg, config.fe.TypeInt64())
+		v3 := b.NewValue0(v.Pos, OpS390XMOVBreg, types.Int64)
 		v3.AddArg(x)
 		v2.AddArg(v3)
-		v4 := b.NewValue0(v.Pos, OpS390XMOVBreg, config.fe.TypeInt64())
+		v4 := b.NewValue0(v.Pos, OpS390XMOVBreg, types.Int64)
 		v4.AddArg(y)
 		v2.AddArg(v4)
 		v.AddArg(v2)
 		return true
 	}
 }
-func rewriteValueS390X_OpGreater8U(v *Value, config *Config) bool {
+func rewriteValueS390X_OpGreater8U(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Greater8U  x y)
 	// cond:
 	// result: (MOVDGT (MOVDconst [0]) (MOVDconst [1]) (CMPU (MOVBZreg x) (MOVBZreg y)))
@@ -2406,26 +2394,28 @@ func rewriteValueS390X_OpGreater8U(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMOVDGT)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XCMPU, TypeFlags)
-		v3 := b.NewValue0(v.Pos, OpS390XMOVBZreg, config.fe.TypeUInt64())
+		v3 := b.NewValue0(v.Pos, OpS390XMOVBZreg, types.UInt64)
 		v3.AddArg(x)
 		v2.AddArg(v3)
-		v4 := b.NewValue0(v.Pos, OpS390XMOVBZreg, config.fe.TypeUInt64())
+		v4 := b.NewValue0(v.Pos, OpS390XMOVBZreg, types.UInt64)
 		v4.AddArg(y)
 		v2.AddArg(v4)
 		v.AddArg(v2)
 		return true
 	}
 }
-func rewriteValueS390X_OpHmul32(v *Value, config *Config) bool {
+func rewriteValueS390X_OpHmul32(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Hmul32  x y)
 	// cond:
 	// result: (SRDconst [32] (MULLD (MOVWreg x) (MOVWreg y)))
@@ -2434,20 +2424,22 @@ func rewriteValueS390X_OpHmul32(v *Value, config *Config) bool {
 		y := v.Args[1]
 		v.reset(OpS390XSRDconst)
 		v.AuxInt = 32
-		v0 := b.NewValue0(v.Pos, OpS390XMULLD, config.fe.TypeInt64())
-		v1 := b.NewValue0(v.Pos, OpS390XMOVWreg, config.fe.TypeInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMULLD, types.Int64)
+		v1 := b.NewValue0(v.Pos, OpS390XMOVWreg, types.Int64)
 		v1.AddArg(x)
 		v0.AddArg(v1)
-		v2 := b.NewValue0(v.Pos, OpS390XMOVWreg, config.fe.TypeInt64())
+		v2 := b.NewValue0(v.Pos, OpS390XMOVWreg, types.Int64)
 		v2.AddArg(y)
 		v0.AddArg(v2)
 		v.AddArg(v0)
 		return true
 	}
 }
-func rewriteValueS390X_OpHmul32u(v *Value, config *Config) bool {
+func rewriteValueS390X_OpHmul32u(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Hmul32u x y)
 	// cond:
 	// result: (SRDconst [32] (MULLD (MOVWZreg x) (MOVWZreg y)))
@@ -2456,20 +2448,18 @@ func rewriteValueS390X_OpHmul32u(v *Value, config *Config) bool {
 		y := v.Args[1]
 		v.reset(OpS390XSRDconst)
 		v.AuxInt = 32
-		v0 := b.NewValue0(v.Pos, OpS390XMULLD, config.fe.TypeInt64())
-		v1 := b.NewValue0(v.Pos, OpS390XMOVWZreg, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMULLD, types.Int64)
+		v1 := b.NewValue0(v.Pos, OpS390XMOVWZreg, types.UInt64)
 		v1.AddArg(x)
 		v0.AddArg(v1)
-		v2 := b.NewValue0(v.Pos, OpS390XMOVWZreg, config.fe.TypeUInt64())
+		v2 := b.NewValue0(v.Pos, OpS390XMOVWZreg, types.UInt64)
 		v2.AddArg(y)
 		v0.AddArg(v2)
 		v.AddArg(v0)
 		return true
 	}
 }
-func rewriteValueS390X_OpHmul64(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpHmul64(v *Value) bool {
 	// match: (Hmul64  x y)
 	// cond:
 	// result: (MULHD  x y)
@@ -2482,9 +2472,7 @@ func rewriteValueS390X_OpHmul64(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpHmul64u(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpHmul64u(v *Value) bool {
 	// match: (Hmul64u x y)
 	// cond:
 	// result: (MULHDU x y)
@@ -2497,9 +2485,7 @@ func rewriteValueS390X_OpHmul64u(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpITab(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpITab(v *Value) bool {
 	// match: (ITab (Load ptr mem))
 	// cond:
 	// result: (MOVDload ptr mem)
@@ -2517,9 +2503,7 @@ func rewriteValueS390X_OpITab(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpInterCall(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpInterCall(v *Value) bool {
 	// match: (InterCall [argwid] entry mem)
 	// cond:
 	// result: (CALLinter [argwid] entry mem)
@@ -2534,9 +2518,11 @@ func rewriteValueS390X_OpInterCall(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpIsInBounds(v *Value, config *Config) bool {
+func rewriteValueS390X_OpIsInBounds(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (IsInBounds idx len)
 	// cond:
 	// result: (MOVDLT (MOVDconst [0]) (MOVDconst [1]) (CMPU idx len))
@@ -2544,10 +2530,10 @@ func rewriteValueS390X_OpIsInBounds(v *Value, config *Config) bool {
 		idx := v.Args[0]
 		len := v.Args[1]
 		v.reset(OpS390XMOVDLT)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XCMPU, TypeFlags)
@@ -2557,19 +2543,21 @@ func rewriteValueS390X_OpIsInBounds(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpIsNonNil(v *Value, config *Config) bool {
+func rewriteValueS390X_OpIsNonNil(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (IsNonNil p)
 	// cond:
 	// result: (MOVDNE (MOVDconst [0]) (MOVDconst [1]) (CMPconst p [0]))
 	for {
 		p := v.Args[0]
 		v.reset(OpS390XMOVDNE)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XCMPconst, TypeFlags)
@@ -2579,9 +2567,11 @@ func rewriteValueS390X_OpIsNonNil(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpIsSliceInBounds(v *Value, config *Config) bool {
+func rewriteValueS390X_OpIsSliceInBounds(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (IsSliceInBounds idx len)
 	// cond:
 	// result: (MOVDLE (MOVDconst [0]) (MOVDconst [1]) (CMPU idx len))
@@ -2589,10 +2579,10 @@ func rewriteValueS390X_OpIsSliceInBounds(v *Value, config *Config) bool {
 		idx := v.Args[0]
 		len := v.Args[1]
 		v.reset(OpS390XMOVDLE)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XCMPU, TypeFlags)
@@ -2602,9 +2592,11 @@ func rewriteValueS390X_OpIsSliceInBounds(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpLeq16(v *Value, config *Config) bool {
+func rewriteValueS390X_OpLeq16(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Leq16  x y)
 	// cond:
 	// result: (MOVDLE (MOVDconst [0]) (MOVDconst [1]) (CMP (MOVHreg x) (MOVHreg y)))
@@ -2612,26 +2604,28 @@ func rewriteValueS390X_OpLeq16(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMOVDLE)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XCMP, TypeFlags)
-		v3 := b.NewValue0(v.Pos, OpS390XMOVHreg, config.fe.TypeInt64())
+		v3 := b.NewValue0(v.Pos, OpS390XMOVHreg, types.Int64)
 		v3.AddArg(x)
 		v2.AddArg(v3)
-		v4 := b.NewValue0(v.Pos, OpS390XMOVHreg, config.fe.TypeInt64())
+		v4 := b.NewValue0(v.Pos, OpS390XMOVHreg, types.Int64)
 		v4.AddArg(y)
 		v2.AddArg(v4)
 		v.AddArg(v2)
 		return true
 	}
 }
-func rewriteValueS390X_OpLeq16U(v *Value, config *Config) bool {
+func rewriteValueS390X_OpLeq16U(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Leq16U x y)
 	// cond:
 	// result: (MOVDLE (MOVDconst [0]) (MOVDconst [1]) (CMPU (MOVHZreg x) (MOVHZreg y)))
@@ -2639,26 +2633,28 @@ func rewriteValueS390X_OpLeq16U(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMOVDLE)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XCMPU, TypeFlags)
-		v3 := b.NewValue0(v.Pos, OpS390XMOVHZreg, config.fe.TypeUInt64())
+		v3 := b.NewValue0(v.Pos, OpS390XMOVHZreg, types.UInt64)
 		v3.AddArg(x)
 		v2.AddArg(v3)
-		v4 := b.NewValue0(v.Pos, OpS390XMOVHZreg, config.fe.TypeUInt64())
+		v4 := b.NewValue0(v.Pos, OpS390XMOVHZreg, types.UInt64)
 		v4.AddArg(y)
 		v2.AddArg(v4)
 		v.AddArg(v2)
 		return true
 	}
 }
-func rewriteValueS390X_OpLeq32(v *Value, config *Config) bool {
+func rewriteValueS390X_OpLeq32(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Leq32  x y)
 	// cond:
 	// result: (MOVDLE (MOVDconst [0]) (MOVDconst [1]) (CMPW x y))
@@ -2666,10 +2662,10 @@ func rewriteValueS390X_OpLeq32(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMOVDLE)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XCMPW, TypeFlags)
@@ -2679,9 +2675,11 @@ func rewriteValueS390X_OpLeq32(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpLeq32F(v *Value, config *Config) bool {
+func rewriteValueS390X_OpLeq32F(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Leq32F x y)
 	// cond:
 	// result: (MOVDGEnoinv (MOVDconst [0]) (MOVDconst [1]) (FCMPS y x))
@@ -2689,10 +2687,10 @@ func rewriteValueS390X_OpLeq32F(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMOVDGEnoinv)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XFCMPS, TypeFlags)
@@ -2702,9 +2700,11 @@ func rewriteValueS390X_OpLeq32F(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpLeq32U(v *Value, config *Config) bool {
+func rewriteValueS390X_OpLeq32U(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Leq32U x y)
 	// cond:
 	// result: (MOVDLE (MOVDconst [0]) (MOVDconst [1]) (CMPWU x y))
@@ -2712,10 +2712,10 @@ func rewriteValueS390X_OpLeq32U(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMOVDLE)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XCMPWU, TypeFlags)
@@ -2725,9 +2725,11 @@ func rewriteValueS390X_OpLeq32U(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpLeq64(v *Value, config *Config) bool {
+func rewriteValueS390X_OpLeq64(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Leq64  x y)
 	// cond:
 	// result: (MOVDLE (MOVDconst [0]) (MOVDconst [1]) (CMP x y))
@@ -2735,10 +2737,10 @@ func rewriteValueS390X_OpLeq64(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMOVDLE)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XCMP, TypeFlags)
@@ -2748,9 +2750,11 @@ func rewriteValueS390X_OpLeq64(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpLeq64F(v *Value, config *Config) bool {
+func rewriteValueS390X_OpLeq64F(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Leq64F x y)
 	// cond:
 	// result: (MOVDGEnoinv (MOVDconst [0]) (MOVDconst [1]) (FCMP y x))
@@ -2758,10 +2762,10 @@ func rewriteValueS390X_OpLeq64F(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMOVDGEnoinv)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XFCMP, TypeFlags)
@@ -2771,9 +2775,11 @@ func rewriteValueS390X_OpLeq64F(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpLeq64U(v *Value, config *Config) bool {
+func rewriteValueS390X_OpLeq64U(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Leq64U x y)
 	// cond:
 	// result: (MOVDLE (MOVDconst [0]) (MOVDconst [1]) (CMPU x y))
@@ -2781,10 +2787,10 @@ func rewriteValueS390X_OpLeq64U(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMOVDLE)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XCMPU, TypeFlags)
@@ -2794,9 +2800,11 @@ func rewriteValueS390X_OpLeq64U(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpLeq8(v *Value, config *Config) bool {
+func rewriteValueS390X_OpLeq8(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Leq8   x y)
 	// cond:
 	// result: (MOVDLE (MOVDconst [0]) (MOVDconst [1]) (CMP (MOVBreg x) (MOVBreg y)))
@@ -2804,26 +2812,28 @@ func rewriteValueS390X_OpLeq8(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMOVDLE)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XCMP, TypeFlags)
-		v3 := b.NewValue0(v.Pos, OpS390XMOVBreg, config.fe.TypeInt64())
+		v3 := b.NewValue0(v.Pos, OpS390XMOVBreg, types.Int64)
 		v3.AddArg(x)
 		v2.AddArg(v3)
-		v4 := b.NewValue0(v.Pos, OpS390XMOVBreg, config.fe.TypeInt64())
+		v4 := b.NewValue0(v.Pos, OpS390XMOVBreg, types.Int64)
 		v4.AddArg(y)
 		v2.AddArg(v4)
 		v.AddArg(v2)
 		return true
 	}
 }
-func rewriteValueS390X_OpLeq8U(v *Value, config *Config) bool {
+func rewriteValueS390X_OpLeq8U(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Leq8U  x y)
 	// cond:
 	// result: (MOVDLE (MOVDconst [0]) (MOVDconst [1]) (CMPU (MOVBZreg x) (MOVBZreg y)))
@@ -2831,26 +2841,28 @@ func rewriteValueS390X_OpLeq8U(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMOVDLE)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XCMPU, TypeFlags)
-		v3 := b.NewValue0(v.Pos, OpS390XMOVBZreg, config.fe.TypeUInt64())
+		v3 := b.NewValue0(v.Pos, OpS390XMOVBZreg, types.UInt64)
 		v3.AddArg(x)
 		v2.AddArg(v3)
-		v4 := b.NewValue0(v.Pos, OpS390XMOVBZreg, config.fe.TypeUInt64())
+		v4 := b.NewValue0(v.Pos, OpS390XMOVBZreg, types.UInt64)
 		v4.AddArg(y)
 		v2.AddArg(v4)
 		v.AddArg(v2)
 		return true
 	}
 }
-func rewriteValueS390X_OpLess16(v *Value, config *Config) bool {
+func rewriteValueS390X_OpLess16(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Less16  x y)
 	// cond:
 	// result: (MOVDLT (MOVDconst [0]) (MOVDconst [1]) (CMP (MOVHreg x) (MOVHreg y)))
@@ -2858,26 +2870,28 @@ func rewriteValueS390X_OpLess16(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMOVDLT)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XCMP, TypeFlags)
-		v3 := b.NewValue0(v.Pos, OpS390XMOVHreg, config.fe.TypeInt64())
+		v3 := b.NewValue0(v.Pos, OpS390XMOVHreg, types.Int64)
 		v3.AddArg(x)
 		v2.AddArg(v3)
-		v4 := b.NewValue0(v.Pos, OpS390XMOVHreg, config.fe.TypeInt64())
+		v4 := b.NewValue0(v.Pos, OpS390XMOVHreg, types.Int64)
 		v4.AddArg(y)
 		v2.AddArg(v4)
 		v.AddArg(v2)
 		return true
 	}
 }
-func rewriteValueS390X_OpLess16U(v *Value, config *Config) bool {
+func rewriteValueS390X_OpLess16U(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Less16U x y)
 	// cond:
 	// result: (MOVDLT (MOVDconst [0]) (MOVDconst [1]) (CMPU (MOVHZreg x) (MOVHZreg y)))
@@ -2885,26 +2899,28 @@ func rewriteValueS390X_OpLess16U(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMOVDLT)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XCMPU, TypeFlags)
-		v3 := b.NewValue0(v.Pos, OpS390XMOVHZreg, config.fe.TypeUInt64())
+		v3 := b.NewValue0(v.Pos, OpS390XMOVHZreg, types.UInt64)
 		v3.AddArg(x)
 		v2.AddArg(v3)
-		v4 := b.NewValue0(v.Pos, OpS390XMOVHZreg, config.fe.TypeUInt64())
+		v4 := b.NewValue0(v.Pos, OpS390XMOVHZreg, types.UInt64)
 		v4.AddArg(y)
 		v2.AddArg(v4)
 		v.AddArg(v2)
 		return true
 	}
 }
-func rewriteValueS390X_OpLess32(v *Value, config *Config) bool {
+func rewriteValueS390X_OpLess32(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Less32  x y)
 	// cond:
 	// result: (MOVDLT (MOVDconst [0]) (MOVDconst [1]) (CMPW x y))
@@ -2912,10 +2928,10 @@ func rewriteValueS390X_OpLess32(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMOVDLT)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XCMPW, TypeFlags)
@@ -2925,9 +2941,11 @@ func rewriteValueS390X_OpLess32(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpLess32F(v *Value, config *Config) bool {
+func rewriteValueS390X_OpLess32F(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Less32F x y)
 	// cond:
 	// result: (MOVDGTnoinv (MOVDconst [0]) (MOVDconst [1]) (FCMPS y x))
@@ -2935,10 +2953,10 @@ func rewriteValueS390X_OpLess32F(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMOVDGTnoinv)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XFCMPS, TypeFlags)
@@ -2948,9 +2966,11 @@ func rewriteValueS390X_OpLess32F(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpLess32U(v *Value, config *Config) bool {
+func rewriteValueS390X_OpLess32U(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Less32U x y)
 	// cond:
 	// result: (MOVDLT (MOVDconst [0]) (MOVDconst [1]) (CMPWU x y))
@@ -2958,10 +2978,10 @@ func rewriteValueS390X_OpLess32U(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMOVDLT)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XCMPWU, TypeFlags)
@@ -2971,9 +2991,11 @@ func rewriteValueS390X_OpLess32U(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpLess64(v *Value, config *Config) bool {
+func rewriteValueS390X_OpLess64(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Less64  x y)
 	// cond:
 	// result: (MOVDLT (MOVDconst [0]) (MOVDconst [1]) (CMP x y))
@@ -2981,10 +3003,10 @@ func rewriteValueS390X_OpLess64(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMOVDLT)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XCMP, TypeFlags)
@@ -2994,9 +3016,11 @@ func rewriteValueS390X_OpLess64(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpLess64F(v *Value, config *Config) bool {
+func rewriteValueS390X_OpLess64F(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Less64F x y)
 	// cond:
 	// result: (MOVDGTnoinv (MOVDconst [0]) (MOVDconst [1]) (FCMP y x))
@@ -3004,10 +3028,10 @@ func rewriteValueS390X_OpLess64F(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMOVDGTnoinv)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XFCMP, TypeFlags)
@@ -3017,9 +3041,11 @@ func rewriteValueS390X_OpLess64F(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpLess64U(v *Value, config *Config) bool {
+func rewriteValueS390X_OpLess64U(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Less64U x y)
 	// cond:
 	// result: (MOVDLT (MOVDconst [0]) (MOVDconst [1]) (CMPU x y))
@@ -3027,10 +3053,10 @@ func rewriteValueS390X_OpLess64U(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMOVDLT)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XCMPU, TypeFlags)
@@ -3040,9 +3066,11 @@ func rewriteValueS390X_OpLess64U(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpLess8(v *Value, config *Config) bool {
+func rewriteValueS390X_OpLess8(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Less8   x y)
 	// cond:
 	// result: (MOVDLT (MOVDconst [0]) (MOVDconst [1]) (CMP (MOVBreg x) (MOVBreg y)))
@@ -3050,26 +3078,28 @@ func rewriteValueS390X_OpLess8(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMOVDLT)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XCMP, TypeFlags)
-		v3 := b.NewValue0(v.Pos, OpS390XMOVBreg, config.fe.TypeInt64())
+		v3 := b.NewValue0(v.Pos, OpS390XMOVBreg, types.Int64)
 		v3.AddArg(x)
 		v2.AddArg(v3)
-		v4 := b.NewValue0(v.Pos, OpS390XMOVBreg, config.fe.TypeInt64())
+		v4 := b.NewValue0(v.Pos, OpS390XMOVBreg, types.Int64)
 		v4.AddArg(y)
 		v2.AddArg(v4)
 		v.AddArg(v2)
 		return true
 	}
 }
-func rewriteValueS390X_OpLess8U(v *Value, config *Config) bool {
+func rewriteValueS390X_OpLess8U(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Less8U  x y)
 	// cond:
 	// result: (MOVDLT (MOVDconst [0]) (MOVDconst [1]) (CMPU (MOVBZreg x) (MOVBZreg y)))
@@ -3077,26 +3107,24 @@ func rewriteValueS390X_OpLess8U(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMOVDLT)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XCMPU, TypeFlags)
-		v3 := b.NewValue0(v.Pos, OpS390XMOVBZreg, config.fe.TypeUInt64())
+		v3 := b.NewValue0(v.Pos, OpS390XMOVBZreg, types.UInt64)
 		v3.AddArg(x)
 		v2.AddArg(v3)
-		v4 := b.NewValue0(v.Pos, OpS390XMOVBZreg, config.fe.TypeUInt64())
+		v4 := b.NewValue0(v.Pos, OpS390XMOVBZreg, types.UInt64)
 		v4.AddArg(y)
 		v2.AddArg(v4)
 		v.AddArg(v2)
 		return true
 	}
 }
-func rewriteValueS390X_OpLoad(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpLoad(v *Value) bool {
 	// match: (Load <t> ptr mem)
 	// cond: (is64BitInt(t) || isPtr(t))
 	// result: (MOVDload ptr mem)
@@ -3234,9 +3262,11 @@ func rewriteValueS390X_OpLoad(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpLsh16x16(v *Value, config *Config) bool {
+func rewriteValueS390X_OpLsh16x16(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Lsh16x16 <t> x y)
 	// cond:
 	// result: (ANDW (SLW <t> x y) (SUBEWcarrymask <t> (CMPWUconst (MOVHZreg y) [31])))
@@ -3252,7 +3282,7 @@ func rewriteValueS390X_OpLsh16x16(v *Value, config *Config) bool {
 		v1 := b.NewValue0(v.Pos, OpS390XSUBEWcarrymask, t)
 		v2 := b.NewValue0(v.Pos, OpS390XCMPWUconst, TypeFlags)
 		v2.AuxInt = 31
-		v3 := b.NewValue0(v.Pos, OpS390XMOVHZreg, config.fe.TypeUInt64())
+		v3 := b.NewValue0(v.Pos, OpS390XMOVHZreg, types.UInt64)
 		v3.AddArg(y)
 		v2.AddArg(v3)
 		v1.AddArg(v2)
@@ -3260,7 +3290,7 @@ func rewriteValueS390X_OpLsh16x16(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpLsh16x32(v *Value, config *Config) bool {
+func rewriteValueS390X_OpLsh16x32(v *Value) bool {
 	b := v.Block
 	_ = b
 	// match: (Lsh16x32 <t> x y)
@@ -3284,7 +3314,7 @@ func rewriteValueS390X_OpLsh16x32(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpLsh16x64(v *Value, config *Config) bool {
+func rewriteValueS390X_OpLsh16x64(v *Value) bool {
 	b := v.Block
 	_ = b
 	// match: (Lsh16x64 <t> x y)
@@ -3308,9 +3338,11 @@ func rewriteValueS390X_OpLsh16x64(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpLsh16x8(v *Value, config *Config) bool {
+func rewriteValueS390X_OpLsh16x8(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Lsh16x8  <t> x y)
 	// cond:
 	// result: (ANDW (SLW <t> x y) (SUBEWcarrymask <t> (CMPWUconst (MOVBZreg y) [31])))
@@ -3326,7 +3358,7 @@ func rewriteValueS390X_OpLsh16x8(v *Value, config *Config) bool {
 		v1 := b.NewValue0(v.Pos, OpS390XSUBEWcarrymask, t)
 		v2 := b.NewValue0(v.Pos, OpS390XCMPWUconst, TypeFlags)
 		v2.AuxInt = 31
-		v3 := b.NewValue0(v.Pos, OpS390XMOVBZreg, config.fe.TypeUInt64())
+		v3 := b.NewValue0(v.Pos, OpS390XMOVBZreg, types.UInt64)
 		v3.AddArg(y)
 		v2.AddArg(v3)
 		v1.AddArg(v2)
@@ -3334,9 +3366,11 @@ func rewriteValueS390X_OpLsh16x8(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpLsh32x16(v *Value, config *Config) bool {
+func rewriteValueS390X_OpLsh32x16(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Lsh32x16 <t> x y)
 	// cond:
 	// result: (ANDW (SLW <t> x y) (SUBEWcarrymask <t> (CMPWUconst (MOVHZreg y) [31])))
@@ -3352,7 +3386,7 @@ func rewriteValueS390X_OpLsh32x16(v *Value, config *Config) bool {
 		v1 := b.NewValue0(v.Pos, OpS390XSUBEWcarrymask, t)
 		v2 := b.NewValue0(v.Pos, OpS390XCMPWUconst, TypeFlags)
 		v2.AuxInt = 31
-		v3 := b.NewValue0(v.Pos, OpS390XMOVHZreg, config.fe.TypeUInt64())
+		v3 := b.NewValue0(v.Pos, OpS390XMOVHZreg, types.UInt64)
 		v3.AddArg(y)
 		v2.AddArg(v3)
 		v1.AddArg(v2)
@@ -3360,7 +3394,7 @@ func rewriteValueS390X_OpLsh32x16(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpLsh32x32(v *Value, config *Config) bool {
+func rewriteValueS390X_OpLsh32x32(v *Value) bool {
 	b := v.Block
 	_ = b
 	// match: (Lsh32x32 <t> x y)
@@ -3384,7 +3418,7 @@ func rewriteValueS390X_OpLsh32x32(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpLsh32x64(v *Value, config *Config) bool {
+func rewriteValueS390X_OpLsh32x64(v *Value) bool {
 	b := v.Block
 	_ = b
 	// match: (Lsh32x64 <t> x y)
@@ -3408,9 +3442,11 @@ func rewriteValueS390X_OpLsh32x64(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpLsh32x8(v *Value, config *Config) bool {
+func rewriteValueS390X_OpLsh32x8(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Lsh32x8  <t> x y)
 	// cond:
 	// result: (ANDW (SLW <t> x y) (SUBEWcarrymask <t> (CMPWUconst (MOVBZreg y) [31])))
@@ -3426,7 +3462,7 @@ func rewriteValueS390X_OpLsh32x8(v *Value, config *Config) bool {
 		v1 := b.NewValue0(v.Pos, OpS390XSUBEWcarrymask, t)
 		v2 := b.NewValue0(v.Pos, OpS390XCMPWUconst, TypeFlags)
 		v2.AuxInt = 31
-		v3 := b.NewValue0(v.Pos, OpS390XMOVBZreg, config.fe.TypeUInt64())
+		v3 := b.NewValue0(v.Pos, OpS390XMOVBZreg, types.UInt64)
 		v3.AddArg(y)
 		v2.AddArg(v3)
 		v1.AddArg(v2)
@@ -3434,9 +3470,11 @@ func rewriteValueS390X_OpLsh32x8(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpLsh64x16(v *Value, config *Config) bool {
+func rewriteValueS390X_OpLsh64x16(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Lsh64x16 <t> x y)
 	// cond:
 	// result: (AND (SLD <t> x y) (SUBEcarrymask <t> (CMPWUconst (MOVHZreg y) [63])))
@@ -3452,7 +3490,7 @@ func rewriteValueS390X_OpLsh64x16(v *Value, config *Config) bool {
 		v1 := b.NewValue0(v.Pos, OpS390XSUBEcarrymask, t)
 		v2 := b.NewValue0(v.Pos, OpS390XCMPWUconst, TypeFlags)
 		v2.AuxInt = 63
-		v3 := b.NewValue0(v.Pos, OpS390XMOVHZreg, config.fe.TypeUInt64())
+		v3 := b.NewValue0(v.Pos, OpS390XMOVHZreg, types.UInt64)
 		v3.AddArg(y)
 		v2.AddArg(v3)
 		v1.AddArg(v2)
@@ -3460,7 +3498,7 @@ func rewriteValueS390X_OpLsh64x16(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpLsh64x32(v *Value, config *Config) bool {
+func rewriteValueS390X_OpLsh64x32(v *Value) bool {
 	b := v.Block
 	_ = b
 	// match: (Lsh64x32 <t> x y)
@@ -3484,7 +3522,7 @@ func rewriteValueS390X_OpLsh64x32(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpLsh64x64(v *Value, config *Config) bool {
+func rewriteValueS390X_OpLsh64x64(v *Value) bool {
 	b := v.Block
 	_ = b
 	// match: (Lsh64x64 <t> x y)
@@ -3508,9 +3546,11 @@ func rewriteValueS390X_OpLsh64x64(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpLsh64x8(v *Value, config *Config) bool {
+func rewriteValueS390X_OpLsh64x8(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Lsh64x8  <t> x y)
 	// cond:
 	// result: (AND (SLD <t> x y) (SUBEcarrymask <t> (CMPWUconst (MOVBZreg y) [63])))
@@ -3526,7 +3566,7 @@ func rewriteValueS390X_OpLsh64x8(v *Value, config *Config) bool {
 		v1 := b.NewValue0(v.Pos, OpS390XSUBEcarrymask, t)
 		v2 := b.NewValue0(v.Pos, OpS390XCMPWUconst, TypeFlags)
 		v2.AuxInt = 63
-		v3 := b.NewValue0(v.Pos, OpS390XMOVBZreg, config.fe.TypeUInt64())
+		v3 := b.NewValue0(v.Pos, OpS390XMOVBZreg, types.UInt64)
 		v3.AddArg(y)
 		v2.AddArg(v3)
 		v1.AddArg(v2)
@@ -3534,9 +3574,11 @@ func rewriteValueS390X_OpLsh64x8(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpLsh8x16(v *Value, config *Config) bool {
+func rewriteValueS390X_OpLsh8x16(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Lsh8x16 <t> x y)
 	// cond:
 	// result: (ANDW (SLW <t> x y) (SUBEWcarrymask <t> (CMPWUconst (MOVHZreg y) [31])))
@@ -3552,7 +3594,7 @@ func rewriteValueS390X_OpLsh8x16(v *Value, config *Config) bool {
 		v1 := b.NewValue0(v.Pos, OpS390XSUBEWcarrymask, t)
 		v2 := b.NewValue0(v.Pos, OpS390XCMPWUconst, TypeFlags)
 		v2.AuxInt = 31
-		v3 := b.NewValue0(v.Pos, OpS390XMOVHZreg, config.fe.TypeUInt64())
+		v3 := b.NewValue0(v.Pos, OpS390XMOVHZreg, types.UInt64)
 		v3.AddArg(y)
 		v2.AddArg(v3)
 		v1.AddArg(v2)
@@ -3560,7 +3602,7 @@ func rewriteValueS390X_OpLsh8x16(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpLsh8x32(v *Value, config *Config) bool {
+func rewriteValueS390X_OpLsh8x32(v *Value) bool {
 	b := v.Block
 	_ = b
 	// match: (Lsh8x32 <t> x y)
@@ -3584,7 +3626,7 @@ func rewriteValueS390X_OpLsh8x32(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpLsh8x64(v *Value, config *Config) bool {
+func rewriteValueS390X_OpLsh8x64(v *Value) bool {
 	b := v.Block
 	_ = b
 	// match: (Lsh8x64 <t> x y)
@@ -3608,9 +3650,11 @@ func rewriteValueS390X_OpLsh8x64(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpLsh8x8(v *Value, config *Config) bool {
+func rewriteValueS390X_OpLsh8x8(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Lsh8x8  <t> x y)
 	// cond:
 	// result: (ANDW (SLW <t> x y) (SUBEWcarrymask <t> (CMPWUconst (MOVBZreg y) [31])))
@@ -3626,7 +3670,7 @@ func rewriteValueS390X_OpLsh8x8(v *Value, config *Config) bool {
 		v1 := b.NewValue0(v.Pos, OpS390XSUBEWcarrymask, t)
 		v2 := b.NewValue0(v.Pos, OpS390XCMPWUconst, TypeFlags)
 		v2.AuxInt = 31
-		v3 := b.NewValue0(v.Pos, OpS390XMOVBZreg, config.fe.TypeUInt64())
+		v3 := b.NewValue0(v.Pos, OpS390XMOVBZreg, types.UInt64)
 		v3.AddArg(y)
 		v2.AddArg(v3)
 		v1.AddArg(v2)
@@ -3634,9 +3678,11 @@ func rewriteValueS390X_OpLsh8x8(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpMod16(v *Value, config *Config) bool {
+func rewriteValueS390X_OpMod16(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Mod16  x y)
 	// cond:
 	// result: (MODW  (MOVHreg x) (MOVHreg y))
@@ -3644,18 +3690,20 @@ func rewriteValueS390X_OpMod16(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMODW)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVHreg, config.fe.TypeInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVHreg, types.Int64)
 		v0.AddArg(x)
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVHreg, config.fe.TypeInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVHreg, types.Int64)
 		v1.AddArg(y)
 		v.AddArg(v1)
 		return true
 	}
 }
-func rewriteValueS390X_OpMod16u(v *Value, config *Config) bool {
+func rewriteValueS390X_OpMod16u(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Mod16u x y)
 	// cond:
 	// result: (MODWU (MOVHZreg x) (MOVHZreg y))
@@ -3663,18 +3711,20 @@ func rewriteValueS390X_OpMod16u(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMODWU)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVHZreg, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVHZreg, types.UInt64)
 		v0.AddArg(x)
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVHZreg, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVHZreg, types.UInt64)
 		v1.AddArg(y)
 		v.AddArg(v1)
 		return true
 	}
 }
-func rewriteValueS390X_OpMod32(v *Value, config *Config) bool {
+func rewriteValueS390X_OpMod32(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Mod32  x y)
 	// cond:
 	// result: (MODW  (MOVWreg x) y)
@@ -3682,16 +3732,18 @@ func rewriteValueS390X_OpMod32(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMODW)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVWreg, config.fe.TypeInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVWreg, types.Int64)
 		v0.AddArg(x)
 		v.AddArg(v0)
 		v.AddArg(y)
 		return true
 	}
 }
-func rewriteValueS390X_OpMod32u(v *Value, config *Config) bool {
+func rewriteValueS390X_OpMod32u(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Mod32u x y)
 	// cond:
 	// result: (MODWU (MOVWZreg x) y)
@@ -3699,16 +3751,14 @@ func rewriteValueS390X_OpMod32u(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMODWU)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVWZreg, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVWZreg, types.UInt64)
 		v0.AddArg(x)
 		v.AddArg(v0)
 		v.AddArg(y)
 		return true
 	}
 }
-func rewriteValueS390X_OpMod64(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpMod64(v *Value) bool {
 	// match: (Mod64  x y)
 	// cond:
 	// result: (MODD  x y)
@@ -3721,9 +3771,7 @@ func rewriteValueS390X_OpMod64(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpMod64u(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpMod64u(v *Value) bool {
 	// match: (Mod64u x y)
 	// cond:
 	// result: (MODDU x y)
@@ -3736,9 +3784,11 @@ func rewriteValueS390X_OpMod64u(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpMod8(v *Value, config *Config) bool {
+func rewriteValueS390X_OpMod8(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Mod8   x y)
 	// cond:
 	// result: (MODW  (MOVBreg x) (MOVBreg y))
@@ -3746,18 +3796,20 @@ func rewriteValueS390X_OpMod8(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMODW)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVBreg, config.fe.TypeInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVBreg, types.Int64)
 		v0.AddArg(x)
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVBreg, config.fe.TypeInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVBreg, types.Int64)
 		v1.AddArg(y)
 		v.AddArg(v1)
 		return true
 	}
 }
-func rewriteValueS390X_OpMod8u(v *Value, config *Config) bool {
+func rewriteValueS390X_OpMod8u(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Mod8u  x y)
 	// cond:
 	// result: (MODWU (MOVBZreg x) (MOVBZreg y))
@@ -3765,134 +3817,130 @@ func rewriteValueS390X_OpMod8u(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMODWU)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVBZreg, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVBZreg, types.UInt64)
 		v0.AddArg(x)
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVBZreg, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVBZreg, types.UInt64)
 		v1.AddArg(y)
 		v.AddArg(v1)
 		return true
 	}
 }
-func rewriteValueS390X_OpMove(v *Value, config *Config) bool {
+func rewriteValueS390X_OpMove(v *Value) bool {
 	b := v.Block
 	_ = b
-	// match: (Move [s] _ _ mem)
-	// cond: SizeAndAlign(s).Size() == 0
+	types := &b.Func.Config.Types
+	_ = types
+	// match: (Move [0] _ _ mem)
+	// cond:
 	// result: mem
 	for {
-		s := v.AuxInt
-		mem := v.Args[2]
-		if !(SizeAndAlign(s).Size() == 0) {
+		if v.AuxInt != 0 {
 			break
 		}
+		mem := v.Args[2]
 		v.reset(OpCopy)
 		v.Type = mem.Type
 		v.AddArg(mem)
 		return true
 	}
-	// match: (Move [s] dst src mem)
-	// cond: SizeAndAlign(s).Size() == 1
+	// match: (Move [1] dst src mem)
+	// cond:
 	// result: (MOVBstore dst (MOVBZload src mem) mem)
 	for {
-		s := v.AuxInt
+		if v.AuxInt != 1 {
+			break
+		}
 		dst := v.Args[0]
 		src := v.Args[1]
 		mem := v.Args[2]
-		if !(SizeAndAlign(s).Size() == 1) {
-			break
-		}
 		v.reset(OpS390XMOVBstore)
 		v.AddArg(dst)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVBZload, config.fe.TypeUInt8())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVBZload, types.UInt8)
 		v0.AddArg(src)
 		v0.AddArg(mem)
 		v.AddArg(v0)
 		v.AddArg(mem)
 		return true
 	}
-	// match: (Move [s] dst src mem)
-	// cond: SizeAndAlign(s).Size() == 2
+	// match: (Move [2] dst src mem)
+	// cond:
 	// result: (MOVHstore dst (MOVHZload src mem) mem)
 	for {
-		s := v.AuxInt
+		if v.AuxInt != 2 {
+			break
+		}
 		dst := v.Args[0]
 		src := v.Args[1]
 		mem := v.Args[2]
-		if !(SizeAndAlign(s).Size() == 2) {
-			break
-		}
 		v.reset(OpS390XMOVHstore)
 		v.AddArg(dst)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVHZload, config.fe.TypeUInt16())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVHZload, types.UInt16)
 		v0.AddArg(src)
 		v0.AddArg(mem)
 		v.AddArg(v0)
 		v.AddArg(mem)
 		return true
 	}
-	// match: (Move [s] dst src mem)
-	// cond: SizeAndAlign(s).Size() == 4
+	// match: (Move [4] dst src mem)
+	// cond:
 	// result: (MOVWstore dst (MOVWZload src mem) mem)
 	for {
-		s := v.AuxInt
+		if v.AuxInt != 4 {
+			break
+		}
 		dst := v.Args[0]
 		src := v.Args[1]
 		mem := v.Args[2]
-		if !(SizeAndAlign(s).Size() == 4) {
-			break
-		}
 		v.reset(OpS390XMOVWstore)
 		v.AddArg(dst)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVWZload, config.fe.TypeUInt32())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVWZload, types.UInt32)
 		v0.AddArg(src)
 		v0.AddArg(mem)
 		v.AddArg(v0)
 		v.AddArg(mem)
 		return true
 	}
-	// match: (Move [s] dst src mem)
-	// cond: SizeAndAlign(s).Size() == 8
+	// match: (Move [8] dst src mem)
+	// cond:
 	// result: (MOVDstore dst (MOVDload src mem) mem)
 	for {
-		s := v.AuxInt
+		if v.AuxInt != 8 {
+			break
+		}
 		dst := v.Args[0]
 		src := v.Args[1]
 		mem := v.Args[2]
-		if !(SizeAndAlign(s).Size() == 8) {
-			break
-		}
 		v.reset(OpS390XMOVDstore)
 		v.AddArg(dst)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDload, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDload, types.UInt64)
 		v0.AddArg(src)
 		v0.AddArg(mem)
 		v.AddArg(v0)
 		v.AddArg(mem)
 		return true
 	}
-	// match: (Move [s] dst src mem)
-	// cond: SizeAndAlign(s).Size() == 16
+	// match: (Move [16] dst src mem)
+	// cond:
 	// result: (MOVDstore [8] dst (MOVDload [8] src mem) 		(MOVDstore dst (MOVDload src mem) mem))
 	for {
-		s := v.AuxInt
+		if v.AuxInt != 16 {
+			break
+		}
 		dst := v.Args[0]
 		src := v.Args[1]
 		mem := v.Args[2]
-		if !(SizeAndAlign(s).Size() == 16) {
-			break
-		}
 		v.reset(OpS390XMOVDstore)
 		v.AuxInt = 8
 		v.AddArg(dst)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDload, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDload, types.UInt64)
 		v0.AuxInt = 8
 		v0.AddArg(src)
 		v0.AddArg(mem)
 		v.AddArg(v0)
 		v1 := b.NewValue0(v.Pos, OpS390XMOVDstore, TypeMem)
 		v1.AddArg(dst)
-		v2 := b.NewValue0(v.Pos, OpS390XMOVDload, config.fe.TypeUInt64())
+		v2 := b.NewValue0(v.Pos, OpS390XMOVDload, types.UInt64)
 		v2.AddArg(src)
 		v2.AddArg(mem)
 		v1.AddArg(v2)
@@ -3900,21 +3948,20 @@ func rewriteValueS390X_OpMove(v *Value, config *Config) bool {
 		v.AddArg(v1)
 		return true
 	}
-	// match: (Move [s] dst src mem)
-	// cond: SizeAndAlign(s).Size() == 24
+	// match: (Move [24] dst src mem)
+	// cond:
 	// result: (MOVDstore [16] dst (MOVDload [16] src mem) 	        (MOVDstore [8] dst (MOVDload [8] src mem)                 (MOVDstore dst (MOVDload src mem) mem)))
 	for {
-		s := v.AuxInt
+		if v.AuxInt != 24 {
+			break
+		}
 		dst := v.Args[0]
 		src := v.Args[1]
 		mem := v.Args[2]
-		if !(SizeAndAlign(s).Size() == 24) {
-			break
-		}
 		v.reset(OpS390XMOVDstore)
 		v.AuxInt = 16
 		v.AddArg(dst)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDload, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDload, types.UInt64)
 		v0.AuxInt = 16
 		v0.AddArg(src)
 		v0.AddArg(mem)
@@ -3922,14 +3969,14 @@ func rewriteValueS390X_OpMove(v *Value, config *Config) bool {
 		v1 := b.NewValue0(v.Pos, OpS390XMOVDstore, TypeMem)
 		v1.AuxInt = 8
 		v1.AddArg(dst)
-		v2 := b.NewValue0(v.Pos, OpS390XMOVDload, config.fe.TypeUInt64())
+		v2 := b.NewValue0(v.Pos, OpS390XMOVDload, types.UInt64)
 		v2.AuxInt = 8
 		v2.AddArg(src)
 		v2.AddArg(mem)
 		v1.AddArg(v2)
 		v3 := b.NewValue0(v.Pos, OpS390XMOVDstore, TypeMem)
 		v3.AddArg(dst)
-		v4 := b.NewValue0(v.Pos, OpS390XMOVDload, config.fe.TypeUInt64())
+		v4 := b.NewValue0(v.Pos, OpS390XMOVDload, types.UInt64)
 		v4.AddArg(src)
 		v4.AddArg(mem)
 		v3.AddArg(v4)
@@ -3938,28 +3985,27 @@ func rewriteValueS390X_OpMove(v *Value, config *Config) bool {
 		v.AddArg(v1)
 		return true
 	}
-	// match: (Move [s] dst src mem)
-	// cond: SizeAndAlign(s).Size() == 3
+	// match: (Move [3] dst src mem)
+	// cond:
 	// result: (MOVBstore [2] dst (MOVBZload [2] src mem) 		(MOVHstore dst (MOVHZload src mem) mem))
 	for {
-		s := v.AuxInt
+		if v.AuxInt != 3 {
+			break
+		}
 		dst := v.Args[0]
 		src := v.Args[1]
 		mem := v.Args[2]
-		if !(SizeAndAlign(s).Size() == 3) {
-			break
-		}
 		v.reset(OpS390XMOVBstore)
 		v.AuxInt = 2
 		v.AddArg(dst)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVBZload, config.fe.TypeUInt8())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVBZload, types.UInt8)
 		v0.AuxInt = 2
 		v0.AddArg(src)
 		v0.AddArg(mem)
 		v.AddArg(v0)
 		v1 := b.NewValue0(v.Pos, OpS390XMOVHstore, TypeMem)
 		v1.AddArg(dst)
-		v2 := b.NewValue0(v.Pos, OpS390XMOVHZload, config.fe.TypeUInt16())
+		v2 := b.NewValue0(v.Pos, OpS390XMOVHZload, types.UInt16)
 		v2.AddArg(src)
 		v2.AddArg(mem)
 		v1.AddArg(v2)
@@ -3967,28 +4013,27 @@ func rewriteValueS390X_OpMove(v *Value, config *Config) bool {
 		v.AddArg(v1)
 		return true
 	}
-	// match: (Move [s] dst src mem)
-	// cond: SizeAndAlign(s).Size() == 5
+	// match: (Move [5] dst src mem)
+	// cond:
 	// result: (MOVBstore [4] dst (MOVBZload [4] src mem) 		(MOVWstore dst (MOVWZload src mem) mem))
 	for {
-		s := v.AuxInt
+		if v.AuxInt != 5 {
+			break
+		}
 		dst := v.Args[0]
 		src := v.Args[1]
 		mem := v.Args[2]
-		if !(SizeAndAlign(s).Size() == 5) {
-			break
-		}
 		v.reset(OpS390XMOVBstore)
 		v.AuxInt = 4
 		v.AddArg(dst)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVBZload, config.fe.TypeUInt8())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVBZload, types.UInt8)
 		v0.AuxInt = 4
 		v0.AddArg(src)
 		v0.AddArg(mem)
 		v.AddArg(v0)
 		v1 := b.NewValue0(v.Pos, OpS390XMOVWstore, TypeMem)
 		v1.AddArg(dst)
-		v2 := b.NewValue0(v.Pos, OpS390XMOVWZload, config.fe.TypeUInt32())
+		v2 := b.NewValue0(v.Pos, OpS390XMOVWZload, types.UInt32)
 		v2.AddArg(src)
 		v2.AddArg(mem)
 		v1.AddArg(v2)
@@ -3996,28 +4041,27 @@ func rewriteValueS390X_OpMove(v *Value, config *Config) bool {
 		v.AddArg(v1)
 		return true
 	}
-	// match: (Move [s] dst src mem)
-	// cond: SizeAndAlign(s).Size() == 6
+	// match: (Move [6] dst src mem)
+	// cond:
 	// result: (MOVHstore [4] dst (MOVHZload [4] src mem) 		(MOVWstore dst (MOVWZload src mem) mem))
 	for {
-		s := v.AuxInt
+		if v.AuxInt != 6 {
+			break
+		}
 		dst := v.Args[0]
 		src := v.Args[1]
 		mem := v.Args[2]
-		if !(SizeAndAlign(s).Size() == 6) {
-			break
-		}
 		v.reset(OpS390XMOVHstore)
 		v.AuxInt = 4
 		v.AddArg(dst)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVHZload, config.fe.TypeUInt16())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVHZload, types.UInt16)
 		v0.AuxInt = 4
 		v0.AddArg(src)
 		v0.AddArg(mem)
 		v.AddArg(v0)
 		v1 := b.NewValue0(v.Pos, OpS390XMOVWstore, TypeMem)
 		v1.AddArg(dst)
-		v2 := b.NewValue0(v.Pos, OpS390XMOVWZload, config.fe.TypeUInt32())
+		v2 := b.NewValue0(v.Pos, OpS390XMOVWZload, types.UInt32)
 		v2.AddArg(src)
 		v2.AddArg(mem)
 		v1.AddArg(v2)
@@ -4025,21 +4069,20 @@ func rewriteValueS390X_OpMove(v *Value, config *Config) bool {
 		v.AddArg(v1)
 		return true
 	}
-	// match: (Move [s] dst src mem)
-	// cond: SizeAndAlign(s).Size() == 7
+	// match: (Move [7] dst src mem)
+	// cond:
 	// result: (MOVBstore [6] dst (MOVBZload [6] src mem) 		(MOVHstore [4] dst (MOVHZload [4] src mem) 			(MOVWstore dst (MOVWZload src mem) mem)))
 	for {
-		s := v.AuxInt
+		if v.AuxInt != 7 {
+			break
+		}
 		dst := v.Args[0]
 		src := v.Args[1]
 		mem := v.Args[2]
-		if !(SizeAndAlign(s).Size() == 7) {
-			break
-		}
 		v.reset(OpS390XMOVBstore)
 		v.AuxInt = 6
 		v.AddArg(dst)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVBZload, config.fe.TypeUInt8())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVBZload, types.UInt8)
 		v0.AuxInt = 6
 		v0.AddArg(src)
 		v0.AddArg(mem)
@@ -4047,14 +4090,14 @@ func rewriteValueS390X_OpMove(v *Value, config *Config) bool {
 		v1 := b.NewValue0(v.Pos, OpS390XMOVHstore, TypeMem)
 		v1.AuxInt = 4
 		v1.AddArg(dst)
-		v2 := b.NewValue0(v.Pos, OpS390XMOVHZload, config.fe.TypeUInt16())
+		v2 := b.NewValue0(v.Pos, OpS390XMOVHZload, types.UInt16)
 		v2.AuxInt = 4
 		v2.AddArg(src)
 		v2.AddArg(mem)
 		v1.AddArg(v2)
 		v3 := b.NewValue0(v.Pos, OpS390XMOVWstore, TypeMem)
 		v3.AddArg(dst)
-		v4 := b.NewValue0(v.Pos, OpS390XMOVWZload, config.fe.TypeUInt32())
+		v4 := b.NewValue0(v.Pos, OpS390XMOVWZload, types.UInt32)
 		v4.AddArg(src)
 		v4.AddArg(mem)
 		v3.AddArg(v4)
@@ -4064,36 +4107,36 @@ func rewriteValueS390X_OpMove(v *Value, config *Config) bool {
 		return true
 	}
 	// match: (Move [s] dst src mem)
-	// cond: SizeAndAlign(s).Size() > 0 && SizeAndAlign(s).Size() <= 256
-	// result: (MVC [makeValAndOff(SizeAndAlign(s).Size(), 0)] dst src mem)
+	// cond: s > 0 && s <= 256
+	// result: (MVC [makeValAndOff(s, 0)] dst src mem)
 	for {
 		s := v.AuxInt
 		dst := v.Args[0]
 		src := v.Args[1]
 		mem := v.Args[2]
-		if !(SizeAndAlign(s).Size() > 0 && SizeAndAlign(s).Size() <= 256) {
+		if !(s > 0 && s <= 256) {
 			break
 		}
 		v.reset(OpS390XMVC)
-		v.AuxInt = makeValAndOff(SizeAndAlign(s).Size(), 0)
+		v.AuxInt = makeValAndOff(s, 0)
 		v.AddArg(dst)
 		v.AddArg(src)
 		v.AddArg(mem)
 		return true
 	}
 	// match: (Move [s] dst src mem)
-	// cond: SizeAndAlign(s).Size() > 256 && SizeAndAlign(s).Size() <= 512
-	// result: (MVC [makeValAndOff(SizeAndAlign(s).Size()-256, 256)] dst src (MVC [makeValAndOff(256, 0)] dst src mem))
+	// cond: s > 256 && s <= 512
+	// result: (MVC [makeValAndOff(s-256, 256)] dst src (MVC [makeValAndOff(256, 0)] dst src mem))
 	for {
 		s := v.AuxInt
 		dst := v.Args[0]
 		src := v.Args[1]
 		mem := v.Args[2]
-		if !(SizeAndAlign(s).Size() > 256 && SizeAndAlign(s).Size() <= 512) {
+		if !(s > 256 && s <= 512) {
 			break
 		}
 		v.reset(OpS390XMVC)
-		v.AuxInt = makeValAndOff(SizeAndAlign(s).Size()-256, 256)
+		v.AuxInt = makeValAndOff(s-256, 256)
 		v.AddArg(dst)
 		v.AddArg(src)
 		v0 := b.NewValue0(v.Pos, OpS390XMVC, TypeMem)
@@ -4105,18 +4148,18 @@ func rewriteValueS390X_OpMove(v *Value, config *Config) bool {
 		return true
 	}
 	// match: (Move [s] dst src mem)
-	// cond: SizeAndAlign(s).Size() > 512 && SizeAndAlign(s).Size() <= 768
-	// result: (MVC [makeValAndOff(SizeAndAlign(s).Size()-512, 512)] dst src (MVC [makeValAndOff(256, 256)] dst src (MVC [makeValAndOff(256, 0)] dst src mem)))
+	// cond: s > 512 && s <= 768
+	// result: (MVC [makeValAndOff(s-512, 512)] dst src (MVC [makeValAndOff(256, 256)] dst src (MVC [makeValAndOff(256, 0)] dst src mem)))
 	for {
 		s := v.AuxInt
 		dst := v.Args[0]
 		src := v.Args[1]
 		mem := v.Args[2]
-		if !(SizeAndAlign(s).Size() > 512 && SizeAndAlign(s).Size() <= 768) {
+		if !(s > 512 && s <= 768) {
 			break
 		}
 		v.reset(OpS390XMVC)
-		v.AuxInt = makeValAndOff(SizeAndAlign(s).Size()-512, 512)
+		v.AuxInt = makeValAndOff(s-512, 512)
 		v.AddArg(dst)
 		v.AddArg(src)
 		v0 := b.NewValue0(v.Pos, OpS390XMVC, TypeMem)
@@ -4133,18 +4176,18 @@ func rewriteValueS390X_OpMove(v *Value, config *Config) bool {
 		return true
 	}
 	// match: (Move [s] dst src mem)
-	// cond: SizeAndAlign(s).Size() > 768 && SizeAndAlign(s).Size() <= 1024
-	// result: (MVC [makeValAndOff(SizeAndAlign(s).Size()-768, 768)] dst src (MVC [makeValAndOff(256, 512)] dst src (MVC [makeValAndOff(256, 256)] dst src (MVC [makeValAndOff(256, 0)] dst src mem))))
+	// cond: s > 768 && s <= 1024
+	// result: (MVC [makeValAndOff(s-768, 768)] dst src (MVC [makeValAndOff(256, 512)] dst src (MVC [makeValAndOff(256, 256)] dst src (MVC [makeValAndOff(256, 0)] dst src mem))))
 	for {
 		s := v.AuxInt
 		dst := v.Args[0]
 		src := v.Args[1]
 		mem := v.Args[2]
-		if !(SizeAndAlign(s).Size() > 768 && SizeAndAlign(s).Size() <= 1024) {
+		if !(s > 768 && s <= 1024) {
 			break
 		}
 		v.reset(OpS390XMVC)
-		v.AuxInt = makeValAndOff(SizeAndAlign(s).Size()-768, 768)
+		v.AuxInt = makeValAndOff(s-768, 768)
 		v.AddArg(dst)
 		v.AddArg(src)
 		v0 := b.NewValue0(v.Pos, OpS390XMVC, TypeMem)
@@ -4166,22 +4209,22 @@ func rewriteValueS390X_OpMove(v *Value, config *Config) bool {
 		return true
 	}
 	// match: (Move [s] dst src mem)
-	// cond: SizeAndAlign(s).Size() > 1024
-	// result: (LoweredMove [SizeAndAlign(s).Size()%256] dst src (ADDconst <src.Type> src [(SizeAndAlign(s).Size()/256)*256]) mem)
+	// cond: s > 1024
+	// result: (LoweredMove [s%256] dst src (ADDconst <src.Type> src [(s/256)*256]) mem)
 	for {
 		s := v.AuxInt
 		dst := v.Args[0]
 		src := v.Args[1]
 		mem := v.Args[2]
-		if !(SizeAndAlign(s).Size() > 1024) {
+		if !(s > 1024) {
 			break
 		}
 		v.reset(OpS390XLoweredMove)
-		v.AuxInt = SizeAndAlign(s).Size() % 256
+		v.AuxInt = s % 256
 		v.AddArg(dst)
 		v.AddArg(src)
 		v0 := b.NewValue0(v.Pos, OpS390XADDconst, src.Type)
-		v0.AuxInt = (SizeAndAlign(s).Size() / 256) * 256
+		v0.AuxInt = (s / 256) * 256
 		v0.AddArg(src)
 		v.AddArg(v0)
 		v.AddArg(mem)
@@ -4189,9 +4232,7 @@ func rewriteValueS390X_OpMove(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpMul16(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpMul16(v *Value) bool {
 	// match: (Mul16  x y)
 	// cond:
 	// result: (MULLW  x y)
@@ -4204,9 +4245,7 @@ func rewriteValueS390X_OpMul16(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpMul32(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpMul32(v *Value) bool {
 	// match: (Mul32  x y)
 	// cond:
 	// result: (MULLW  x y)
@@ -4219,9 +4258,7 @@ func rewriteValueS390X_OpMul32(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpMul32F(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpMul32F(v *Value) bool {
 	// match: (Mul32F x y)
 	// cond:
 	// result: (FMULS x y)
@@ -4234,9 +4271,7 @@ func rewriteValueS390X_OpMul32F(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpMul64(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpMul64(v *Value) bool {
 	// match: (Mul64  x y)
 	// cond:
 	// result: (MULLD  x y)
@@ -4249,9 +4284,7 @@ func rewriteValueS390X_OpMul64(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpMul64F(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpMul64F(v *Value) bool {
 	// match: (Mul64F x y)
 	// cond:
 	// result: (FMUL x y)
@@ -4264,9 +4297,7 @@ func rewriteValueS390X_OpMul64F(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpMul8(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpMul8(v *Value) bool {
 	// match: (Mul8   x y)
 	// cond:
 	// result: (MULLW  x y)
@@ -4279,24 +4310,24 @@ func rewriteValueS390X_OpMul8(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpNeg16(v *Value, config *Config) bool {
+func rewriteValueS390X_OpNeg16(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Neg16  x)
 	// cond:
 	// result: (NEGW (MOVHreg x))
 	for {
 		x := v.Args[0]
 		v.reset(OpS390XNEGW)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVHreg, config.fe.TypeInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVHreg, types.Int64)
 		v0.AddArg(x)
 		v.AddArg(v0)
 		return true
 	}
 }
-func rewriteValueS390X_OpNeg32(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpNeg32(v *Value) bool {
 	// match: (Neg32  x)
 	// cond:
 	// result: (NEGW x)
@@ -4307,9 +4338,7 @@ func rewriteValueS390X_OpNeg32(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpNeg32F(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpNeg32F(v *Value) bool {
 	// match: (Neg32F x)
 	// cond:
 	// result: (FNEGS x)
@@ -4320,9 +4349,7 @@ func rewriteValueS390X_OpNeg32F(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpNeg64(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpNeg64(v *Value) bool {
 	// match: (Neg64  x)
 	// cond:
 	// result: (NEG x)
@@ -4333,9 +4360,7 @@ func rewriteValueS390X_OpNeg64(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpNeg64F(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpNeg64F(v *Value) bool {
 	// match: (Neg64F x)
 	// cond:
 	// result: (FNEG x)
@@ -4346,24 +4371,28 @@ func rewriteValueS390X_OpNeg64F(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpNeg8(v *Value, config *Config) bool {
+func rewriteValueS390X_OpNeg8(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Neg8   x)
 	// cond:
 	// result: (NEGW (MOVBreg x))
 	for {
 		x := v.Args[0]
 		v.reset(OpS390XNEGW)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVBreg, config.fe.TypeInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVBreg, types.Int64)
 		v0.AddArg(x)
 		v.AddArg(v0)
 		return true
 	}
 }
-func rewriteValueS390X_OpNeq16(v *Value, config *Config) bool {
+func rewriteValueS390X_OpNeq16(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Neq16  x y)
 	// cond:
 	// result: (MOVDNE (MOVDconst [0]) (MOVDconst [1]) (CMP (MOVHreg x) (MOVHreg y)))
@@ -4371,26 +4400,28 @@ func rewriteValueS390X_OpNeq16(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMOVDNE)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XCMP, TypeFlags)
-		v3 := b.NewValue0(v.Pos, OpS390XMOVHreg, config.fe.TypeInt64())
+		v3 := b.NewValue0(v.Pos, OpS390XMOVHreg, types.Int64)
 		v3.AddArg(x)
 		v2.AddArg(v3)
-		v4 := b.NewValue0(v.Pos, OpS390XMOVHreg, config.fe.TypeInt64())
+		v4 := b.NewValue0(v.Pos, OpS390XMOVHreg, types.Int64)
 		v4.AddArg(y)
 		v2.AddArg(v4)
 		v.AddArg(v2)
 		return true
 	}
 }
-func rewriteValueS390X_OpNeq32(v *Value, config *Config) bool {
+func rewriteValueS390X_OpNeq32(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Neq32  x y)
 	// cond:
 	// result: (MOVDNE (MOVDconst [0]) (MOVDconst [1]) (CMPW x y))
@@ -4398,10 +4429,10 @@ func rewriteValueS390X_OpNeq32(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMOVDNE)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XCMPW, TypeFlags)
@@ -4411,9 +4442,11 @@ func rewriteValueS390X_OpNeq32(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpNeq32F(v *Value, config *Config) bool {
+func rewriteValueS390X_OpNeq32F(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Neq32F x y)
 	// cond:
 	// result: (MOVDNE (MOVDconst [0]) (MOVDconst [1]) (FCMPS x y))
@@ -4421,10 +4454,10 @@ func rewriteValueS390X_OpNeq32F(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMOVDNE)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XFCMPS, TypeFlags)
@@ -4434,9 +4467,11 @@ func rewriteValueS390X_OpNeq32F(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpNeq64(v *Value, config *Config) bool {
+func rewriteValueS390X_OpNeq64(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Neq64  x y)
 	// cond:
 	// result: (MOVDNE (MOVDconst [0]) (MOVDconst [1]) (CMP x y))
@@ -4444,10 +4479,10 @@ func rewriteValueS390X_OpNeq64(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMOVDNE)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XCMP, TypeFlags)
@@ -4457,9 +4492,11 @@ func rewriteValueS390X_OpNeq64(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpNeq64F(v *Value, config *Config) bool {
+func rewriteValueS390X_OpNeq64F(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Neq64F x y)
 	// cond:
 	// result: (MOVDNE (MOVDconst [0]) (MOVDconst [1]) (FCMP x y))
@@ -4467,10 +4504,10 @@ func rewriteValueS390X_OpNeq64F(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMOVDNE)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XFCMP, TypeFlags)
@@ -4480,9 +4517,11 @@ func rewriteValueS390X_OpNeq64F(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpNeq8(v *Value, config *Config) bool {
+func rewriteValueS390X_OpNeq8(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Neq8   x y)
 	// cond:
 	// result: (MOVDNE (MOVDconst [0]) (MOVDconst [1]) (CMP (MOVBreg x) (MOVBreg y)))
@@ -4490,26 +4529,28 @@ func rewriteValueS390X_OpNeq8(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMOVDNE)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XCMP, TypeFlags)
-		v3 := b.NewValue0(v.Pos, OpS390XMOVBreg, config.fe.TypeInt64())
+		v3 := b.NewValue0(v.Pos, OpS390XMOVBreg, types.Int64)
 		v3.AddArg(x)
 		v2.AddArg(v3)
-		v4 := b.NewValue0(v.Pos, OpS390XMOVBreg, config.fe.TypeInt64())
+		v4 := b.NewValue0(v.Pos, OpS390XMOVBreg, types.Int64)
 		v4.AddArg(y)
 		v2.AddArg(v4)
 		v.AddArg(v2)
 		return true
 	}
 }
-func rewriteValueS390X_OpNeqB(v *Value, config *Config) bool {
+func rewriteValueS390X_OpNeqB(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (NeqB   x y)
 	// cond:
 	// result: (MOVDNE (MOVDconst [0]) (MOVDconst [1]) (CMP (MOVBreg x) (MOVBreg y)))
@@ -4517,26 +4558,28 @@ func rewriteValueS390X_OpNeqB(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMOVDNE)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XCMP, TypeFlags)
-		v3 := b.NewValue0(v.Pos, OpS390XMOVBreg, config.fe.TypeInt64())
+		v3 := b.NewValue0(v.Pos, OpS390XMOVBreg, types.Int64)
 		v3.AddArg(x)
 		v2.AddArg(v3)
-		v4 := b.NewValue0(v.Pos, OpS390XMOVBreg, config.fe.TypeInt64())
+		v4 := b.NewValue0(v.Pos, OpS390XMOVBreg, types.Int64)
 		v4.AddArg(y)
 		v2.AddArg(v4)
 		v.AddArg(v2)
 		return true
 	}
 }
-func rewriteValueS390X_OpNeqPtr(v *Value, config *Config) bool {
+func rewriteValueS390X_OpNeqPtr(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (NeqPtr x y)
 	// cond:
 	// result: (MOVDNE (MOVDconst [0]) (MOVDconst [1]) (CMP x y))
@@ -4544,10 +4587,10 @@ func rewriteValueS390X_OpNeqPtr(v *Value, config *Config) bool {
 		x := v.Args[0]
 		y := v.Args[1]
 		v.reset(OpS390XMOVDNE)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = 0
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v1.AuxInt = 1
 		v.AddArg(v1)
 		v2 := b.NewValue0(v.Pos, OpS390XCMP, TypeFlags)
@@ -4557,9 +4600,7 @@ func rewriteValueS390X_OpNeqPtr(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpNilCheck(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpNilCheck(v *Value) bool {
 	// match: (NilCheck ptr mem)
 	// cond:
 	// result: (LoweredNilCheck ptr mem)
@@ -4572,9 +4613,7 @@ func rewriteValueS390X_OpNilCheck(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpNot(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpNot(v *Value) bool {
 	// match: (Not x)
 	// cond:
 	// result: (XORWconst [1] x)
@@ -4586,9 +4625,11 @@ func rewriteValueS390X_OpNot(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpOffPtr(v *Value, config *Config) bool {
+func rewriteValueS390X_OpOffPtr(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (OffPtr [off] ptr:(SP))
 	// cond:
 	// result: (MOVDaddr [off] ptr)
@@ -4624,16 +4665,14 @@ func rewriteValueS390X_OpOffPtr(v *Value, config *Config) bool {
 		off := v.AuxInt
 		ptr := v.Args[0]
 		v.reset(OpS390XADD)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = off
 		v.AddArg(v0)
 		v.AddArg(ptr)
 		return true
 	}
 }
-func rewriteValueS390X_OpOr16(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpOr16(v *Value) bool {
 	// match: (Or16 x y)
 	// cond:
 	// result: (ORW x y)
@@ -4646,9 +4685,7 @@ func rewriteValueS390X_OpOr16(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpOr32(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpOr32(v *Value) bool {
 	// match: (Or32 x y)
 	// cond:
 	// result: (ORW x y)
@@ -4661,9 +4698,7 @@ func rewriteValueS390X_OpOr32(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpOr64(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpOr64(v *Value) bool {
 	// match: (Or64 x y)
 	// cond:
 	// result: (OR x y)
@@ -4676,9 +4711,7 @@ func rewriteValueS390X_OpOr64(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpOr8(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpOr8(v *Value) bool {
 	// match: (Or8  x y)
 	// cond:
 	// result: (ORW x y)
@@ -4691,9 +4724,7 @@ func rewriteValueS390X_OpOr8(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpOrB(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpOrB(v *Value) bool {
 	// match: (OrB x y)
 	// cond:
 	// result: (ORW x y)
@@ -4706,9 +4737,7 @@ func rewriteValueS390X_OpOrB(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpRound32F(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpRound32F(v *Value) bool {
 	// match: (Round32F x)
 	// cond:
 	// result: (LoweredRound32F x)
@@ -4719,9 +4748,7 @@ func rewriteValueS390X_OpRound32F(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpRound64F(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpRound64F(v *Value) bool {
 	// match: (Round64F x)
 	// cond:
 	// result: (LoweredRound64F x)
@@ -4732,9 +4759,11 @@ func rewriteValueS390X_OpRound64F(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpRsh16Ux16(v *Value, config *Config) bool {
+func rewriteValueS390X_OpRsh16Ux16(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Rsh16Ux16 <t> x y)
 	// cond:
 	// result: (ANDW (SRW <t> (MOVHZreg x) y) (SUBEWcarrymask <t> (CMPWUconst (MOVHZreg y) [15])))
@@ -4744,7 +4773,7 @@ func rewriteValueS390X_OpRsh16Ux16(v *Value, config *Config) bool {
 		y := v.Args[1]
 		v.reset(OpS390XANDW)
 		v0 := b.NewValue0(v.Pos, OpS390XSRW, t)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVHZreg, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVHZreg, types.UInt64)
 		v1.AddArg(x)
 		v0.AddArg(v1)
 		v0.AddArg(y)
@@ -4752,7 +4781,7 @@ func rewriteValueS390X_OpRsh16Ux16(v *Value, config *Config) bool {
 		v2 := b.NewValue0(v.Pos, OpS390XSUBEWcarrymask, t)
 		v3 := b.NewValue0(v.Pos, OpS390XCMPWUconst, TypeFlags)
 		v3.AuxInt = 15
-		v4 := b.NewValue0(v.Pos, OpS390XMOVHZreg, config.fe.TypeUInt64())
+		v4 := b.NewValue0(v.Pos, OpS390XMOVHZreg, types.UInt64)
 		v4.AddArg(y)
 		v3.AddArg(v4)
 		v2.AddArg(v3)
@@ -4760,9 +4789,11 @@ func rewriteValueS390X_OpRsh16Ux16(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpRsh16Ux32(v *Value, config *Config) bool {
+func rewriteValueS390X_OpRsh16Ux32(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Rsh16Ux32 <t> x y)
 	// cond:
 	// result: (ANDW (SRW <t> (MOVHZreg x) y) (SUBEWcarrymask <t> (CMPWUconst y [15])))
@@ -4772,7 +4803,7 @@ func rewriteValueS390X_OpRsh16Ux32(v *Value, config *Config) bool {
 		y := v.Args[1]
 		v.reset(OpS390XANDW)
 		v0 := b.NewValue0(v.Pos, OpS390XSRW, t)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVHZreg, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVHZreg, types.UInt64)
 		v1.AddArg(x)
 		v0.AddArg(v1)
 		v0.AddArg(y)
@@ -4786,9 +4817,11 @@ func rewriteValueS390X_OpRsh16Ux32(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpRsh16Ux64(v *Value, config *Config) bool {
+func rewriteValueS390X_OpRsh16Ux64(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Rsh16Ux64 <t> x y)
 	// cond:
 	// result: (ANDW (SRW <t> (MOVHZreg x) y) (SUBEWcarrymask <t> (CMPUconst y [15])))
@@ -4798,7 +4831,7 @@ func rewriteValueS390X_OpRsh16Ux64(v *Value, config *Config) bool {
 		y := v.Args[1]
 		v.reset(OpS390XANDW)
 		v0 := b.NewValue0(v.Pos, OpS390XSRW, t)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVHZreg, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVHZreg, types.UInt64)
 		v1.AddArg(x)
 		v0.AddArg(v1)
 		v0.AddArg(y)
@@ -4812,9 +4845,11 @@ func rewriteValueS390X_OpRsh16Ux64(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpRsh16Ux8(v *Value, config *Config) bool {
+func rewriteValueS390X_OpRsh16Ux8(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Rsh16Ux8  <t> x y)
 	// cond:
 	// result: (ANDW (SRW <t> (MOVHZreg x) y) (SUBEWcarrymask <t> (CMPWUconst (MOVBZreg y) [15])))
@@ -4824,7 +4859,7 @@ func rewriteValueS390X_OpRsh16Ux8(v *Value, config *Config) bool {
 		y := v.Args[1]
 		v.reset(OpS390XANDW)
 		v0 := b.NewValue0(v.Pos, OpS390XSRW, t)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVHZreg, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVHZreg, types.UInt64)
 		v1.AddArg(x)
 		v0.AddArg(v1)
 		v0.AddArg(y)
@@ -4832,7 +4867,7 @@ func rewriteValueS390X_OpRsh16Ux8(v *Value, config *Config) bool {
 		v2 := b.NewValue0(v.Pos, OpS390XSUBEWcarrymask, t)
 		v3 := b.NewValue0(v.Pos, OpS390XCMPWUconst, TypeFlags)
 		v3.AuxInt = 15
-		v4 := b.NewValue0(v.Pos, OpS390XMOVBZreg, config.fe.TypeUInt64())
+		v4 := b.NewValue0(v.Pos, OpS390XMOVBZreg, types.UInt64)
 		v4.AddArg(y)
 		v3.AddArg(v4)
 		v2.AddArg(v3)
@@ -4840,9 +4875,11 @@ func rewriteValueS390X_OpRsh16Ux8(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpRsh16x16(v *Value, config *Config) bool {
+func rewriteValueS390X_OpRsh16x16(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Rsh16x16 <t> x y)
 	// cond:
 	// result: (SRAW <t> (MOVHreg x) (ORW <y.Type> y (NOTW <y.Type> (SUBEWcarrymask <y.Type> (CMPWUconst (MOVHZreg y) [15])))))
@@ -4852,7 +4889,7 @@ func rewriteValueS390X_OpRsh16x16(v *Value, config *Config) bool {
 		y := v.Args[1]
 		v.reset(OpS390XSRAW)
 		v.Type = t
-		v0 := b.NewValue0(v.Pos, OpS390XMOVHreg, config.fe.TypeInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVHreg, types.Int64)
 		v0.AddArg(x)
 		v.AddArg(v0)
 		v1 := b.NewValue0(v.Pos, OpS390XORW, y.Type)
@@ -4861,7 +4898,7 @@ func rewriteValueS390X_OpRsh16x16(v *Value, config *Config) bool {
 		v3 := b.NewValue0(v.Pos, OpS390XSUBEWcarrymask, y.Type)
 		v4 := b.NewValue0(v.Pos, OpS390XCMPWUconst, TypeFlags)
 		v4.AuxInt = 15
-		v5 := b.NewValue0(v.Pos, OpS390XMOVHZreg, config.fe.TypeUInt64())
+		v5 := b.NewValue0(v.Pos, OpS390XMOVHZreg, types.UInt64)
 		v5.AddArg(y)
 		v4.AddArg(v5)
 		v3.AddArg(v4)
@@ -4871,9 +4908,11 @@ func rewriteValueS390X_OpRsh16x16(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpRsh16x32(v *Value, config *Config) bool {
+func rewriteValueS390X_OpRsh16x32(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Rsh16x32 <t> x y)
 	// cond:
 	// result: (SRAW <t> (MOVHreg x) (ORW <y.Type> y (NOTW <y.Type> (SUBEWcarrymask <y.Type> (CMPWUconst y [15])))))
@@ -4883,7 +4922,7 @@ func rewriteValueS390X_OpRsh16x32(v *Value, config *Config) bool {
 		y := v.Args[1]
 		v.reset(OpS390XSRAW)
 		v.Type = t
-		v0 := b.NewValue0(v.Pos, OpS390XMOVHreg, config.fe.TypeInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVHreg, types.Int64)
 		v0.AddArg(x)
 		v.AddArg(v0)
 		v1 := b.NewValue0(v.Pos, OpS390XORW, y.Type)
@@ -4900,9 +4939,11 @@ func rewriteValueS390X_OpRsh16x32(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpRsh16x64(v *Value, config *Config) bool {
+func rewriteValueS390X_OpRsh16x64(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Rsh16x64 <t> x y)
 	// cond:
 	// result: (SRAW <t> (MOVHreg x) (OR <y.Type> y (NOT <y.Type> (SUBEcarrymask <y.Type> (CMPUconst y [15])))))
@@ -4912,7 +4953,7 @@ func rewriteValueS390X_OpRsh16x64(v *Value, config *Config) bool {
 		y := v.Args[1]
 		v.reset(OpS390XSRAW)
 		v.Type = t
-		v0 := b.NewValue0(v.Pos, OpS390XMOVHreg, config.fe.TypeInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVHreg, types.Int64)
 		v0.AddArg(x)
 		v.AddArg(v0)
 		v1 := b.NewValue0(v.Pos, OpS390XOR, y.Type)
@@ -4929,9 +4970,11 @@ func rewriteValueS390X_OpRsh16x64(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpRsh16x8(v *Value, config *Config) bool {
+func rewriteValueS390X_OpRsh16x8(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Rsh16x8  <t> x y)
 	// cond:
 	// result: (SRAW <t> (MOVHreg x) (ORW <y.Type> y (NOTW <y.Type> (SUBEWcarrymask <y.Type> (CMPWUconst (MOVBZreg y) [15])))))
@@ -4941,7 +4984,7 @@ func rewriteValueS390X_OpRsh16x8(v *Value, config *Config) bool {
 		y := v.Args[1]
 		v.reset(OpS390XSRAW)
 		v.Type = t
-		v0 := b.NewValue0(v.Pos, OpS390XMOVHreg, config.fe.TypeInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVHreg, types.Int64)
 		v0.AddArg(x)
 		v.AddArg(v0)
 		v1 := b.NewValue0(v.Pos, OpS390XORW, y.Type)
@@ -4950,7 +4993,7 @@ func rewriteValueS390X_OpRsh16x8(v *Value, config *Config) bool {
 		v3 := b.NewValue0(v.Pos, OpS390XSUBEWcarrymask, y.Type)
 		v4 := b.NewValue0(v.Pos, OpS390XCMPWUconst, TypeFlags)
 		v4.AuxInt = 15
-		v5 := b.NewValue0(v.Pos, OpS390XMOVBZreg, config.fe.TypeUInt64())
+		v5 := b.NewValue0(v.Pos, OpS390XMOVBZreg, types.UInt64)
 		v5.AddArg(y)
 		v4.AddArg(v5)
 		v3.AddArg(v4)
@@ -4960,9 +5003,11 @@ func rewriteValueS390X_OpRsh16x8(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpRsh32Ux16(v *Value, config *Config) bool {
+func rewriteValueS390X_OpRsh32Ux16(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Rsh32Ux16 <t> x y)
 	// cond:
 	// result: (ANDW (SRW <t> x y) (SUBEWcarrymask <t> (CMPWUconst (MOVHZreg y) [31])))
@@ -4978,7 +5023,7 @@ func rewriteValueS390X_OpRsh32Ux16(v *Value, config *Config) bool {
 		v1 := b.NewValue0(v.Pos, OpS390XSUBEWcarrymask, t)
 		v2 := b.NewValue0(v.Pos, OpS390XCMPWUconst, TypeFlags)
 		v2.AuxInt = 31
-		v3 := b.NewValue0(v.Pos, OpS390XMOVHZreg, config.fe.TypeUInt64())
+		v3 := b.NewValue0(v.Pos, OpS390XMOVHZreg, types.UInt64)
 		v3.AddArg(y)
 		v2.AddArg(v3)
 		v1.AddArg(v2)
@@ -4986,7 +5031,7 @@ func rewriteValueS390X_OpRsh32Ux16(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpRsh32Ux32(v *Value, config *Config) bool {
+func rewriteValueS390X_OpRsh32Ux32(v *Value) bool {
 	b := v.Block
 	_ = b
 	// match: (Rsh32Ux32 <t> x y)
@@ -5010,7 +5055,7 @@ func rewriteValueS390X_OpRsh32Ux32(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpRsh32Ux64(v *Value, config *Config) bool {
+func rewriteValueS390X_OpRsh32Ux64(v *Value) bool {
 	b := v.Block
 	_ = b
 	// match: (Rsh32Ux64 <t> x y)
@@ -5034,9 +5079,11 @@ func rewriteValueS390X_OpRsh32Ux64(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpRsh32Ux8(v *Value, config *Config) bool {
+func rewriteValueS390X_OpRsh32Ux8(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Rsh32Ux8  <t> x y)
 	// cond:
 	// result: (ANDW (SRW <t> x y) (SUBEWcarrymask <t> (CMPWUconst (MOVBZreg y) [31])))
@@ -5052,7 +5099,7 @@ func rewriteValueS390X_OpRsh32Ux8(v *Value, config *Config) bool {
 		v1 := b.NewValue0(v.Pos, OpS390XSUBEWcarrymask, t)
 		v2 := b.NewValue0(v.Pos, OpS390XCMPWUconst, TypeFlags)
 		v2.AuxInt = 31
-		v3 := b.NewValue0(v.Pos, OpS390XMOVBZreg, config.fe.TypeUInt64())
+		v3 := b.NewValue0(v.Pos, OpS390XMOVBZreg, types.UInt64)
 		v3.AddArg(y)
 		v2.AddArg(v3)
 		v1.AddArg(v2)
@@ -5060,9 +5107,11 @@ func rewriteValueS390X_OpRsh32Ux8(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpRsh32x16(v *Value, config *Config) bool {
+func rewriteValueS390X_OpRsh32x16(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Rsh32x16 <t> x y)
 	// cond:
 	// result: (SRAW <t> x (ORW <y.Type> y (NOTW <y.Type> (SUBEWcarrymask <y.Type> (CMPWUconst (MOVHZreg y) [31])))))
@@ -5079,7 +5128,7 @@ func rewriteValueS390X_OpRsh32x16(v *Value, config *Config) bool {
 		v2 := b.NewValue0(v.Pos, OpS390XSUBEWcarrymask, y.Type)
 		v3 := b.NewValue0(v.Pos, OpS390XCMPWUconst, TypeFlags)
 		v3.AuxInt = 31
-		v4 := b.NewValue0(v.Pos, OpS390XMOVHZreg, config.fe.TypeUInt64())
+		v4 := b.NewValue0(v.Pos, OpS390XMOVHZreg, types.UInt64)
 		v4.AddArg(y)
 		v3.AddArg(v4)
 		v2.AddArg(v3)
@@ -5089,7 +5138,7 @@ func rewriteValueS390X_OpRsh32x16(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpRsh32x32(v *Value, config *Config) bool {
+func rewriteValueS390X_OpRsh32x32(v *Value) bool {
 	b := v.Block
 	_ = b
 	// match: (Rsh32x32 <t> x y)
@@ -5116,7 +5165,7 @@ func rewriteValueS390X_OpRsh32x32(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpRsh32x64(v *Value, config *Config) bool {
+func rewriteValueS390X_OpRsh32x64(v *Value) bool {
 	b := v.Block
 	_ = b
 	// match: (Rsh32x64 <t> x y)
@@ -5143,9 +5192,11 @@ func rewriteValueS390X_OpRsh32x64(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpRsh32x8(v *Value, config *Config) bool {
+func rewriteValueS390X_OpRsh32x8(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Rsh32x8  <t> x y)
 	// cond:
 	// result: (SRAW <t> x (ORW <y.Type> y (NOTW <y.Type> (SUBEWcarrymask <y.Type> (CMPWUconst (MOVBZreg y) [31])))))
@@ -5162,7 +5213,7 @@ func rewriteValueS390X_OpRsh32x8(v *Value, config *Config) bool {
 		v2 := b.NewValue0(v.Pos, OpS390XSUBEWcarrymask, y.Type)
 		v3 := b.NewValue0(v.Pos, OpS390XCMPWUconst, TypeFlags)
 		v3.AuxInt = 31
-		v4 := b.NewValue0(v.Pos, OpS390XMOVBZreg, config.fe.TypeUInt64())
+		v4 := b.NewValue0(v.Pos, OpS390XMOVBZreg, types.UInt64)
 		v4.AddArg(y)
 		v3.AddArg(v4)
 		v2.AddArg(v3)
@@ -5172,9 +5223,11 @@ func rewriteValueS390X_OpRsh32x8(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpRsh64Ux16(v *Value, config *Config) bool {
+func rewriteValueS390X_OpRsh64Ux16(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Rsh64Ux16 <t> x y)
 	// cond:
 	// result: (AND (SRD <t> x y) (SUBEcarrymask <t> (CMPWUconst (MOVHZreg y) [63])))
@@ -5190,7 +5243,7 @@ func rewriteValueS390X_OpRsh64Ux16(v *Value, config *Config) bool {
 		v1 := b.NewValue0(v.Pos, OpS390XSUBEcarrymask, t)
 		v2 := b.NewValue0(v.Pos, OpS390XCMPWUconst, TypeFlags)
 		v2.AuxInt = 63
-		v3 := b.NewValue0(v.Pos, OpS390XMOVHZreg, config.fe.TypeUInt64())
+		v3 := b.NewValue0(v.Pos, OpS390XMOVHZreg, types.UInt64)
 		v3.AddArg(y)
 		v2.AddArg(v3)
 		v1.AddArg(v2)
@@ -5198,7 +5251,7 @@ func rewriteValueS390X_OpRsh64Ux16(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpRsh64Ux32(v *Value, config *Config) bool {
+func rewriteValueS390X_OpRsh64Ux32(v *Value) bool {
 	b := v.Block
 	_ = b
 	// match: (Rsh64Ux32 <t> x y)
@@ -5222,7 +5275,7 @@ func rewriteValueS390X_OpRsh64Ux32(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpRsh64Ux64(v *Value, config *Config) bool {
+func rewriteValueS390X_OpRsh64Ux64(v *Value) bool {
 	b := v.Block
 	_ = b
 	// match: (Rsh64Ux64 <t> x y)
@@ -5246,9 +5299,11 @@ func rewriteValueS390X_OpRsh64Ux64(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpRsh64Ux8(v *Value, config *Config) bool {
+func rewriteValueS390X_OpRsh64Ux8(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Rsh64Ux8  <t> x y)
 	// cond:
 	// result: (AND (SRD <t> x y) (SUBEcarrymask <t> (CMPWUconst (MOVBZreg y) [63])))
@@ -5264,7 +5319,7 @@ func rewriteValueS390X_OpRsh64Ux8(v *Value, config *Config) bool {
 		v1 := b.NewValue0(v.Pos, OpS390XSUBEcarrymask, t)
 		v2 := b.NewValue0(v.Pos, OpS390XCMPWUconst, TypeFlags)
 		v2.AuxInt = 63
-		v3 := b.NewValue0(v.Pos, OpS390XMOVBZreg, config.fe.TypeUInt64())
+		v3 := b.NewValue0(v.Pos, OpS390XMOVBZreg, types.UInt64)
 		v3.AddArg(y)
 		v2.AddArg(v3)
 		v1.AddArg(v2)
@@ -5272,9 +5327,11 @@ func rewriteValueS390X_OpRsh64Ux8(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpRsh64x16(v *Value, config *Config) bool {
+func rewriteValueS390X_OpRsh64x16(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Rsh64x16 <t> x y)
 	// cond:
 	// result: (SRAD <t> x (ORW <y.Type> y (NOTW <y.Type> (SUBEWcarrymask <y.Type> (CMPWUconst (MOVHZreg y) [63])))))
@@ -5291,7 +5348,7 @@ func rewriteValueS390X_OpRsh64x16(v *Value, config *Config) bool {
 		v2 := b.NewValue0(v.Pos, OpS390XSUBEWcarrymask, y.Type)
 		v3 := b.NewValue0(v.Pos, OpS390XCMPWUconst, TypeFlags)
 		v3.AuxInt = 63
-		v4 := b.NewValue0(v.Pos, OpS390XMOVHZreg, config.fe.TypeUInt64())
+		v4 := b.NewValue0(v.Pos, OpS390XMOVHZreg, types.UInt64)
 		v4.AddArg(y)
 		v3.AddArg(v4)
 		v2.AddArg(v3)
@@ -5301,7 +5358,7 @@ func rewriteValueS390X_OpRsh64x16(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpRsh64x32(v *Value, config *Config) bool {
+func rewriteValueS390X_OpRsh64x32(v *Value) bool {
 	b := v.Block
 	_ = b
 	// match: (Rsh64x32 <t> x y)
@@ -5328,7 +5385,7 @@ func rewriteValueS390X_OpRsh64x32(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpRsh64x64(v *Value, config *Config) bool {
+func rewriteValueS390X_OpRsh64x64(v *Value) bool {
 	b := v.Block
 	_ = b
 	// match: (Rsh64x64 <t> x y)
@@ -5355,9 +5412,11 @@ func rewriteValueS390X_OpRsh64x64(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpRsh64x8(v *Value, config *Config) bool {
+func rewriteValueS390X_OpRsh64x8(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Rsh64x8  <t> x y)
 	// cond:
 	// result: (SRAD <t> x (ORW <y.Type> y (NOTW <y.Type> (SUBEWcarrymask <y.Type> (CMPWUconst (MOVBZreg y) [63])))))
@@ -5374,7 +5433,7 @@ func rewriteValueS390X_OpRsh64x8(v *Value, config *Config) bool {
 		v2 := b.NewValue0(v.Pos, OpS390XSUBEWcarrymask, y.Type)
 		v3 := b.NewValue0(v.Pos, OpS390XCMPWUconst, TypeFlags)
 		v3.AuxInt = 63
-		v4 := b.NewValue0(v.Pos, OpS390XMOVBZreg, config.fe.TypeUInt64())
+		v4 := b.NewValue0(v.Pos, OpS390XMOVBZreg, types.UInt64)
 		v4.AddArg(y)
 		v3.AddArg(v4)
 		v2.AddArg(v3)
@@ -5384,9 +5443,11 @@ func rewriteValueS390X_OpRsh64x8(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpRsh8Ux16(v *Value, config *Config) bool {
+func rewriteValueS390X_OpRsh8Ux16(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Rsh8Ux16 <t> x y)
 	// cond:
 	// result: (ANDW (SRW <t> (MOVBZreg x) y) (SUBEWcarrymask <t> (CMPWUconst (MOVHZreg y) [7])))
@@ -5396,7 +5457,7 @@ func rewriteValueS390X_OpRsh8Ux16(v *Value, config *Config) bool {
 		y := v.Args[1]
 		v.reset(OpS390XANDW)
 		v0 := b.NewValue0(v.Pos, OpS390XSRW, t)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVBZreg, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVBZreg, types.UInt64)
 		v1.AddArg(x)
 		v0.AddArg(v1)
 		v0.AddArg(y)
@@ -5404,7 +5465,7 @@ func rewriteValueS390X_OpRsh8Ux16(v *Value, config *Config) bool {
 		v2 := b.NewValue0(v.Pos, OpS390XSUBEWcarrymask, t)
 		v3 := b.NewValue0(v.Pos, OpS390XCMPWUconst, TypeFlags)
 		v3.AuxInt = 7
-		v4 := b.NewValue0(v.Pos, OpS390XMOVHZreg, config.fe.TypeUInt64())
+		v4 := b.NewValue0(v.Pos, OpS390XMOVHZreg, types.UInt64)
 		v4.AddArg(y)
 		v3.AddArg(v4)
 		v2.AddArg(v3)
@@ -5412,9 +5473,11 @@ func rewriteValueS390X_OpRsh8Ux16(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpRsh8Ux32(v *Value, config *Config) bool {
+func rewriteValueS390X_OpRsh8Ux32(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Rsh8Ux32 <t> x y)
 	// cond:
 	// result: (ANDW (SRW <t> (MOVBZreg x) y) (SUBEWcarrymask <t> (CMPWUconst y [7])))
@@ -5424,7 +5487,7 @@ func rewriteValueS390X_OpRsh8Ux32(v *Value, config *Config) bool {
 		y := v.Args[1]
 		v.reset(OpS390XANDW)
 		v0 := b.NewValue0(v.Pos, OpS390XSRW, t)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVBZreg, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVBZreg, types.UInt64)
 		v1.AddArg(x)
 		v0.AddArg(v1)
 		v0.AddArg(y)
@@ -5438,9 +5501,11 @@ func rewriteValueS390X_OpRsh8Ux32(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpRsh8Ux64(v *Value, config *Config) bool {
+func rewriteValueS390X_OpRsh8Ux64(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Rsh8Ux64 <t> x y)
 	// cond:
 	// result: (ANDW (SRW <t> (MOVBZreg x) y) (SUBEWcarrymask <t> (CMPUconst y [7])))
@@ -5450,7 +5515,7 @@ func rewriteValueS390X_OpRsh8Ux64(v *Value, config *Config) bool {
 		y := v.Args[1]
 		v.reset(OpS390XANDW)
 		v0 := b.NewValue0(v.Pos, OpS390XSRW, t)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVBZreg, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVBZreg, types.UInt64)
 		v1.AddArg(x)
 		v0.AddArg(v1)
 		v0.AddArg(y)
@@ -5464,9 +5529,11 @@ func rewriteValueS390X_OpRsh8Ux64(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpRsh8Ux8(v *Value, config *Config) bool {
+func rewriteValueS390X_OpRsh8Ux8(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Rsh8Ux8  <t> x y)
 	// cond:
 	// result: (ANDW (SRW <t> (MOVBZreg x) y) (SUBEWcarrymask <t> (CMPWUconst (MOVBZreg y) [7])))
@@ -5476,7 +5543,7 @@ func rewriteValueS390X_OpRsh8Ux8(v *Value, config *Config) bool {
 		y := v.Args[1]
 		v.reset(OpS390XANDW)
 		v0 := b.NewValue0(v.Pos, OpS390XSRW, t)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVBZreg, config.fe.TypeUInt64())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVBZreg, types.UInt64)
 		v1.AddArg(x)
 		v0.AddArg(v1)
 		v0.AddArg(y)
@@ -5484,7 +5551,7 @@ func rewriteValueS390X_OpRsh8Ux8(v *Value, config *Config) bool {
 		v2 := b.NewValue0(v.Pos, OpS390XSUBEWcarrymask, t)
 		v3 := b.NewValue0(v.Pos, OpS390XCMPWUconst, TypeFlags)
 		v3.AuxInt = 7
-		v4 := b.NewValue0(v.Pos, OpS390XMOVBZreg, config.fe.TypeUInt64())
+		v4 := b.NewValue0(v.Pos, OpS390XMOVBZreg, types.UInt64)
 		v4.AddArg(y)
 		v3.AddArg(v4)
 		v2.AddArg(v3)
@@ -5492,9 +5559,11 @@ func rewriteValueS390X_OpRsh8Ux8(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpRsh8x16(v *Value, config *Config) bool {
+func rewriteValueS390X_OpRsh8x16(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Rsh8x16 <t> x y)
 	// cond:
 	// result: (SRAW <t> (MOVBreg x) (ORW <y.Type> y (NOTW <y.Type> (SUBEWcarrymask <y.Type> (CMPWUconst (MOVHZreg y) [7])))))
@@ -5504,7 +5573,7 @@ func rewriteValueS390X_OpRsh8x16(v *Value, config *Config) bool {
 		y := v.Args[1]
 		v.reset(OpS390XSRAW)
 		v.Type = t
-		v0 := b.NewValue0(v.Pos, OpS390XMOVBreg, config.fe.TypeInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVBreg, types.Int64)
 		v0.AddArg(x)
 		v.AddArg(v0)
 		v1 := b.NewValue0(v.Pos, OpS390XORW, y.Type)
@@ -5513,7 +5582,7 @@ func rewriteValueS390X_OpRsh8x16(v *Value, config *Config) bool {
 		v3 := b.NewValue0(v.Pos, OpS390XSUBEWcarrymask, y.Type)
 		v4 := b.NewValue0(v.Pos, OpS390XCMPWUconst, TypeFlags)
 		v4.AuxInt = 7
-		v5 := b.NewValue0(v.Pos, OpS390XMOVHZreg, config.fe.TypeUInt64())
+		v5 := b.NewValue0(v.Pos, OpS390XMOVHZreg, types.UInt64)
 		v5.AddArg(y)
 		v4.AddArg(v5)
 		v3.AddArg(v4)
@@ -5523,9 +5592,11 @@ func rewriteValueS390X_OpRsh8x16(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpRsh8x32(v *Value, config *Config) bool {
+func rewriteValueS390X_OpRsh8x32(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Rsh8x32 <t> x y)
 	// cond:
 	// result: (SRAW <t> (MOVBreg x) (ORW <y.Type> y (NOTW <y.Type> (SUBEWcarrymask <y.Type> (CMPWUconst y [7])))))
@@ -5535,7 +5606,7 @@ func rewriteValueS390X_OpRsh8x32(v *Value, config *Config) bool {
 		y := v.Args[1]
 		v.reset(OpS390XSRAW)
 		v.Type = t
-		v0 := b.NewValue0(v.Pos, OpS390XMOVBreg, config.fe.TypeInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVBreg, types.Int64)
 		v0.AddArg(x)
 		v.AddArg(v0)
 		v1 := b.NewValue0(v.Pos, OpS390XORW, y.Type)
@@ -5552,9 +5623,11 @@ func rewriteValueS390X_OpRsh8x32(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpRsh8x64(v *Value, config *Config) bool {
+func rewriteValueS390X_OpRsh8x64(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Rsh8x64 <t> x y)
 	// cond:
 	// result: (SRAW <t> (MOVBreg x) (OR <y.Type> y (NOT <y.Type> (SUBEcarrymask <y.Type> (CMPUconst y [7])))))
@@ -5564,7 +5637,7 @@ func rewriteValueS390X_OpRsh8x64(v *Value, config *Config) bool {
 		y := v.Args[1]
 		v.reset(OpS390XSRAW)
 		v.Type = t
-		v0 := b.NewValue0(v.Pos, OpS390XMOVBreg, config.fe.TypeInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVBreg, types.Int64)
 		v0.AddArg(x)
 		v.AddArg(v0)
 		v1 := b.NewValue0(v.Pos, OpS390XOR, y.Type)
@@ -5581,9 +5654,11 @@ func rewriteValueS390X_OpRsh8x64(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpRsh8x8(v *Value, config *Config) bool {
+func rewriteValueS390X_OpRsh8x8(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (Rsh8x8  <t> x y)
 	// cond:
 	// result: (SRAW <t> (MOVBreg x) (ORW <y.Type> y (NOTW <y.Type> (SUBEWcarrymask <y.Type> (CMPWUconst (MOVBZreg y) [7])))))
@@ -5593,7 +5668,7 @@ func rewriteValueS390X_OpRsh8x8(v *Value, config *Config) bool {
 		y := v.Args[1]
 		v.reset(OpS390XSRAW)
 		v.Type = t
-		v0 := b.NewValue0(v.Pos, OpS390XMOVBreg, config.fe.TypeInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVBreg, types.Int64)
 		v0.AddArg(x)
 		v.AddArg(v0)
 		v1 := b.NewValue0(v.Pos, OpS390XORW, y.Type)
@@ -5602,7 +5677,7 @@ func rewriteValueS390X_OpRsh8x8(v *Value, config *Config) bool {
 		v3 := b.NewValue0(v.Pos, OpS390XSUBEWcarrymask, y.Type)
 		v4 := b.NewValue0(v.Pos, OpS390XCMPWUconst, TypeFlags)
 		v4.AuxInt = 7
-		v5 := b.NewValue0(v.Pos, OpS390XMOVBZreg, config.fe.TypeUInt64())
+		v5 := b.NewValue0(v.Pos, OpS390XMOVBZreg, types.UInt64)
 		v5.AddArg(y)
 		v4.AddArg(v5)
 		v3.AddArg(v4)
@@ -5612,9 +5687,7 @@ func rewriteValueS390X_OpRsh8x8(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpS390XADD(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XADD(v *Value) bool {
 	// match: (ADD x (MOVDconst [c]))
 	// cond: is32Bit(c)
 	// result: (ADDconst [c] x)
@@ -5761,7 +5834,7 @@ func rewriteValueS390X_OpS390XADD(v *Value, config *Config) bool {
 		return true
 	}
 	// match: (ADD <t> x g:(MOVDload [off] {sym} ptr mem))
-	// cond: g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)
+	// cond: ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)
 	// result: (ADDload <t> [off] {sym} x ptr mem)
 	for {
 		t := v.Type
@@ -5774,7 +5847,7 @@ func rewriteValueS390X_OpS390XADD(v *Value, config *Config) bool {
 		sym := g.Aux
 		ptr := g.Args[0]
 		mem := g.Args[1]
-		if !(g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)) {
+		if !(ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)) {
 			break
 		}
 		v.reset(OpS390XADDload)
@@ -5787,7 +5860,7 @@ func rewriteValueS390X_OpS390XADD(v *Value, config *Config) bool {
 		return true
 	}
 	// match: (ADD <t> g:(MOVDload [off] {sym} ptr mem) x)
-	// cond: g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)
+	// cond: ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)
 	// result: (ADDload <t> [off] {sym} x ptr mem)
 	for {
 		t := v.Type
@@ -5800,7 +5873,7 @@ func rewriteValueS390X_OpS390XADD(v *Value, config *Config) bool {
 		ptr := g.Args[0]
 		mem := g.Args[1]
 		x := v.Args[1]
-		if !(g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)) {
+		if !(ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)) {
 			break
 		}
 		v.reset(OpS390XADDload)
@@ -5814,9 +5887,7 @@ func rewriteValueS390X_OpS390XADD(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XADDW(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XADDW(v *Value) bool {
 	// match: (ADDW x (MOVDconst [c]))
 	// cond:
 	// result: (ADDWconst [c] x)
@@ -5913,7 +5984,7 @@ func rewriteValueS390X_OpS390XADDW(v *Value, config *Config) bool {
 		return true
 	}
 	// match: (ADDW <t> x g:(MOVWload [off] {sym} ptr mem))
-	// cond: g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)
+	// cond: ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)
 	// result: (ADDWload <t> [off] {sym} x ptr mem)
 	for {
 		t := v.Type
@@ -5926,7 +5997,7 @@ func rewriteValueS390X_OpS390XADDW(v *Value, config *Config) bool {
 		sym := g.Aux
 		ptr := g.Args[0]
 		mem := g.Args[1]
-		if !(g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)) {
+		if !(ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)) {
 			break
 		}
 		v.reset(OpS390XADDWload)
@@ -5939,7 +6010,7 @@ func rewriteValueS390X_OpS390XADDW(v *Value, config *Config) bool {
 		return true
 	}
 	// match: (ADDW <t> g:(MOVWload [off] {sym} ptr mem) x)
-	// cond: g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)
+	// cond: ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)
 	// result: (ADDWload <t> [off] {sym} x ptr mem)
 	for {
 		t := v.Type
@@ -5952,7 +6023,7 @@ func rewriteValueS390X_OpS390XADDW(v *Value, config *Config) bool {
 		ptr := g.Args[0]
 		mem := g.Args[1]
 		x := v.Args[1]
-		if !(g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)) {
+		if !(ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)) {
 			break
 		}
 		v.reset(OpS390XADDWload)
@@ -5965,7 +6036,7 @@ func rewriteValueS390X_OpS390XADDW(v *Value, config *Config) bool {
 		return true
 	}
 	// match: (ADDW <t> x g:(MOVWZload [off] {sym} ptr mem))
-	// cond: g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)
+	// cond: ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)
 	// result: (ADDWload <t> [off] {sym} x ptr mem)
 	for {
 		t := v.Type
@@ -5978,7 +6049,7 @@ func rewriteValueS390X_OpS390XADDW(v *Value, config *Config) bool {
 		sym := g.Aux
 		ptr := g.Args[0]
 		mem := g.Args[1]
-		if !(g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)) {
+		if !(ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)) {
 			break
 		}
 		v.reset(OpS390XADDWload)
@@ -5991,7 +6062,7 @@ func rewriteValueS390X_OpS390XADDW(v *Value, config *Config) bool {
 		return true
 	}
 	// match: (ADDW <t> g:(MOVWZload [off] {sym} ptr mem) x)
-	// cond: g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)
+	// cond: ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)
 	// result: (ADDWload <t> [off] {sym} x ptr mem)
 	for {
 		t := v.Type
@@ -6004,7 +6075,7 @@ func rewriteValueS390X_OpS390XADDW(v *Value, config *Config) bool {
 		ptr := g.Args[0]
 		mem := g.Args[1]
 		x := v.Args[1]
-		if !(g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)) {
+		if !(ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)) {
 			break
 		}
 		v.reset(OpS390XADDWload)
@@ -6018,9 +6089,7 @@ func rewriteValueS390X_OpS390XADDW(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XADDWconst(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XADDWconst(v *Value) bool {
 	// match: (ADDWconst [c] x)
 	// cond: int32(c)==0
 	// result: x
@@ -6067,9 +6136,7 @@ func rewriteValueS390X_OpS390XADDWconst(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XADDconst(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XADDconst(v *Value) bool {
 	// match: (ADDconst [c] (MOVDaddr [d] {s} x:(SB)))
 	// cond: ((c+d)&1 == 0) && is32Bit(c+d)
 	// result: (MOVDaddr [c+d] {s} x)
@@ -6186,9 +6253,7 @@ func rewriteValueS390X_OpS390XADDconst(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XAND(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XAND(v *Value) bool {
 	// match: (AND x (MOVDconst [c]))
 	// cond: is32Bit(c) && c < 0
 	// result: (ANDconst [c] x)
@@ -6353,7 +6418,7 @@ func rewriteValueS390X_OpS390XAND(v *Value, config *Config) bool {
 		return true
 	}
 	// match: (AND <t> x g:(MOVDload [off] {sym} ptr mem))
-	// cond: g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)
+	// cond: ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)
 	// result: (ANDload <t> [off] {sym} x ptr mem)
 	for {
 		t := v.Type
@@ -6366,7 +6431,7 @@ func rewriteValueS390X_OpS390XAND(v *Value, config *Config) bool {
 		sym := g.Aux
 		ptr := g.Args[0]
 		mem := g.Args[1]
-		if !(g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)) {
+		if !(ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)) {
 			break
 		}
 		v.reset(OpS390XANDload)
@@ -6379,7 +6444,7 @@ func rewriteValueS390X_OpS390XAND(v *Value, config *Config) bool {
 		return true
 	}
 	// match: (AND <t> g:(MOVDload [off] {sym} ptr mem) x)
-	// cond: g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)
+	// cond: ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)
 	// result: (ANDload <t> [off] {sym} x ptr mem)
 	for {
 		t := v.Type
@@ -6392,7 +6457,7 @@ func rewriteValueS390X_OpS390XAND(v *Value, config *Config) bool {
 		ptr := g.Args[0]
 		mem := g.Args[1]
 		x := v.Args[1]
-		if !(g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)) {
+		if !(ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)) {
 			break
 		}
 		v.reset(OpS390XANDload)
@@ -6406,9 +6471,7 @@ func rewriteValueS390X_OpS390XAND(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XANDW(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XANDW(v *Value) bool {
 	// match: (ANDW x (MOVDconst [c]))
 	// cond:
 	// result: (ANDWconst [c] x)
@@ -6453,7 +6516,7 @@ func rewriteValueS390X_OpS390XANDW(v *Value, config *Config) bool {
 		return true
 	}
 	// match: (ANDW <t> x g:(MOVWload [off] {sym} ptr mem))
-	// cond: g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)
+	// cond: ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)
 	// result: (ANDWload <t> [off] {sym} x ptr mem)
 	for {
 		t := v.Type
@@ -6466,7 +6529,7 @@ func rewriteValueS390X_OpS390XANDW(v *Value, config *Config) bool {
 		sym := g.Aux
 		ptr := g.Args[0]
 		mem := g.Args[1]
-		if !(g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)) {
+		if !(ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)) {
 			break
 		}
 		v.reset(OpS390XANDWload)
@@ -6479,7 +6542,7 @@ func rewriteValueS390X_OpS390XANDW(v *Value, config *Config) bool {
 		return true
 	}
 	// match: (ANDW <t> g:(MOVWload [off] {sym} ptr mem) x)
-	// cond: g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)
+	// cond: ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)
 	// result: (ANDWload <t> [off] {sym} x ptr mem)
 	for {
 		t := v.Type
@@ -6492,7 +6555,7 @@ func rewriteValueS390X_OpS390XANDW(v *Value, config *Config) bool {
 		ptr := g.Args[0]
 		mem := g.Args[1]
 		x := v.Args[1]
-		if !(g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)) {
+		if !(ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)) {
 			break
 		}
 		v.reset(OpS390XANDWload)
@@ -6505,7 +6568,7 @@ func rewriteValueS390X_OpS390XANDW(v *Value, config *Config) bool {
 		return true
 	}
 	// match: (ANDW <t> x g:(MOVWZload [off] {sym} ptr mem))
-	// cond: g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)
+	// cond: ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)
 	// result: (ANDWload <t> [off] {sym} x ptr mem)
 	for {
 		t := v.Type
@@ -6518,7 +6581,7 @@ func rewriteValueS390X_OpS390XANDW(v *Value, config *Config) bool {
 		sym := g.Aux
 		ptr := g.Args[0]
 		mem := g.Args[1]
-		if !(g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)) {
+		if !(ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)) {
 			break
 		}
 		v.reset(OpS390XANDWload)
@@ -6531,7 +6594,7 @@ func rewriteValueS390X_OpS390XANDW(v *Value, config *Config) bool {
 		return true
 	}
 	// match: (ANDW <t> g:(MOVWZload [off] {sym} ptr mem) x)
-	// cond: g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)
+	// cond: ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)
 	// result: (ANDWload <t> [off] {sym} x ptr mem)
 	for {
 		t := v.Type
@@ -6544,7 +6607,7 @@ func rewriteValueS390X_OpS390XANDW(v *Value, config *Config) bool {
 		ptr := g.Args[0]
 		mem := g.Args[1]
 		x := v.Args[1]
-		if !(g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)) {
+		if !(ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)) {
 			break
 		}
 		v.reset(OpS390XANDWload)
@@ -6558,9 +6621,7 @@ func rewriteValueS390X_OpS390XANDW(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XANDWconst(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XANDWconst(v *Value) bool {
 	// match: (ANDWconst [c] (ANDWconst [d] x))
 	// cond:
 	// result: (ANDWconst [c & d] x)
@@ -6643,9 +6704,7 @@ func rewriteValueS390X_OpS390XANDWconst(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XANDconst(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XANDconst(v *Value) bool {
 	// match: (ANDconst [c] (ANDconst [d] x))
 	// cond:
 	// result: (ANDconst [c & d] x)
@@ -6702,7 +6761,7 @@ func rewriteValueS390X_OpS390XANDconst(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XCMP(v *Value, config *Config) bool {
+func rewriteValueS390X_OpS390XCMP(v *Value) bool {
 	b := v.Block
 	_ = b
 	// match: (CMP x (MOVDconst [c]))
@@ -6745,7 +6804,7 @@ func rewriteValueS390X_OpS390XCMP(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XCMPU(v *Value, config *Config) bool {
+func rewriteValueS390X_OpS390XCMPU(v *Value) bool {
 	b := v.Block
 	_ = b
 	// match: (CMPU x (MOVDconst [c]))
@@ -6788,9 +6847,7 @@ func rewriteValueS390X_OpS390XCMPU(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XCMPUconst(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XCMPUconst(v *Value) bool {
 	// match: (CMPUconst (MOVDconst [x]) [y])
 	// cond: uint64(x)==uint64(y)
 	// result: (FlagEQ)
@@ -6841,7 +6898,7 @@ func rewriteValueS390X_OpS390XCMPUconst(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XCMPW(v *Value, config *Config) bool {
+func rewriteValueS390X_OpS390XCMPW(v *Value) bool {
 	b := v.Block
 	_ = b
 	// match: (CMPW x (MOVDconst [c]))
@@ -6878,7 +6935,7 @@ func rewriteValueS390X_OpS390XCMPW(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XCMPWU(v *Value, config *Config) bool {
+func rewriteValueS390X_OpS390XCMPWU(v *Value) bool {
 	b := v.Block
 	_ = b
 	// match: (CMPWU x (MOVDconst [c]))
@@ -6915,9 +6972,7 @@ func rewriteValueS390X_OpS390XCMPWU(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XCMPWUconst(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XCMPWUconst(v *Value) bool {
 	// match: (CMPWUconst (MOVDconst [x]) [y])
 	// cond: uint32(x)==uint32(y)
 	// result: (FlagEQ)
@@ -6968,9 +7023,7 @@ func rewriteValueS390X_OpS390XCMPWUconst(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XCMPWconst(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XCMPWconst(v *Value) bool {
 	// match: (CMPWconst (MOVDconst [x]) [y])
 	// cond: int32(x)==int32(y)
 	// result: (FlagEQ)
@@ -7053,9 +7106,7 @@ func rewriteValueS390X_OpS390XCMPWconst(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XCMPconst(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XCMPconst(v *Value) bool {
 	// match: (CMPconst (MOVDconst [x]) [y])
 	// cond: x==y
 	// result: (FlagEQ)
@@ -7183,9 +7234,7 @@ func rewriteValueS390X_OpS390XCMPconst(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XFADD(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XFADD(v *Value) bool {
 	// match: (FADD x (FMUL y z))
 	// cond:
 	// result: (FMADD x y z)
@@ -7222,9 +7271,7 @@ func rewriteValueS390X_OpS390XFADD(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XFADDS(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XFADDS(v *Value) bool {
 	// match: (FADDS x (FMULS y z))
 	// cond:
 	// result: (FMADDS x y z)
@@ -7261,9 +7308,7 @@ func rewriteValueS390X_OpS390XFADDS(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XFMOVDload(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XFMOVDload(v *Value) bool {
 	// match: (FMOVDload  [off1] {sym} (ADDconst [off2] ptr) mem)
 	// cond: is20Bit(off1+off2)
 	// result: (FMOVDload [off1+off2] {sym} ptr mem)
@@ -7363,9 +7408,7 @@ func rewriteValueS390X_OpS390XFMOVDload(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XFMOVDloadidx(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XFMOVDloadidx(v *Value) bool {
 	// match: (FMOVDloadidx [c] {sym} (ADDconst [d] ptr) idx mem)
 	// cond:
 	// result: (FMOVDloadidx [c+d] {sym} ptr idx mem)
@@ -7412,9 +7455,7 @@ func rewriteValueS390X_OpS390XFMOVDloadidx(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XFMOVDstore(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XFMOVDstore(v *Value) bool {
 	// match: (FMOVDstore [off1] {sym} (ADDconst [off2] ptr) val mem)
 	// cond: is20Bit(off1+off2)
 	// result: (FMOVDstore [off1+off2] {sym} ptr val mem)
@@ -7522,9 +7563,7 @@ func rewriteValueS390X_OpS390XFMOVDstore(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XFMOVDstoreidx(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XFMOVDstoreidx(v *Value) bool {
 	// match: (FMOVDstoreidx [c] {sym} (ADDconst [d] ptr) idx val mem)
 	// cond:
 	// result: (FMOVDstoreidx [c+d] {sym} ptr idx val mem)
@@ -7575,9 +7614,7 @@ func rewriteValueS390X_OpS390XFMOVDstoreidx(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XFMOVSload(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XFMOVSload(v *Value) bool {
 	// match: (FMOVSload  [off1] {sym} (ADDconst [off2] ptr) mem)
 	// cond: is20Bit(off1+off2)
 	// result: (FMOVSload [off1+off2] {sym} ptr mem)
@@ -7677,9 +7714,7 @@ func rewriteValueS390X_OpS390XFMOVSload(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XFMOVSloadidx(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XFMOVSloadidx(v *Value) bool {
 	// match: (FMOVSloadidx [c] {sym} (ADDconst [d] ptr) idx mem)
 	// cond:
 	// result: (FMOVSloadidx [c+d] {sym} ptr idx mem)
@@ -7726,9 +7761,7 @@ func rewriteValueS390X_OpS390XFMOVSloadidx(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XFMOVSstore(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XFMOVSstore(v *Value) bool {
 	// match: (FMOVSstore [off1] {sym} (ADDconst [off2] ptr) val mem)
 	// cond: is20Bit(off1+off2)
 	// result: (FMOVSstore [off1+off2] {sym} ptr val mem)
@@ -7836,9 +7869,7 @@ func rewriteValueS390X_OpS390XFMOVSstore(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XFMOVSstoreidx(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XFMOVSstoreidx(v *Value) bool {
 	// match: (FMOVSstoreidx [c] {sym} (ADDconst [d] ptr) idx val mem)
 	// cond:
 	// result: (FMOVSstoreidx [c+d] {sym} ptr idx val mem)
@@ -7889,9 +7920,7 @@ func rewriteValueS390X_OpS390XFMOVSstoreidx(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XFSUB(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XFSUB(v *Value) bool {
 	// match: (FSUB (FMUL y z) x)
 	// cond:
 	// result: (FMSUB x y z)
@@ -7911,9 +7940,7 @@ func rewriteValueS390X_OpS390XFSUB(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XFSUBS(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XFSUBS(v *Value) bool {
 	// match: (FSUBS (FMULS y z) x)
 	// cond:
 	// result: (FMSUBS x y z)
@@ -7933,9 +7960,7 @@ func rewriteValueS390X_OpS390XFSUBS(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XLoweredRound32F(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XLoweredRound32F(v *Value) bool {
 	// match: (LoweredRound32F x:(FMOVSconst))
 	// cond:
 	// result: x
@@ -7951,9 +7976,7 @@ func rewriteValueS390X_OpS390XLoweredRound32F(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XLoweredRound64F(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XLoweredRound64F(v *Value) bool {
 	// match: (LoweredRound64F x:(FMOVDconst))
 	// cond:
 	// result: x
@@ -7969,9 +7992,7 @@ func rewriteValueS390X_OpS390XLoweredRound64F(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XMOVBZload(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XMOVBZload(v *Value) bool {
 	// match: (MOVBZload [off] {sym} ptr (MOVBstore [off2] {sym2} ptr2 x _))
 	// cond: sym == sym2 && off == off2 && isSamePtr(ptr, ptr2)
 	// result: (MOVBZreg x)
@@ -8093,9 +8114,7 @@ func rewriteValueS390X_OpS390XMOVBZload(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XMOVBZloadidx(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XMOVBZloadidx(v *Value) bool {
 	// match: (MOVBZloadidx [c] {sym} (ADDconst [d] ptr) idx mem)
 	// cond:
 	// result: (MOVBZloadidx [c+d] {sym} ptr idx mem)
@@ -8142,7 +8161,7 @@ func rewriteValueS390X_OpS390XMOVBZloadidx(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XMOVBZreg(v *Value, config *Config) bool {
+func rewriteValueS390X_OpS390XMOVBZreg(v *Value) bool {
 	b := v.Block
 	_ = b
 	// match: (MOVBZreg x:(MOVDLT (MOVDconst [c]) (MOVDconst [d]) _))
@@ -8452,9 +8471,7 @@ func rewriteValueS390X_OpS390XMOVBZreg(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XMOVBload(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XMOVBload(v *Value) bool {
 	// match: (MOVBload   [off1] {sym} (ADDconst [off2] ptr) mem)
 	// cond: is20Bit(off1+off2)
 	// result: (MOVBload  [off1+off2] {sym} ptr mem)
@@ -8504,7 +8521,7 @@ func rewriteValueS390X_OpS390XMOVBload(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XMOVBreg(v *Value, config *Config) bool {
+func rewriteValueS390X_OpS390XMOVBreg(v *Value) bool {
 	b := v.Block
 	_ = b
 	// match: (MOVBreg x:(MOVBload _ _))
@@ -8587,9 +8604,7 @@ func rewriteValueS390X_OpS390XMOVBreg(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XMOVBstore(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XMOVBstore(v *Value) bool {
 	// match: (MOVBstore [off] {sym} ptr (MOVBreg x) mem)
 	// cond:
 	// result: (MOVBstore [off] {sym} ptr x mem)
@@ -9126,9 +9141,7 @@ func rewriteValueS390X_OpS390XMOVBstore(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XMOVBstoreconst(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XMOVBstoreconst(v *Value) bool {
 	// match: (MOVBstoreconst [sc] {s} (ADDconst [off] ptr) mem)
 	// cond: ValAndOff(sc).canAdd(off)
 	// result: (MOVBstoreconst [ValAndOff(sc).add(off)] {s} ptr mem)
@@ -9207,9 +9220,7 @@ func rewriteValueS390X_OpS390XMOVBstoreconst(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XMOVBstoreidx(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XMOVBstoreidx(v *Value) bool {
 	// match: (MOVBstoreidx [c] {sym} (ADDconst [d] ptr) idx val mem)
 	// cond:
 	// result: (MOVBstoreidx [c+d] {sym} ptr idx val mem)
@@ -9664,9 +9675,7 @@ func rewriteValueS390X_OpS390XMOVBstoreidx(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XMOVDEQ(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XMOVDEQ(v *Value) bool {
 	// match: (MOVDEQ x y (InvertFlags cmp))
 	// cond:
 	// result: (MOVDEQ x y cmp)
@@ -9728,9 +9737,7 @@ func rewriteValueS390X_OpS390XMOVDEQ(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XMOVDGE(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XMOVDGE(v *Value) bool {
 	// match: (MOVDGE x y (InvertFlags cmp))
 	// cond:
 	// result: (MOVDLE x y cmp)
@@ -9792,9 +9799,7 @@ func rewriteValueS390X_OpS390XMOVDGE(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XMOVDGT(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XMOVDGT(v *Value) bool {
 	// match: (MOVDGT x y (InvertFlags cmp))
 	// cond:
 	// result: (MOVDLT x y cmp)
@@ -9856,9 +9861,7 @@ func rewriteValueS390X_OpS390XMOVDGT(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XMOVDLE(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XMOVDLE(v *Value) bool {
 	// match: (MOVDLE x y (InvertFlags cmp))
 	// cond:
 	// result: (MOVDGE x y cmp)
@@ -9920,9 +9923,7 @@ func rewriteValueS390X_OpS390XMOVDLE(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XMOVDLT(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XMOVDLT(v *Value) bool {
 	// match: (MOVDLT x y (InvertFlags cmp))
 	// cond:
 	// result: (MOVDGT x y cmp)
@@ -9984,9 +9985,7 @@ func rewriteValueS390X_OpS390XMOVDLT(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XMOVDNE(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XMOVDNE(v *Value) bool {
 	// match: (MOVDNE x y (InvertFlags cmp))
 	// cond:
 	// result: (MOVDNE x y cmp)
@@ -10048,9 +10047,7 @@ func rewriteValueS390X_OpS390XMOVDNE(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XMOVDaddridx(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XMOVDaddridx(v *Value) bool {
 	// match: (MOVDaddridx [c] {s} (ADDconst [d] x) y)
 	// cond: is20Bit(c+d) && x.Op != OpSB
 	// result: (MOVDaddridx [c+d] {s} x y)
@@ -10147,9 +10144,7 @@ func rewriteValueS390X_OpS390XMOVDaddridx(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XMOVDload(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XMOVDload(v *Value) bool {
 	// match: (MOVDload [off] {sym} ptr (MOVDstore [off2] {sym2} ptr2 x _))
 	// cond: sym == sym2 && off == off2 && isSamePtr(ptr, ptr2)
 	// result: (MOVDreg x)
@@ -10271,9 +10266,7 @@ func rewriteValueS390X_OpS390XMOVDload(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XMOVDloadidx(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XMOVDloadidx(v *Value) bool {
 	// match: (MOVDloadidx [c] {sym} (ADDconst [d] ptr) idx mem)
 	// cond:
 	// result: (MOVDloadidx [c+d] {sym} ptr idx mem)
@@ -10320,7 +10313,7 @@ func rewriteValueS390X_OpS390XMOVDloadidx(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XMOVDnop(v *Value, config *Config) bool {
+func rewriteValueS390X_OpS390XMOVDnop(v *Value) bool {
 	b := v.Block
 	_ = b
 	// match: (MOVDnop <t> x)
@@ -10646,7 +10639,7 @@ func rewriteValueS390X_OpS390XMOVDnop(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XMOVDreg(v *Value, config *Config) bool {
+func rewriteValueS390X_OpS390XMOVDreg(v *Value) bool {
 	b := v.Block
 	_ = b
 	// match: (MOVDreg <t> x)
@@ -10984,9 +10977,7 @@ func rewriteValueS390X_OpS390XMOVDreg(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XMOVDstore(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XMOVDstore(v *Value) bool {
 	// match: (MOVDstore  [off1] {sym} (ADDconst [off2] ptr) val mem)
 	// cond: is20Bit(off1+off2)
 	// result: (MOVDstore  [off1+off2] {sym} ptr val mem)
@@ -11228,9 +11219,7 @@ func rewriteValueS390X_OpS390XMOVDstore(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XMOVDstoreconst(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XMOVDstoreconst(v *Value) bool {
 	// match: (MOVDstoreconst [sc] {s} (ADDconst [off] ptr) mem)
 	// cond: ValAndOff(sc).canAdd(off)
 	// result: (MOVDstoreconst [ValAndOff(sc).add(off)] {s} ptr mem)
@@ -11280,9 +11269,7 @@ func rewriteValueS390X_OpS390XMOVDstoreconst(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XMOVDstoreidx(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XMOVDstoreidx(v *Value) bool {
 	// match: (MOVDstoreidx [c] {sym} (ADDconst [d] ptr) idx val mem)
 	// cond:
 	// result: (MOVDstoreidx [c+d] {sym} ptr idx val mem)
@@ -11333,9 +11320,7 @@ func rewriteValueS390X_OpS390XMOVDstoreidx(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XMOVHBRstore(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XMOVHBRstore(v *Value) bool {
 	// match: (MOVHBRstore [i] {s} p (SRDconst [16] w) x:(MOVHBRstore [i-2] {s} p w mem))
 	// cond: x.Uses == 1   && clobber(x)
 	// result: (MOVWBRstore [i-2] {s} p w mem)
@@ -11520,9 +11505,7 @@ func rewriteValueS390X_OpS390XMOVHBRstore(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XMOVHBRstoreidx(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XMOVHBRstoreidx(v *Value) bool {
 	// match: (MOVHBRstoreidx [i] {s} p idx (SRDconst [16] w) x:(MOVHBRstoreidx [i-2] {s} p idx w mem))
 	// cond: x.Uses == 1   && clobber(x)
 	// result: (MOVWBRstoreidx [i-2] {s} p idx w mem)
@@ -11727,9 +11710,7 @@ func rewriteValueS390X_OpS390XMOVHBRstoreidx(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XMOVHZload(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XMOVHZload(v *Value) bool {
 	// match: (MOVHZload [off] {sym} ptr (MOVHstore [off2] {sym2} ptr2 x _))
 	// cond: sym == sym2 && off == off2 && isSamePtr(ptr, ptr2)
 	// result: (MOVHZreg x)
@@ -11851,9 +11832,7 @@ func rewriteValueS390X_OpS390XMOVHZload(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XMOVHZloadidx(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XMOVHZloadidx(v *Value) bool {
 	// match: (MOVHZloadidx [c] {sym} (ADDconst [d] ptr) idx mem)
 	// cond:
 	// result: (MOVHZloadidx [c+d] {sym} ptr idx mem)
@@ -11900,7 +11879,7 @@ func rewriteValueS390X_OpS390XMOVHZloadidx(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XMOVHZreg(v *Value, config *Config) bool {
+func rewriteValueS390X_OpS390XMOVHZreg(v *Value) bool {
 	b := v.Block
 	_ = b
 	// match: (MOVHZreg x:(MOVBZload _ _))
@@ -12034,9 +12013,7 @@ func rewriteValueS390X_OpS390XMOVHZreg(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XMOVHload(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XMOVHload(v *Value) bool {
 	// match: (MOVHload   [off1] {sym} (ADDconst [off2] ptr) mem)
 	// cond: is20Bit(off1+off2)
 	// result: (MOVHload  [off1+off2] {sym} ptr mem)
@@ -12086,7 +12063,7 @@ func rewriteValueS390X_OpS390XMOVHload(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XMOVHreg(v *Value, config *Config) bool {
+func rewriteValueS390X_OpS390XMOVHreg(v *Value) bool {
 	b := v.Block
 	_ = b
 	// match: (MOVHreg x:(MOVBload _ _))
@@ -12217,9 +12194,7 @@ func rewriteValueS390X_OpS390XMOVHreg(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XMOVHstore(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XMOVHstore(v *Value) bool {
 	// match: (MOVHstore [off] {sym} ptr (MOVHreg x) mem)
 	// cond:
 	// result: (MOVHstore [off] {sym} ptr x mem)
@@ -12574,9 +12549,7 @@ func rewriteValueS390X_OpS390XMOVHstore(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XMOVHstoreconst(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XMOVHstoreconst(v *Value) bool {
 	// match: (MOVHstoreconst [sc] {s} (ADDconst [off] ptr) mem)
 	// cond: ValAndOff(sc).canAdd(off)
 	// result: (MOVHstoreconst [ValAndOff(sc).add(off)] {s} ptr mem)
@@ -12655,9 +12628,7 @@ func rewriteValueS390X_OpS390XMOVHstoreconst(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XMOVHstoreidx(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XMOVHstoreidx(v *Value) bool {
 	// match: (MOVHstoreidx [c] {sym} (ADDconst [d] ptr) idx val mem)
 	// cond:
 	// result: (MOVHstoreidx [c+d] {sym} ptr idx val mem)
@@ -12910,9 +12881,7 @@ func rewriteValueS390X_OpS390XMOVHstoreidx(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XMOVWBRstore(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XMOVWBRstore(v *Value) bool {
 	// match: (MOVWBRstore [i] {s} p (SRDconst [32] w) x:(MOVWBRstore [i-4] {s} p w mem))
 	// cond: x.Uses == 1   && clobber(x)
 	// result: (MOVDBRstore [i-4] {s} p w mem)
@@ -13006,9 +12975,7 @@ func rewriteValueS390X_OpS390XMOVWBRstore(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XMOVWBRstoreidx(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XMOVWBRstoreidx(v *Value) bool {
 	// match: (MOVWBRstoreidx [i] {s} p idx (SRDconst [32] w) x:(MOVWBRstoreidx [i-4] {s} p idx w mem))
 	// cond: x.Uses == 1   && clobber(x)
 	// result: (MOVDBRstoreidx [i-4] {s} p idx w mem)
@@ -13112,9 +13079,7 @@ func rewriteValueS390X_OpS390XMOVWBRstoreidx(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XMOVWZload(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XMOVWZload(v *Value) bool {
 	// match: (MOVWZload [off] {sym} ptr (MOVWstore [off2] {sym2} ptr2 x _))
 	// cond: sym == sym2 && off == off2 && isSamePtr(ptr, ptr2)
 	// result: (MOVWZreg x)
@@ -13236,9 +13201,7 @@ func rewriteValueS390X_OpS390XMOVWZload(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XMOVWZloadidx(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XMOVWZloadidx(v *Value) bool {
 	// match: (MOVWZloadidx [c] {sym} (ADDconst [d] ptr) idx mem)
 	// cond:
 	// result: (MOVWZloadidx [c+d] {sym} ptr idx mem)
@@ -13285,7 +13248,7 @@ func rewriteValueS390X_OpS390XMOVWZloadidx(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XMOVWZreg(v *Value, config *Config) bool {
+func rewriteValueS390X_OpS390XMOVWZreg(v *Value) bool {
 	b := v.Block
 	_ = b
 	// match: (MOVWZreg x:(MOVBZload _ _))
@@ -13443,9 +13406,7 @@ func rewriteValueS390X_OpS390XMOVWZreg(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XMOVWload(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XMOVWload(v *Value) bool {
 	// match: (MOVWload   [off1] {sym} (ADDconst [off2] ptr) mem)
 	// cond: is20Bit(off1+off2)
 	// result: (MOVWload  [off1+off2] {sym} ptr mem)
@@ -13495,7 +13456,7 @@ func rewriteValueS390X_OpS390XMOVWload(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XMOVWreg(v *Value, config *Config) bool {
+func rewriteValueS390X_OpS390XMOVWreg(v *Value) bool {
 	b := v.Block
 	_ = b
 	// match: (MOVWreg x:(MOVBload _ _))
@@ -13674,9 +13635,7 @@ func rewriteValueS390X_OpS390XMOVWreg(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XMOVWstore(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XMOVWstore(v *Value) bool {
 	// match: (MOVWstore [off] {sym} ptr (MOVWreg x) mem)
 	// cond:
 	// result: (MOVWstore [off] {sym} ptr x mem)
@@ -14051,9 +14010,11 @@ func rewriteValueS390X_OpS390XMOVWstore(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XMOVWstoreconst(v *Value, config *Config) bool {
+func rewriteValueS390X_OpS390XMOVWstoreconst(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (MOVWstoreconst [sc] {s} (ADDconst [off] ptr) mem)
 	// cond: ValAndOff(sc).canAdd(off)
 	// result: (MOVWstoreconst [ValAndOff(sc).add(off)] {s} ptr mem)
@@ -14127,7 +14088,7 @@ func rewriteValueS390X_OpS390XMOVWstoreconst(v *Value, config *Config) bool {
 		v.AuxInt = ValAndOff(a).Off()
 		v.Aux = s
 		v.AddArg(p)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = ValAndOff(c).Val()&0xffffffff | ValAndOff(a).Val()<<32
 		v.AddArg(v0)
 		v.AddArg(mem)
@@ -14135,9 +14096,7 @@ func rewriteValueS390X_OpS390XMOVWstoreconst(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XMOVWstoreidx(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XMOVWstoreidx(v *Value) bool {
 	// match: (MOVWstoreidx [c] {sym} (ADDconst [d] ptr) idx val mem)
 	// cond:
 	// result: (MOVWstoreidx [c+d] {sym} ptr idx val mem)
@@ -14289,9 +14248,7 @@ func rewriteValueS390X_OpS390XMOVWstoreidx(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XMULLD(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XMULLD(v *Value) bool {
 	// match: (MULLD x (MOVDconst [c]))
 	// cond: is32Bit(c)
 	// result: (MULLDconst [c] x)
@@ -14329,7 +14286,7 @@ func rewriteValueS390X_OpS390XMULLD(v *Value, config *Config) bool {
 		return true
 	}
 	// match: (MULLD <t> x g:(MOVDload [off] {sym} ptr mem))
-	// cond: g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)
+	// cond: ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)
 	// result: (MULLDload <t> [off] {sym} x ptr mem)
 	for {
 		t := v.Type
@@ -14342,7 +14299,7 @@ func rewriteValueS390X_OpS390XMULLD(v *Value, config *Config) bool {
 		sym := g.Aux
 		ptr := g.Args[0]
 		mem := g.Args[1]
-		if !(g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)) {
+		if !(ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)) {
 			break
 		}
 		v.reset(OpS390XMULLDload)
@@ -14355,7 +14312,7 @@ func rewriteValueS390X_OpS390XMULLD(v *Value, config *Config) bool {
 		return true
 	}
 	// match: (MULLD <t> g:(MOVDload [off] {sym} ptr mem) x)
-	// cond: g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)
+	// cond: ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)
 	// result: (MULLDload <t> [off] {sym} x ptr mem)
 	for {
 		t := v.Type
@@ -14368,7 +14325,7 @@ func rewriteValueS390X_OpS390XMULLD(v *Value, config *Config) bool {
 		ptr := g.Args[0]
 		mem := g.Args[1]
 		x := v.Args[1]
-		if !(g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)) {
+		if !(ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)) {
 			break
 		}
 		v.reset(OpS390XMULLDload)
@@ -14382,7 +14339,7 @@ func rewriteValueS390X_OpS390XMULLD(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XMULLDconst(v *Value, config *Config) bool {
+func rewriteValueS390X_OpS390XMULLDconst(v *Value) bool {
 	b := v.Block
 	_ = b
 	// match: (MULLDconst [-1] x)
@@ -14485,9 +14442,7 @@ func rewriteValueS390X_OpS390XMULLDconst(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XMULLW(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XMULLW(v *Value) bool {
 	// match: (MULLW x (MOVDconst [c]))
 	// cond:
 	// result: (MULLWconst [c] x)
@@ -14519,7 +14474,7 @@ func rewriteValueS390X_OpS390XMULLW(v *Value, config *Config) bool {
 		return true
 	}
 	// match: (MULLW <t> x g:(MOVWload [off] {sym} ptr mem))
-	// cond: g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)
+	// cond: ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)
 	// result: (MULLWload <t> [off] {sym} x ptr mem)
 	for {
 		t := v.Type
@@ -14532,7 +14487,7 @@ func rewriteValueS390X_OpS390XMULLW(v *Value, config *Config) bool {
 		sym := g.Aux
 		ptr := g.Args[0]
 		mem := g.Args[1]
-		if !(g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)) {
+		if !(ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)) {
 			break
 		}
 		v.reset(OpS390XMULLWload)
@@ -14545,7 +14500,7 @@ func rewriteValueS390X_OpS390XMULLW(v *Value, config *Config) bool {
 		return true
 	}
 	// match: (MULLW <t> g:(MOVWload [off] {sym} ptr mem) x)
-	// cond: g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)
+	// cond: ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)
 	// result: (MULLWload <t> [off] {sym} x ptr mem)
 	for {
 		t := v.Type
@@ -14558,7 +14513,7 @@ func rewriteValueS390X_OpS390XMULLW(v *Value, config *Config) bool {
 		ptr := g.Args[0]
 		mem := g.Args[1]
 		x := v.Args[1]
-		if !(g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)) {
+		if !(ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)) {
 			break
 		}
 		v.reset(OpS390XMULLWload)
@@ -14571,7 +14526,7 @@ func rewriteValueS390X_OpS390XMULLW(v *Value, config *Config) bool {
 		return true
 	}
 	// match: (MULLW <t> x g:(MOVWZload [off] {sym} ptr mem))
-	// cond: g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)
+	// cond: ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)
 	// result: (MULLWload <t> [off] {sym} x ptr mem)
 	for {
 		t := v.Type
@@ -14584,7 +14539,7 @@ func rewriteValueS390X_OpS390XMULLW(v *Value, config *Config) bool {
 		sym := g.Aux
 		ptr := g.Args[0]
 		mem := g.Args[1]
-		if !(g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)) {
+		if !(ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)) {
 			break
 		}
 		v.reset(OpS390XMULLWload)
@@ -14597,7 +14552,7 @@ func rewriteValueS390X_OpS390XMULLW(v *Value, config *Config) bool {
 		return true
 	}
 	// match: (MULLW <t> g:(MOVWZload [off] {sym} ptr mem) x)
-	// cond: g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)
+	// cond: ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)
 	// result: (MULLWload <t> [off] {sym} x ptr mem)
 	for {
 		t := v.Type
@@ -14610,7 +14565,7 @@ func rewriteValueS390X_OpS390XMULLW(v *Value, config *Config) bool {
 		ptr := g.Args[0]
 		mem := g.Args[1]
 		x := v.Args[1]
-		if !(g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)) {
+		if !(ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)) {
 			break
 		}
 		v.reset(OpS390XMULLWload)
@@ -14624,7 +14579,7 @@ func rewriteValueS390X_OpS390XMULLW(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XMULLWconst(v *Value, config *Config) bool {
+func rewriteValueS390X_OpS390XMULLWconst(v *Value) bool {
 	b := v.Block
 	_ = b
 	// match: (MULLWconst [-1] x)
@@ -14727,9 +14682,7 @@ func rewriteValueS390X_OpS390XMULLWconst(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XNEG(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XNEG(v *Value) bool {
 	// match: (NEG (MOVDconst [c]))
 	// cond:
 	// result: (MOVDconst [-c])
@@ -14743,11 +14696,31 @@ func rewriteValueS390X_OpS390XNEG(v *Value, config *Config) bool {
 		v.AuxInt = -c
 		return true
 	}
+	// match: (NEG (ADDconst [c] (NEG x)))
+	// cond: c != -(1<<31)
+	// result: (ADDconst [-c] x)
+	for {
+		v_0 := v.Args[0]
+		if v_0.Op != OpS390XADDconst {
+			break
+		}
+		c := v_0.AuxInt
+		v_0_0 := v_0.Args[0]
+		if v_0_0.Op != OpS390XNEG {
+			break
+		}
+		x := v_0_0.Args[0]
+		if !(c != -(1 << 31)) {
+			break
+		}
+		v.reset(OpS390XADDconst)
+		v.AuxInt = -c
+		v.AddArg(x)
+		return true
+	}
 	return false
 }
-func rewriteValueS390X_OpS390XNEGW(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XNEGW(v *Value) bool {
 	// match: (NEGW (MOVDconst [c]))
 	// cond:
 	// result: (MOVDconst [int64(int32(-c))])
@@ -14763,9 +14736,11 @@ func rewriteValueS390X_OpS390XNEGW(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XNOT(v *Value, config *Config) bool {
+func rewriteValueS390X_OpS390XNOT(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (NOT x)
 	// cond: true
 	// result: (XOR (MOVDconst [-1]) x)
@@ -14775,7 +14750,7 @@ func rewriteValueS390X_OpS390XNOT(v *Value, config *Config) bool {
 			break
 		}
 		v.reset(OpS390XXOR)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDconst, types.UInt64)
 		v0.AuxInt = -1
 		v.AddArg(v0)
 		v.AddArg(x)
@@ -14783,9 +14758,7 @@ func rewriteValueS390X_OpS390XNOT(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XNOTW(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XNOTW(v *Value) bool {
 	// match: (NOTW x)
 	// cond: true
 	// result: (XORWconst [-1] x)
@@ -14801,9 +14774,11 @@ func rewriteValueS390X_OpS390XNOTW(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XOR(v *Value, config *Config) bool {
+func rewriteValueS390X_OpS390XOR(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (OR x (MOVDconst [c]))
 	// cond: isU32Bit(c)
 	// result: (ORconst [c] x)
@@ -14922,7 +14897,7 @@ func rewriteValueS390X_OpS390XOR(v *Value, config *Config) bool {
 		return true
 	}
 	// match: (OR <t> x g:(MOVDload [off] {sym} ptr mem))
-	// cond: g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)
+	// cond: ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)
 	// result: (ORload <t> [off] {sym} x ptr mem)
 	for {
 		t := v.Type
@@ -14935,7 +14910,7 @@ func rewriteValueS390X_OpS390XOR(v *Value, config *Config) bool {
 		sym := g.Aux
 		ptr := g.Args[0]
 		mem := g.Args[1]
-		if !(g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)) {
+		if !(ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)) {
 			break
 		}
 		v.reset(OpS390XORload)
@@ -14948,7 +14923,7 @@ func rewriteValueS390X_OpS390XOR(v *Value, config *Config) bool {
 		return true
 	}
 	// match: (OR <t> g:(MOVDload [off] {sym} ptr mem) x)
-	// cond: g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)
+	// cond: ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)
 	// result: (ORload <t> [off] {sym} x ptr mem)
 	for {
 		t := v.Type
@@ -14961,7 +14936,7 @@ func rewriteValueS390X_OpS390XOR(v *Value, config *Config) bool {
 		ptr := g.Args[0]
 		mem := g.Args[1]
 		x := v.Args[1]
-		if !(g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)) {
+		if !(ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)) {
 			break
 		}
 		v.reset(OpS390XORload)
@@ -15191,7 +15166,7 @@ func rewriteValueS390X_OpS390XOR(v *Value, config *Config) bool {
 			break
 		}
 		b = mergePoint(b, x0, x1, x2, x3, x4, x5, x6, x7)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDBRload, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDBRload, types.UInt64)
 		v.reset(OpCopy)
 		v.AddArg(v0)
 		v0.AuxInt = i
@@ -15634,7 +15609,7 @@ func rewriteValueS390X_OpS390XOR(v *Value, config *Config) bool {
 			break
 		}
 		b = mergePoint(b, x0, x1, x2, x3, x4, x5, x6, x7)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVDload, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVDload, types.UInt64)
 		v.reset(OpCopy)
 		v.AddArg(v0)
 		v0.AuxInt = i - 7
@@ -15878,9 +15853,11 @@ func rewriteValueS390X_OpS390XOR(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XORW(v *Value, config *Config) bool {
+func rewriteValueS390X_OpS390XORW(v *Value) bool {
 	b := v.Block
 	_ = b
+	types := &b.Func.Config.Types
+	_ = types
 	// match: (ORW x (MOVDconst [c]))
 	// cond:
 	// result: (ORWconst [c] x)
@@ -15975,7 +15952,7 @@ func rewriteValueS390X_OpS390XORW(v *Value, config *Config) bool {
 		return true
 	}
 	// match: (ORW <t> x g:(MOVWload [off] {sym} ptr mem))
-	// cond: g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)
+	// cond: ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)
 	// result: (ORWload <t> [off] {sym} x ptr mem)
 	for {
 		t := v.Type
@@ -15988,7 +15965,7 @@ func rewriteValueS390X_OpS390XORW(v *Value, config *Config) bool {
 		sym := g.Aux
 		ptr := g.Args[0]
 		mem := g.Args[1]
-		if !(g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)) {
+		if !(ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)) {
 			break
 		}
 		v.reset(OpS390XORWload)
@@ -16001,7 +15978,7 @@ func rewriteValueS390X_OpS390XORW(v *Value, config *Config) bool {
 		return true
 	}
 	// match: (ORW <t> g:(MOVWload [off] {sym} ptr mem) x)
-	// cond: g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)
+	// cond: ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)
 	// result: (ORWload <t> [off] {sym} x ptr mem)
 	for {
 		t := v.Type
@@ -16014,7 +15991,7 @@ func rewriteValueS390X_OpS390XORW(v *Value, config *Config) bool {
 		ptr := g.Args[0]
 		mem := g.Args[1]
 		x := v.Args[1]
-		if !(g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)) {
+		if !(ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)) {
 			break
 		}
 		v.reset(OpS390XORWload)
@@ -16027,7 +16004,7 @@ func rewriteValueS390X_OpS390XORW(v *Value, config *Config) bool {
 		return true
 	}
 	// match: (ORW <t> x g:(MOVWZload [off] {sym} ptr mem))
-	// cond: g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)
+	// cond: ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)
 	// result: (ORWload <t> [off] {sym} x ptr mem)
 	for {
 		t := v.Type
@@ -16040,7 +16017,7 @@ func rewriteValueS390X_OpS390XORW(v *Value, config *Config) bool {
 		sym := g.Aux
 		ptr := g.Args[0]
 		mem := g.Args[1]
-		if !(g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)) {
+		if !(ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)) {
 			break
 		}
 		v.reset(OpS390XORWload)
@@ -16053,7 +16030,7 @@ func rewriteValueS390X_OpS390XORW(v *Value, config *Config) bool {
 		return true
 	}
 	// match: (ORW <t> g:(MOVWZload [off] {sym} ptr mem) x)
-	// cond: g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)
+	// cond: ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)
 	// result: (ORWload <t> [off] {sym} x ptr mem)
 	for {
 		t := v.Type
@@ -16066,7 +16043,7 @@ func rewriteValueS390X_OpS390XORW(v *Value, config *Config) bool {
 		ptr := g.Args[0]
 		mem := g.Args[1]
 		x := v.Args[1]
-		if !(g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)) {
+		if !(ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)) {
 			break
 		}
 		v.reset(OpS390XORWload)
@@ -16134,10 +16111,10 @@ func rewriteValueS390X_OpS390XORW(v *Value, config *Config) bool {
 			break
 		}
 		b = mergePoint(b, x0, x1)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVHZreg, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVHZreg, types.UInt64)
 		v.reset(OpCopy)
 		v.AddArg(v0)
-		v1 := b.NewValue0(v.Pos, OpS390XMOVHBRload, config.fe.TypeUInt16())
+		v1 := b.NewValue0(v.Pos, OpS390XMOVHBRload, types.UInt16)
 		v1.AuxInt = i
 		v1.Aux = s
 		v1.AddArg(p)
@@ -16215,7 +16192,7 @@ func rewriteValueS390X_OpS390XORW(v *Value, config *Config) bool {
 			break
 		}
 		b = mergePoint(b, x0, x1, x2)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVWBRload, config.fe.TypeUInt32())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVWBRload, types.UInt32)
 		v.reset(OpCopy)
 		v.AddArg(v0)
 		v0.AuxInt = i
@@ -16267,7 +16244,7 @@ func rewriteValueS390X_OpS390XORW(v *Value, config *Config) bool {
 			break
 		}
 		b = mergePoint(b, x0, x1)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVHZreg, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVHZreg, types.UInt64)
 		v.reset(OpCopy)
 		v.AddArg(v0)
 		v1 := b.NewValue0(v.Pos, OpS390XMOVHBRloadidx, v.Type)
@@ -16356,7 +16333,7 @@ func rewriteValueS390X_OpS390XORW(v *Value, config *Config) bool {
 			break
 		}
 		b = mergePoint(b, x0, x1, x2)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVWZreg, config.fe.TypeUInt64())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVWZreg, types.UInt64)
 		v.reset(OpCopy)
 		v.AddArg(v0)
 		v1 := b.NewValue0(v.Pos, OpS390XMOVWBRloadidx, v.Type)
@@ -16407,7 +16384,7 @@ func rewriteValueS390X_OpS390XORW(v *Value, config *Config) bool {
 			break
 		}
 		b = mergePoint(b, x0, x1)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVHZload, config.fe.TypeUInt16())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVHZload, types.UInt16)
 		v.reset(OpCopy)
 		v.AddArg(v0)
 		v0.AuxInt = i - 1
@@ -16482,7 +16459,7 @@ func rewriteValueS390X_OpS390XORW(v *Value, config *Config) bool {
 			break
 		}
 		b = mergePoint(b, x0, x1, x2)
-		v0 := b.NewValue0(v.Pos, OpS390XMOVWZload, config.fe.TypeUInt32())
+		v0 := b.NewValue0(v.Pos, OpS390XMOVWZload, types.UInt32)
 		v.reset(OpCopy)
 		v.AddArg(v0)
 		v0.AuxInt = i - 2
@@ -16629,9 +16606,7 @@ func rewriteValueS390X_OpS390XORW(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XORWconst(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XORWconst(v *Value) bool {
 	// match: (ORWconst [c] x)
 	// cond: int32(c)==0
 	// result: x
@@ -16674,9 +16649,7 @@ func rewriteValueS390X_OpS390XORWconst(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XORconst(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XORconst(v *Value) bool {
 	// match: (ORconst [0] x)
 	// cond:
 	// result: x
@@ -16717,9 +16690,7 @@ func rewriteValueS390X_OpS390XORconst(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XSLD(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XSLD(v *Value) bool {
 	// match: (SLD x (MOVDconst [c]))
 	// cond:
 	// result: (SLDconst [c&63] x)
@@ -16755,9 +16726,7 @@ func rewriteValueS390X_OpS390XSLD(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XSLW(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XSLW(v *Value) bool {
 	// match: (SLW x (MOVDconst [c]))
 	// cond:
 	// result: (SLWconst [c&63] x)
@@ -16793,9 +16762,7 @@ func rewriteValueS390X_OpS390XSLW(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XSRAD(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XSRAD(v *Value) bool {
 	// match: (SRAD x (MOVDconst [c]))
 	// cond:
 	// result: (SRADconst [c&63] x)
@@ -16831,9 +16798,7 @@ func rewriteValueS390X_OpS390XSRAD(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XSRADconst(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XSRADconst(v *Value) bool {
 	// match: (SRADconst [c] (MOVDconst [d]))
 	// cond:
 	// result: (MOVDconst [d>>uint64(c)])
@@ -16850,9 +16815,7 @@ func rewriteValueS390X_OpS390XSRADconst(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XSRAW(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XSRAW(v *Value) bool {
 	// match: (SRAW x (MOVDconst [c]))
 	// cond:
 	// result: (SRAWconst [c&63] x)
@@ -16888,9 +16851,7 @@ func rewriteValueS390X_OpS390XSRAW(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XSRAWconst(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XSRAWconst(v *Value) bool {
 	// match: (SRAWconst [c] (MOVDconst [d]))
 	// cond:
 	// result: (MOVDconst [d>>uint64(c)])
@@ -16907,9 +16868,7 @@ func rewriteValueS390X_OpS390XSRAWconst(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XSRD(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XSRD(v *Value) bool {
 	// match: (SRD x (MOVDconst [c]))
 	// cond:
 	// result: (SRDconst [c&63] x)
@@ -16945,9 +16904,7 @@ func rewriteValueS390X_OpS390XSRD(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XSRW(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XSRW(v *Value) bool {
 	// match: (SRW x (MOVDconst [c]))
 	// cond:
 	// result: (SRWconst [c&63] x)
@@ -16983,9 +16940,7 @@ func rewriteValueS390X_OpS390XSRW(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XSTM2(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XSTM2(v *Value) bool {
 	// match: (STM2 [i] {s} p w2 w3 x:(STM2 [i-8] {s} p w0 w1 mem))
 	// cond: x.Uses == 1   && is20Bit(i-8)   && clobber(x)
 	// result: (STM4 [i-8] {s} p w0 w1 w2 w3 mem)
@@ -17054,9 +17009,7 @@ func rewriteValueS390X_OpS390XSTM2(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XSTMG2(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XSTMG2(v *Value) bool {
 	// match: (STMG2 [i] {s} p w2 w3 x:(STMG2 [i-16] {s} p w0 w1 mem))
 	// cond: x.Uses == 1   && is20Bit(i-16)   && clobber(x)
 	// result: (STMG4 [i-16] {s} p w0 w1 w2 w3 mem)
@@ -17098,7 +17051,7 @@ func rewriteValueS390X_OpS390XSTMG2(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XSUB(v *Value, config *Config) bool {
+func rewriteValueS390X_OpS390XSUB(v *Value) bool {
 	b := v.Block
 	_ = b
 	// match: (SUB x (MOVDconst [c]))
@@ -17152,7 +17105,7 @@ func rewriteValueS390X_OpS390XSUB(v *Value, config *Config) bool {
 		return true
 	}
 	// match: (SUB <t> x g:(MOVDload [off] {sym} ptr mem))
-	// cond: g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)
+	// cond: ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)
 	// result: (SUBload <t> [off] {sym} x ptr mem)
 	for {
 		t := v.Type
@@ -17165,7 +17118,7 @@ func rewriteValueS390X_OpS390XSUB(v *Value, config *Config) bool {
 		sym := g.Aux
 		ptr := g.Args[0]
 		mem := g.Args[1]
-		if !(g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)) {
+		if !(ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)) {
 			break
 		}
 		v.reset(OpS390XSUBload)
@@ -17179,9 +17132,7 @@ func rewriteValueS390X_OpS390XSUB(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XSUBEWcarrymask(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XSUBEWcarrymask(v *Value) bool {
 	// match: (SUBEWcarrymask (FlagEQ))
 	// cond:
 	// result: (MOVDconst [-1])
@@ -17220,9 +17171,7 @@ func rewriteValueS390X_OpS390XSUBEWcarrymask(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XSUBEcarrymask(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XSUBEcarrymask(v *Value) bool {
 	// match: (SUBEcarrymask (FlagEQ))
 	// cond:
 	// result: (MOVDconst [-1])
@@ -17261,7 +17210,7 @@ func rewriteValueS390X_OpS390XSUBEcarrymask(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XSUBW(v *Value, config *Config) bool {
+func rewriteValueS390X_OpS390XSUBW(v *Value) bool {
 	b := v.Block
 	_ = b
 	// match: (SUBW x (MOVDconst [c]))
@@ -17309,7 +17258,7 @@ func rewriteValueS390X_OpS390XSUBW(v *Value, config *Config) bool {
 		return true
 	}
 	// match: (SUBW <t> x g:(MOVWload [off] {sym} ptr mem))
-	// cond: g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)
+	// cond: ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)
 	// result: (SUBWload <t> [off] {sym} x ptr mem)
 	for {
 		t := v.Type
@@ -17322,7 +17271,7 @@ func rewriteValueS390X_OpS390XSUBW(v *Value, config *Config) bool {
 		sym := g.Aux
 		ptr := g.Args[0]
 		mem := g.Args[1]
-		if !(g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)) {
+		if !(ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)) {
 			break
 		}
 		v.reset(OpS390XSUBWload)
@@ -17335,7 +17284,7 @@ func rewriteValueS390X_OpS390XSUBW(v *Value, config *Config) bool {
 		return true
 	}
 	// match: (SUBW <t> x g:(MOVWZload [off] {sym} ptr mem))
-	// cond: g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)
+	// cond: ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)
 	// result: (SUBWload <t> [off] {sym} x ptr mem)
 	for {
 		t := v.Type
@@ -17348,7 +17297,7 @@ func rewriteValueS390X_OpS390XSUBW(v *Value, config *Config) bool {
 		sym := g.Aux
 		ptr := g.Args[0]
 		mem := g.Args[1]
-		if !(g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)) {
+		if !(ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)) {
 			break
 		}
 		v.reset(OpS390XSUBWload)
@@ -17362,9 +17311,7 @@ func rewriteValueS390X_OpS390XSUBW(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XSUBWconst(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XSUBWconst(v *Value) bool {
 	// match: (SUBWconst [c] x)
 	// cond: int32(c) == 0
 	// result: x
@@ -17391,9 +17338,7 @@ func rewriteValueS390X_OpS390XSUBWconst(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpS390XSUBconst(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XSUBconst(v *Value) bool {
 	// match: (SUBconst [0] x)
 	// cond:
 	// result: x
@@ -17456,9 +17401,7 @@ func rewriteValueS390X_OpS390XSUBconst(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XXOR(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XXOR(v *Value) bool {
 	// match: (XOR x (MOVDconst [c]))
 	// cond: isU32Bit(c)
 	// result: (XORconst [c] x)
@@ -17576,7 +17519,7 @@ func rewriteValueS390X_OpS390XXOR(v *Value, config *Config) bool {
 		return true
 	}
 	// match: (XOR <t> x g:(MOVDload [off] {sym} ptr mem))
-	// cond: g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)
+	// cond: ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)
 	// result: (XORload <t> [off] {sym} x ptr mem)
 	for {
 		t := v.Type
@@ -17589,7 +17532,7 @@ func rewriteValueS390X_OpS390XXOR(v *Value, config *Config) bool {
 		sym := g.Aux
 		ptr := g.Args[0]
 		mem := g.Args[1]
-		if !(g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)) {
+		if !(ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)) {
 			break
 		}
 		v.reset(OpS390XXORload)
@@ -17602,7 +17545,7 @@ func rewriteValueS390X_OpS390XXOR(v *Value, config *Config) bool {
 		return true
 	}
 	// match: (XOR <t> g:(MOVDload [off] {sym} ptr mem) x)
-	// cond: g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)
+	// cond: ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)
 	// result: (XORload <t> [off] {sym} x ptr mem)
 	for {
 		t := v.Type
@@ -17615,7 +17558,7 @@ func rewriteValueS390X_OpS390XXOR(v *Value, config *Config) bool {
 		ptr := g.Args[0]
 		mem := g.Args[1]
 		x := v.Args[1]
-		if !(g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)) {
+		if !(ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)) {
 			break
 		}
 		v.reset(OpS390XXORload)
@@ -17629,9 +17572,7 @@ func rewriteValueS390X_OpS390XXOR(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XXORW(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XXORW(v *Value) bool {
 	// match: (XORW x (MOVDconst [c]))
 	// cond:
 	// result: (XORWconst [c] x)
@@ -17725,7 +17666,7 @@ func rewriteValueS390X_OpS390XXORW(v *Value, config *Config) bool {
 		return true
 	}
 	// match: (XORW <t> x g:(MOVWload [off] {sym} ptr mem))
-	// cond: g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)
+	// cond: ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)
 	// result: (XORWload <t> [off] {sym} x ptr mem)
 	for {
 		t := v.Type
@@ -17738,7 +17679,7 @@ func rewriteValueS390X_OpS390XXORW(v *Value, config *Config) bool {
 		sym := g.Aux
 		ptr := g.Args[0]
 		mem := g.Args[1]
-		if !(g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)) {
+		if !(ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)) {
 			break
 		}
 		v.reset(OpS390XXORWload)
@@ -17751,7 +17692,7 @@ func rewriteValueS390X_OpS390XXORW(v *Value, config *Config) bool {
 		return true
 	}
 	// match: (XORW <t> g:(MOVWload [off] {sym} ptr mem) x)
-	// cond: g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)
+	// cond: ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)
 	// result: (XORWload <t> [off] {sym} x ptr mem)
 	for {
 		t := v.Type
@@ -17764,7 +17705,7 @@ func rewriteValueS390X_OpS390XXORW(v *Value, config *Config) bool {
 		ptr := g.Args[0]
 		mem := g.Args[1]
 		x := v.Args[1]
-		if !(g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)) {
+		if !(ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)) {
 			break
 		}
 		v.reset(OpS390XXORWload)
@@ -17777,7 +17718,7 @@ func rewriteValueS390X_OpS390XXORW(v *Value, config *Config) bool {
 		return true
 	}
 	// match: (XORW <t> x g:(MOVWZload [off] {sym} ptr mem))
-	// cond: g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)
+	// cond: ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)
 	// result: (XORWload <t> [off] {sym} x ptr mem)
 	for {
 		t := v.Type
@@ -17790,7 +17731,7 @@ func rewriteValueS390X_OpS390XXORW(v *Value, config *Config) bool {
 		sym := g.Aux
 		ptr := g.Args[0]
 		mem := g.Args[1]
-		if !(g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)) {
+		if !(ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)) {
 			break
 		}
 		v.reset(OpS390XXORWload)
@@ -17803,7 +17744,7 @@ func rewriteValueS390X_OpS390XXORW(v *Value, config *Config) bool {
 		return true
 	}
 	// match: (XORW <t> g:(MOVWZload [off] {sym} ptr mem) x)
-	// cond: g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)
+	// cond: ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)
 	// result: (XORWload <t> [off] {sym} x ptr mem)
 	for {
 		t := v.Type
@@ -17816,7 +17757,7 @@ func rewriteValueS390X_OpS390XXORW(v *Value, config *Config) bool {
 		ptr := g.Args[0]
 		mem := g.Args[1]
 		x := v.Args[1]
-		if !(g.Uses == 1 && ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g) && clobber(g)) {
+		if !(ptr.Op != OpSB && is20Bit(off) && canMergeLoad(v, g, x) && clobber(g)) {
 			break
 		}
 		v.reset(OpS390XXORWload)
@@ -17830,9 +17771,7 @@ func rewriteValueS390X_OpS390XXORW(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XXORWconst(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XXORWconst(v *Value) bool {
 	// match: (XORWconst [c] x)
 	// cond: int32(c)==0
 	// result: x
@@ -17863,9 +17802,7 @@ func rewriteValueS390X_OpS390XXORWconst(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpS390XXORconst(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpS390XXORconst(v *Value) bool {
 	// match: (XORconst [0] x)
 	// cond:
 	// result: x
@@ -17895,7 +17832,7 @@ func rewriteValueS390X_OpS390XXORconst(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpSelect0(v *Value, config *Config) bool {
+func rewriteValueS390X_OpSelect0(v *Value) bool {
 	b := v.Block
 	_ = b
 	// match: (Select0 <t> (AddTupleFirst32 tuple val))
@@ -17936,9 +17873,7 @@ func rewriteValueS390X_OpSelect0(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpSelect1(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpSelect1(v *Value) bool {
 	// match: (Select1     (AddTupleFirst32 tuple _  ))
 	// cond:
 	// result: (Select1 tuple)
@@ -17967,9 +17902,7 @@ func rewriteValueS390X_OpSelect1(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpSignExt16to32(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpSignExt16to32(v *Value) bool {
 	// match: (SignExt16to32 x)
 	// cond:
 	// result: (MOVHreg x)
@@ -17980,9 +17913,7 @@ func rewriteValueS390X_OpSignExt16to32(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpSignExt16to64(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpSignExt16to64(v *Value) bool {
 	// match: (SignExt16to64 x)
 	// cond:
 	// result: (MOVHreg x)
@@ -17993,9 +17924,7 @@ func rewriteValueS390X_OpSignExt16to64(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpSignExt32to64(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpSignExt32to64(v *Value) bool {
 	// match: (SignExt32to64 x)
 	// cond:
 	// result: (MOVWreg x)
@@ -18006,9 +17935,7 @@ func rewriteValueS390X_OpSignExt32to64(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpSignExt8to16(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpSignExt8to16(v *Value) bool {
 	// match: (SignExt8to16  x)
 	// cond:
 	// result: (MOVBreg x)
@@ -18019,9 +17946,7 @@ func rewriteValueS390X_OpSignExt8to16(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpSignExt8to32(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpSignExt8to32(v *Value) bool {
 	// match: (SignExt8to32  x)
 	// cond:
 	// result: (MOVBreg x)
@@ -18032,9 +17957,7 @@ func rewriteValueS390X_OpSignExt8to32(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpSignExt8to64(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpSignExt8to64(v *Value) bool {
 	// match: (SignExt8to64  x)
 	// cond:
 	// result: (MOVBreg x)
@@ -18045,7 +17968,7 @@ func rewriteValueS390X_OpSignExt8to64(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpSlicemask(v *Value, config *Config) bool {
+func rewriteValueS390X_OpSlicemask(v *Value) bool {
 	b := v.Block
 	_ = b
 	// match: (Slicemask <t> x)
@@ -18062,9 +17985,7 @@ func rewriteValueS390X_OpSlicemask(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpSqrt(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpSqrt(v *Value) bool {
 	// match: (Sqrt x)
 	// cond:
 	// result: (FSQRT x)
@@ -18075,9 +17996,7 @@ func rewriteValueS390X_OpSqrt(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpStaticCall(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpStaticCall(v *Value) bool {
 	// match: (StaticCall [argwid] {target} mem)
 	// cond:
 	// result: (CALLstatic [argwid] {target} mem)
@@ -18092,20 +18011,16 @@ func rewriteValueS390X_OpStaticCall(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpStore(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
-	// match: (Store [8] ptr val mem)
-	// cond: is64BitFloat(val.Type)
+func rewriteValueS390X_OpStore(v *Value) bool {
+	// match: (Store {t} ptr val mem)
+	// cond: t.(Type).Size() == 8 && is64BitFloat(val.Type)
 	// result: (FMOVDstore ptr val mem)
 	for {
-		if v.AuxInt != 8 {
-			break
-		}
+		t := v.Aux
 		ptr := v.Args[0]
 		val := v.Args[1]
 		mem := v.Args[2]
-		if !(is64BitFloat(val.Type)) {
+		if !(t.(Type).Size() == 8 && is64BitFloat(val.Type)) {
 			break
 		}
 		v.reset(OpS390XFMOVDstore)
@@ -18114,17 +18029,15 @@ func rewriteValueS390X_OpStore(v *Value, config *Config) bool {
 		v.AddArg(mem)
 		return true
 	}
-	// match: (Store [4] ptr val mem)
-	// cond: is32BitFloat(val.Type)
+	// match: (Store {t} ptr val mem)
+	// cond: t.(Type).Size() == 4 && is32BitFloat(val.Type)
 	// result: (FMOVSstore ptr val mem)
 	for {
-		if v.AuxInt != 4 {
-			break
-		}
+		t := v.Aux
 		ptr := v.Args[0]
 		val := v.Args[1]
 		mem := v.Args[2]
-		if !(is32BitFloat(val.Type)) {
+		if !(t.(Type).Size() == 4 && is32BitFloat(val.Type)) {
 			break
 		}
 		v.reset(OpS390XFMOVSstore)
@@ -18133,64 +18046,68 @@ func rewriteValueS390X_OpStore(v *Value, config *Config) bool {
 		v.AddArg(mem)
 		return true
 	}
-	// match: (Store [8] ptr val mem)
-	// cond:
+	// match: (Store {t} ptr val mem)
+	// cond: t.(Type).Size() == 8
 	// result: (MOVDstore ptr val mem)
 	for {
-		if v.AuxInt != 8 {
-			break
-		}
+		t := v.Aux
 		ptr := v.Args[0]
 		val := v.Args[1]
 		mem := v.Args[2]
+		if !(t.(Type).Size() == 8) {
+			break
+		}
 		v.reset(OpS390XMOVDstore)
 		v.AddArg(ptr)
 		v.AddArg(val)
 		v.AddArg(mem)
 		return true
 	}
-	// match: (Store [4] ptr val mem)
-	// cond:
+	// match: (Store {t} ptr val mem)
+	// cond: t.(Type).Size() == 4
 	// result: (MOVWstore ptr val mem)
 	for {
-		if v.AuxInt != 4 {
-			break
-		}
+		t := v.Aux
 		ptr := v.Args[0]
 		val := v.Args[1]
 		mem := v.Args[2]
+		if !(t.(Type).Size() == 4) {
+			break
+		}
 		v.reset(OpS390XMOVWstore)
 		v.AddArg(ptr)
 		v.AddArg(val)
 		v.AddArg(mem)
 		return true
 	}
-	// match: (Store [2] ptr val mem)
-	// cond:
+	// match: (Store {t} ptr val mem)
+	// cond: t.(Type).Size() == 2
 	// result: (MOVHstore ptr val mem)
 	for {
-		if v.AuxInt != 2 {
-			break
-		}
+		t := v.Aux
 		ptr := v.Args[0]
 		val := v.Args[1]
 		mem := v.Args[2]
+		if !(t.(Type).Size() == 2) {
+			break
+		}
 		v.reset(OpS390XMOVHstore)
 		v.AddArg(ptr)
 		v.AddArg(val)
 		v.AddArg(mem)
 		return true
 	}
-	// match: (Store [1] ptr val mem)
-	// cond:
+	// match: (Store {t} ptr val mem)
+	// cond: t.(Type).Size() == 1
 	// result: (MOVBstore ptr val mem)
 	for {
-		if v.AuxInt != 1 {
-			break
-		}
+		t := v.Aux
 		ptr := v.Args[0]
 		val := v.Args[1]
 		mem := v.Args[2]
+		if !(t.(Type).Size() == 1) {
+			break
+		}
 		v.reset(OpS390XMOVBstore)
 		v.AddArg(ptr)
 		v.AddArg(val)
@@ -18199,9 +18116,7 @@ func rewriteValueS390X_OpStore(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpSub16(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpSub16(v *Value) bool {
 	// match: (Sub16  x y)
 	// cond:
 	// result: (SUBW  x y)
@@ -18214,9 +18129,7 @@ func rewriteValueS390X_OpSub16(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpSub32(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpSub32(v *Value) bool {
 	// match: (Sub32  x y)
 	// cond:
 	// result: (SUBW  x y)
@@ -18229,9 +18142,7 @@ func rewriteValueS390X_OpSub32(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpSub32F(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpSub32F(v *Value) bool {
 	// match: (Sub32F x y)
 	// cond:
 	// result: (FSUBS x y)
@@ -18244,9 +18155,7 @@ func rewriteValueS390X_OpSub32F(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpSub64(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpSub64(v *Value) bool {
 	// match: (Sub64  x y)
 	// cond:
 	// result: (SUB  x y)
@@ -18259,9 +18168,7 @@ func rewriteValueS390X_OpSub64(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpSub64F(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpSub64F(v *Value) bool {
 	// match: (Sub64F x y)
 	// cond:
 	// result: (FSUB x y)
@@ -18274,9 +18181,7 @@ func rewriteValueS390X_OpSub64F(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpSub8(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpSub8(v *Value) bool {
 	// match: (Sub8   x y)
 	// cond:
 	// result: (SUBW  x y)
@@ -18289,9 +18194,7 @@ func rewriteValueS390X_OpSub8(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpSubPtr(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpSubPtr(v *Value) bool {
 	// match: (SubPtr x y)
 	// cond:
 	// result: (SUB  x y)
@@ -18304,9 +18207,7 @@ func rewriteValueS390X_OpSubPtr(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpTrunc16to8(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpTrunc16to8(v *Value) bool {
 	// match: (Trunc16to8  x)
 	// cond:
 	// result: x
@@ -18318,9 +18219,7 @@ func rewriteValueS390X_OpTrunc16to8(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpTrunc32to16(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpTrunc32to16(v *Value) bool {
 	// match: (Trunc32to16 x)
 	// cond:
 	// result: x
@@ -18332,9 +18231,7 @@ func rewriteValueS390X_OpTrunc32to16(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpTrunc32to8(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpTrunc32to8(v *Value) bool {
 	// match: (Trunc32to8  x)
 	// cond:
 	// result: x
@@ -18346,9 +18243,7 @@ func rewriteValueS390X_OpTrunc32to8(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpTrunc64to16(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpTrunc64to16(v *Value) bool {
 	// match: (Trunc64to16 x)
 	// cond:
 	// result: x
@@ -18360,9 +18255,7 @@ func rewriteValueS390X_OpTrunc64to16(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpTrunc64to32(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpTrunc64to32(v *Value) bool {
 	// match: (Trunc64to32 x)
 	// cond:
 	// result: x
@@ -18374,9 +18267,7 @@ func rewriteValueS390X_OpTrunc64to32(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpTrunc64to8(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpTrunc64to8(v *Value) bool {
 	// match: (Trunc64to8  x)
 	// cond:
 	// result: x
@@ -18388,9 +18279,7 @@ func rewriteValueS390X_OpTrunc64to8(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpXor16(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpXor16(v *Value) bool {
 	// match: (Xor16 x y)
 	// cond:
 	// result: (XORW x y)
@@ -18403,9 +18292,7 @@ func rewriteValueS390X_OpXor16(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpXor32(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpXor32(v *Value) bool {
 	// match: (Xor32 x y)
 	// cond:
 	// result: (XORW x y)
@@ -18418,9 +18305,7 @@ func rewriteValueS390X_OpXor32(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpXor64(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpXor64(v *Value) bool {
 	// match: (Xor64 x y)
 	// cond:
 	// result: (XOR x y)
@@ -18433,9 +18318,7 @@ func rewriteValueS390X_OpXor64(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpXor8(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpXor8(v *Value) bool {
 	// match: (Xor8  x y)
 	// cond:
 	// result: (XORW x y)
@@ -18448,97 +18331,91 @@ func rewriteValueS390X_OpXor8(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpZero(v *Value, config *Config) bool {
+func rewriteValueS390X_OpZero(v *Value) bool {
 	b := v.Block
 	_ = b
-	// match: (Zero [s] _ mem)
-	// cond: SizeAndAlign(s).Size() == 0
+	// match: (Zero [0] _ mem)
+	// cond:
 	// result: mem
 	for {
-		s := v.AuxInt
-		mem := v.Args[1]
-		if !(SizeAndAlign(s).Size() == 0) {
+		if v.AuxInt != 0 {
 			break
 		}
+		mem := v.Args[1]
 		v.reset(OpCopy)
 		v.Type = mem.Type
 		v.AddArg(mem)
 		return true
 	}
-	// match: (Zero [s] destptr mem)
-	// cond: SizeAndAlign(s).Size() == 1
+	// match: (Zero [1] destptr mem)
+	// cond:
 	// result: (MOVBstoreconst [0] destptr mem)
 	for {
-		s := v.AuxInt
-		destptr := v.Args[0]
-		mem := v.Args[1]
-		if !(SizeAndAlign(s).Size() == 1) {
+		if v.AuxInt != 1 {
 			break
 		}
+		destptr := v.Args[0]
+		mem := v.Args[1]
 		v.reset(OpS390XMOVBstoreconst)
 		v.AuxInt = 0
 		v.AddArg(destptr)
 		v.AddArg(mem)
 		return true
 	}
-	// match: (Zero [s] destptr mem)
-	// cond: SizeAndAlign(s).Size() == 2
+	// match: (Zero [2] destptr mem)
+	// cond:
 	// result: (MOVHstoreconst [0] destptr mem)
 	for {
-		s := v.AuxInt
-		destptr := v.Args[0]
-		mem := v.Args[1]
-		if !(SizeAndAlign(s).Size() == 2) {
+		if v.AuxInt != 2 {
 			break
 		}
+		destptr := v.Args[0]
+		mem := v.Args[1]
 		v.reset(OpS390XMOVHstoreconst)
 		v.AuxInt = 0
 		v.AddArg(destptr)
 		v.AddArg(mem)
 		return true
 	}
-	// match: (Zero [s] destptr mem)
-	// cond: SizeAndAlign(s).Size() == 4
+	// match: (Zero [4] destptr mem)
+	// cond:
 	// result: (MOVWstoreconst [0] destptr mem)
 	for {
-		s := v.AuxInt
-		destptr := v.Args[0]
-		mem := v.Args[1]
-		if !(SizeAndAlign(s).Size() == 4) {
+		if v.AuxInt != 4 {
 			break
 		}
+		destptr := v.Args[0]
+		mem := v.Args[1]
 		v.reset(OpS390XMOVWstoreconst)
 		v.AuxInt = 0
 		v.AddArg(destptr)
 		v.AddArg(mem)
 		return true
 	}
-	// match: (Zero [s] destptr mem)
-	// cond: SizeAndAlign(s).Size() == 8
+	// match: (Zero [8] destptr mem)
+	// cond:
 	// result: (MOVDstoreconst [0] destptr mem)
 	for {
-		s := v.AuxInt
-		destptr := v.Args[0]
-		mem := v.Args[1]
-		if !(SizeAndAlign(s).Size() == 8) {
+		if v.AuxInt != 8 {
 			break
 		}
+		destptr := v.Args[0]
+		mem := v.Args[1]
 		v.reset(OpS390XMOVDstoreconst)
 		v.AuxInt = 0
 		v.AddArg(destptr)
 		v.AddArg(mem)
 		return true
 	}
-	// match: (Zero [s] destptr mem)
-	// cond: SizeAndAlign(s).Size() == 3
+	// match: (Zero [3] destptr mem)
+	// cond:
 	// result: (MOVBstoreconst [makeValAndOff(0,2)] destptr 		(MOVHstoreconst [0] destptr mem))
 	for {
-		s := v.AuxInt
-		destptr := v.Args[0]
-		mem := v.Args[1]
-		if !(SizeAndAlign(s).Size() == 3) {
+		if v.AuxInt != 3 {
 			break
 		}
+		destptr := v.Args[0]
+		mem := v.Args[1]
 		v.reset(OpS390XMOVBstoreconst)
 		v.AuxInt = makeValAndOff(0, 2)
 		v.AddArg(destptr)
@@ -18549,16 +18426,15 @@ func rewriteValueS390X_OpZero(v *Value, config *Config) bool {
 		v.AddArg(v0)
 		return true
 	}
-	// match: (Zero [s] destptr mem)
-	// cond: SizeAndAlign(s).Size() == 5
+	// match: (Zero [5] destptr mem)
+	// cond:
 	// result: (MOVBstoreconst [makeValAndOff(0,4)] destptr 		(MOVWstoreconst [0] destptr mem))
 	for {
-		s := v.AuxInt
-		destptr := v.Args[0]
-		mem := v.Args[1]
-		if !(SizeAndAlign(s).Size() == 5) {
+		if v.AuxInt != 5 {
 			break
 		}
+		destptr := v.Args[0]
+		mem := v.Args[1]
 		v.reset(OpS390XMOVBstoreconst)
 		v.AuxInt = makeValAndOff(0, 4)
 		v.AddArg(destptr)
@@ -18569,16 +18445,15 @@ func rewriteValueS390X_OpZero(v *Value, config *Config) bool {
 		v.AddArg(v0)
 		return true
 	}
-	// match: (Zero [s] destptr mem)
-	// cond: SizeAndAlign(s).Size() == 6
+	// match: (Zero [6] destptr mem)
+	// cond:
 	// result: (MOVHstoreconst [makeValAndOff(0,4)] destptr 		(MOVWstoreconst [0] destptr mem))
 	for {
-		s := v.AuxInt
-		destptr := v.Args[0]
-		mem := v.Args[1]
-		if !(SizeAndAlign(s).Size() == 6) {
+		if v.AuxInt != 6 {
 			break
 		}
+		destptr := v.Args[0]
+		mem := v.Args[1]
 		v.reset(OpS390XMOVHstoreconst)
 		v.AuxInt = makeValAndOff(0, 4)
 		v.AddArg(destptr)
@@ -18589,16 +18464,15 @@ func rewriteValueS390X_OpZero(v *Value, config *Config) bool {
 		v.AddArg(v0)
 		return true
 	}
-	// match: (Zero [s] destptr mem)
-	// cond: SizeAndAlign(s).Size() == 7
+	// match: (Zero [7] destptr mem)
+	// cond:
 	// result: (MOVWstoreconst [makeValAndOff(0,3)] destptr 		(MOVWstoreconst [0] destptr mem))
 	for {
-		s := v.AuxInt
-		destptr := v.Args[0]
-		mem := v.Args[1]
-		if !(SizeAndAlign(s).Size() == 7) {
+		if v.AuxInt != 7 {
 			break
 		}
+		destptr := v.Args[0]
+		mem := v.Args[1]
 		v.reset(OpS390XMOVWstoreconst)
 		v.AuxInt = makeValAndOff(0, 3)
 		v.AddArg(destptr)
@@ -18610,36 +18484,36 @@ func rewriteValueS390X_OpZero(v *Value, config *Config) bool {
 		return true
 	}
 	// match: (Zero [s] destptr mem)
-	// cond: SizeAndAlign(s).Size() > 0 && SizeAndAlign(s).Size() <= 1024
-	// result: (CLEAR [makeValAndOff(SizeAndAlign(s).Size(), 0)] destptr mem)
+	// cond: s > 0 && s <= 1024
+	// result: (CLEAR [makeValAndOff(s, 0)] destptr mem)
 	for {
 		s := v.AuxInt
 		destptr := v.Args[0]
 		mem := v.Args[1]
-		if !(SizeAndAlign(s).Size() > 0 && SizeAndAlign(s).Size() <= 1024) {
+		if !(s > 0 && s <= 1024) {
 			break
 		}
 		v.reset(OpS390XCLEAR)
-		v.AuxInt = makeValAndOff(SizeAndAlign(s).Size(), 0)
+		v.AuxInt = makeValAndOff(s, 0)
 		v.AddArg(destptr)
 		v.AddArg(mem)
 		return true
 	}
 	// match: (Zero [s] destptr mem)
-	// cond: SizeAndAlign(s).Size() > 1024
-	// result: (LoweredZero [SizeAndAlign(s).Size()%256] destptr (ADDconst <destptr.Type> destptr [(SizeAndAlign(s).Size()/256)*256]) mem)
+	// cond: s > 1024
+	// result: (LoweredZero [s%256] destptr (ADDconst <destptr.Type> destptr [(s/256)*256]) mem)
 	for {
 		s := v.AuxInt
 		destptr := v.Args[0]
 		mem := v.Args[1]
-		if !(SizeAndAlign(s).Size() > 1024) {
+		if !(s > 1024) {
 			break
 		}
 		v.reset(OpS390XLoweredZero)
-		v.AuxInt = SizeAndAlign(s).Size() % 256
+		v.AuxInt = s % 256
 		v.AddArg(destptr)
 		v0 := b.NewValue0(v.Pos, OpS390XADDconst, destptr.Type)
-		v0.AuxInt = (SizeAndAlign(s).Size() / 256) * 256
+		v0.AuxInt = (s / 256) * 256
 		v0.AddArg(destptr)
 		v.AddArg(v0)
 		v.AddArg(mem)
@@ -18647,9 +18521,7 @@ func rewriteValueS390X_OpZero(v *Value, config *Config) bool {
 	}
 	return false
 }
-func rewriteValueS390X_OpZeroExt16to32(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpZeroExt16to32(v *Value) bool {
 	// match: (ZeroExt16to32 x)
 	// cond:
 	// result: (MOVHZreg x)
@@ -18660,9 +18532,7 @@ func rewriteValueS390X_OpZeroExt16to32(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpZeroExt16to64(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpZeroExt16to64(v *Value) bool {
 	// match: (ZeroExt16to64 x)
 	// cond:
 	// result: (MOVHZreg x)
@@ -18673,9 +18543,7 @@ func rewriteValueS390X_OpZeroExt16to64(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpZeroExt32to64(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpZeroExt32to64(v *Value) bool {
 	// match: (ZeroExt32to64 x)
 	// cond:
 	// result: (MOVWZreg x)
@@ -18686,9 +18554,7 @@ func rewriteValueS390X_OpZeroExt32to64(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpZeroExt8to16(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpZeroExt8to16(v *Value) bool {
 	// match: (ZeroExt8to16  x)
 	// cond:
 	// result: (MOVBZreg x)
@@ -18699,9 +18565,7 @@ func rewriteValueS390X_OpZeroExt8to16(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpZeroExt8to32(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpZeroExt8to32(v *Value) bool {
 	// match: (ZeroExt8to32  x)
 	// cond:
 	// result: (MOVBZreg x)
@@ -18712,9 +18576,7 @@ func rewriteValueS390X_OpZeroExt8to32(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteValueS390X_OpZeroExt8to64(v *Value, config *Config) bool {
-	b := v.Block
-	_ = b
+func rewriteValueS390X_OpZeroExt8to64(v *Value) bool {
 	// match: (ZeroExt8to64  x)
 	// cond:
 	// result: (MOVBZreg x)
@@ -18725,7 +18587,13 @@ func rewriteValueS390X_OpZeroExt8to64(v *Value, config *Config) bool {
 		return true
 	}
 }
-func rewriteBlockS390X(b *Block, config *Config) bool {
+func rewriteBlockS390X(b *Block) bool {
+	config := b.Func.Config
+	_ = config
+	fe := b.Func.fe
+	_ = fe
+	types := &config.Types
+	_ = types
 	switch b.Kind {
 	case BlockS390XEQ:
 		// match: (EQ (InvertFlags cmp) yes no)
@@ -19181,7 +19049,7 @@ func rewriteBlockS390X(b *Block, config *Config) bool {
 		}
 		// match: (If cond yes no)
 		// cond:
-		// result: (NE (CMPWconst [0] (MOVBZreg <config.fe.TypeBool()> cond)) yes no)
+		// result: (NE (CMPWconst [0] (MOVBZreg <types.Bool> cond)) yes no)
 		for {
 			v := b.Control
 			_ = v
@@ -19191,7 +19059,7 @@ func rewriteBlockS390X(b *Block, config *Config) bool {
 			b.Kind = BlockS390XNE
 			v0 := b.NewValue0(v.Pos, OpS390XCMPWconst, TypeFlags)
 			v0.AuxInt = 0
-			v1 := b.NewValue0(v.Pos, OpS390XMOVBZreg, config.fe.TypeBool())
+			v1 := b.NewValue0(v.Pos, OpS390XMOVBZreg, types.Bool)
 			v1.AddArg(cond)
 			v0.AddArg(v1)
 			b.SetControl(v0)

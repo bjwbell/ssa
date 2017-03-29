@@ -147,6 +147,7 @@ func init() {
 		fpgp        = regInfo{inputs: []regMask{fp}, outputs: []regMask{gp}}
 		gpfp        = regInfo{inputs: []regMask{gp}, outputs: []regMask{fp}}
 		fp21        = regInfo{inputs: []regMask{fp, fp}, outputs: []regMask{fp}}
+		fp31        = regInfo{inputs: []regMask{fp, fp, fp}, outputs: []regMask{fp}}
 		fp2cr       = regInfo{inputs: []regMask{fp, fp}}
 		fpload      = regInfo{inputs: []regMask{gp | sp | sb}, outputs: []regMask{fp}}
 		fpstore     = regInfo{inputs: []regMask{gp | sp | sb, fp}}
@@ -171,6 +172,11 @@ func init() {
 
 		{name: "FMUL", argLength: 2, reg: fp21, asm: "FMUL", commutative: true},   // arg0*arg1
 		{name: "FMULS", argLength: 2, reg: fp21, asm: "FMULS", commutative: true}, // arg0*arg1
+
+		{name: "FMADD", argLength: 3, reg: fp31, asm: "FMADD"},   // arg0*arg1 + arg2
+		{name: "FMADDS", argLength: 3, reg: fp31, asm: "FMADDS"}, // arg0*arg1 + arg2
+		{name: "FMSUB", argLength: 3, reg: fp31, asm: "FMSUB"},   // arg0*arg1 - arg2
+		{name: "FMSUBS", argLength: 3, reg: fp31, asm: "FMSUBS"}, // arg0*arg1 - arg2
 
 		{name: "SRAD", argLength: 2, reg: gp21, asm: "SRAD"}, // arg0 >>a arg1, 64 bits (all sign if arg1 & 64 != 0)
 		{name: "SRAW", argLength: 2, reg: gp21, asm: "SRAW"}, // arg0 >>a arg1, 32 bits (all sign if arg1 & 32 != 0)
@@ -293,6 +299,9 @@ func init() {
 
 		//arg0=ptr,arg1=mem, returns void.  Faults if ptr is nil.
 		{name: "LoweredNilCheck", argLength: 2, reg: regInfo{inputs: []regMask{gp | sp | sb}, clobbers: tmp}, clobberFlags: true, nilCheck: true, faultOnNilArg0: true},
+		// Round ops to block fused-multiply-add extraction.
+		{name: "LoweredRound32F", argLength: 1, reg: fp11, resultInArg0: true},
+		{name: "LoweredRound64F", argLength: 1, reg: fp11, resultInArg0: true},
 
 		// Convert pointer to integer, takes a memory operand for ordering.
 		{name: "MOVDconvert", argLength: 2, reg: gp11, asm: "MOVD"},
@@ -303,19 +312,37 @@ func init() {
 
 		// large or unaligned zeroing
 		// arg0 = address of memory to zero (in R3, changed as side effect)
-		// arg1 = address of the last element to zero
-		// arg2 = mem
 		// returns mem
-		//  ADD -8,R3,R3 // intermediate value not valid GC ptr, cannot expose to opt+GC
-		//	MOVDU	R0, 8(R3)
-		//	CMP	R3, Rarg1
-		//	BLE	-2(PC)
+		//
+		// a loop is generated when there is more than one iteration
+		// needed to clear 4 doublewords
+		//
+		// 	MOVD	$len/32,R31
+		//	MOVD	R31,CTR
+		//	loop:
+		//	MOVD	R0,(R3)
+		//	MOVD	R0,8(R3)
+		//	MOVD	R0,16(R3)
+		//	MOVD	R0,24(R3)
+		//	ADD	R3,32
+		//	BC	loop
+
+		// remaining doubleword clears generated as needed
+		//	MOVD	R0,(R3)
+		//	MOVD	R0,8(R3)
+		//	MOVD	R0,16(R3)
+		//	MOVD	R0,24(R3)
+
+		// one or more of these to clear remainder < 8 bytes
+		//	MOVW	R0,n1(R3)
+		//	MOVH	R0,n2(R3)
+		//	MOVB	R0,n3(R3)
 		{
 			name:      "LoweredZero",
 			aux:       "Int64",
-			argLength: 3,
+			argLength: 2,
 			reg: regInfo{
-				inputs:   []regMask{buildReg("R3"), gp},
+				inputs:   []regMask{buildReg("R3")},
 				clobbers: buildReg("R3"),
 			},
 			clobberFlags:   true,

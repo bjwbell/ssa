@@ -4,11 +4,15 @@
 
 package ssa
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/bjwbell/cmd/src"
+)
 
 func TestLiveControlOps(t *testing.T) {
 	c := testConfig(t)
-	f := Fun(c, "entry",
+	f := c.Fun("entry",
 		Bloc("entry",
 			Valu("mem", OpInitMem, TypeMem, 0, nil),
 			Valu("x", OpAMD64MOVLconst, TypeInt8, 1, nil),
@@ -30,4 +34,39 @@ func TestLiveControlOps(t *testing.T) {
 	flagalloc(f.f)
 	regalloc(f.f)
 	checkFunc(f.f)
+}
+
+// Test to make sure we don't push spills into loops.
+// See issue #19595.
+func TestSpillWithLoop(t *testing.T) {
+	c := testConfig(t)
+	f := c.Fun("entry",
+		Bloc("entry",
+			Valu("mem", OpInitMem, TypeMem, 0, nil),
+			Valu("ptr", OpArg, TypeInt64Ptr, 0, c.Frontend().Auto(src.NoXPos, TypeInt64)),
+			Valu("cond", OpArg, TypeBool, 0, c.Frontend().Auto(src.NoXPos, TypeBool)),
+			Valu("ld", OpAMD64MOVQload, TypeInt64, 0, nil, "ptr", "mem"), // this value needs a spill
+			Goto("loop"),
+		),
+		Bloc("loop",
+			Valu("memphi", OpPhi, TypeMem, 0, nil, "mem", "call"),
+			Valu("call", OpAMD64CALLstatic, TypeMem, 0, nil, "memphi"),
+			Valu("test", OpAMD64CMPBconst, TypeFlags, 0, nil, "cond"),
+			Eq("test", "next", "exit"),
+		),
+		Bloc("next",
+			Goto("loop"),
+		),
+		Bloc("exit",
+			Valu("store", OpAMD64MOVQstore, TypeMem, 0, nil, "ptr", "ld", "call"),
+			Exit("store"),
+		),
+	)
+	regalloc(f.f)
+	checkFunc(f.f)
+	for _, v := range f.blocks["loop"].Values {
+		if v.Op == OpStoreReg {
+			t.Errorf("spill inside loop %s", v.LongString())
+		}
+	}
 }

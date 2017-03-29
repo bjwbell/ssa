@@ -129,17 +129,15 @@ func (v *Value) auxString() string {
 		return fmt.Sprintf(" [%d]", v.AuxInt32())
 	case auxInt64, auxInt128:
 		return fmt.Sprintf(" [%d]", v.AuxInt)
-	case auxSizeAndAlign:
-		return fmt.Sprintf(" [%s]", SizeAndAlign(v.AuxInt))
 	case auxFloat32, auxFloat64:
 		return fmt.Sprintf(" [%g]", v.AuxFloat())
 	case auxString:
 		return fmt.Sprintf(" {%q}", v.Aux)
-	case auxSym:
+	case auxSym, auxTyp:
 		if v.Aux != nil {
 			return fmt.Sprintf(" {%v}", v.Aux)
 		}
-	case auxSymOff, auxSymInt32:
+	case auxSymOff, auxSymInt32, auxTypSize:
 		s := ""
 		if v.Aux != nil {
 			s = fmt.Sprintf(" {%v}", v.Aux)
@@ -154,12 +152,6 @@ func (v *Value) auxString() string {
 			s = fmt.Sprintf(" {%v}", v.Aux)
 		}
 		return s + fmt.Sprintf(" [%s]", v.AuxValAndOff())
-	case auxSymSizeAndAlign:
-		s := ""
-		if v.Aux != nil {
-			s = fmt.Sprintf(" {%v}", v.Aux)
-		}
-		return s + fmt.Sprintf(" [%s]", SizeAndAlign(v.AuxInt))
 	}
 	return ""
 }
@@ -235,7 +227,7 @@ func (v *Value) copyInto(b *Block) *Value {
 func (v *Value) Logf(msg string, args ...interface{}) { v.Block.Logf(msg, args...) }
 func (v *Value) Log() bool                            { return v.Block.Log() }
 func (v *Value) Fatalf(msg string, args ...interface{}) {
-	v.Block.Func.Config.Fatalf(v.Pos, msg, args...)
+	v.Block.Func.fe.Fatalf(v.Pos, msg, args...)
 }
 
 // isGenericIntConst returns whether v is a generic integer constant.

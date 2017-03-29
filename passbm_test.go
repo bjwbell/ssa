@@ -33,8 +33,8 @@ func BenchmarkMultiPassBlock(b *testing.B) { benchFnBlock(b, multi, genFunction)
 // benchFnPass runs passFunc b.N times across a single function.
 func benchFnPass(b *testing.B, fn passFunc, size int, bg blockGen) {
 	b.ReportAllocs()
-	c := NewConfig("amd64", DummyFrontend{b}, nil, true)
-	fun := Fun(c, "entry", bg(size)...)
+	c := testConfig(b)
+	fun := c.Fun("entry", bg(size)...)
 	CheckFunc(fun.f)
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
@@ -48,8 +48,8 @@ func benchFnPass(b *testing.B, fn passFunc, size int, bg blockGen) {
 // benchFnPass runs passFunc across a function with b.N blocks.
 func benchFnBlock(b *testing.B, fn passFunc, bg blockGen) {
 	b.ReportAllocs()
-	c := NewConfig("amd64", DummyFrontend{b}, nil, true)
-	fun := Fun(c, "entry", bg(b.N)...)
+	c := testConfig(b)
+	fun := c.Fun("entry", bg(b.N)...)
 	CheckFunc(fun.f)
 	b.ResetTimer()
 	for i := 0; i < passCount; i++ {
@@ -77,15 +77,15 @@ func genFunction(size int) []bloc {
 			Valu(valn("addr", i, 1), OpAddr, ptrType, 0, nil, "sb"),
 			Valu(valn("addr", i, 2), OpAddr, ptrType, 0, nil, "sb"),
 			Valu(valn("addr", i, 3), OpAddr, ptrType, 0, nil, "sb"),
-			Valu(valn("zero", i, 1), OpZero, TypeMem, 8, nil, valn("addr", i, 3),
+			Valu(valn("zero", i, 1), OpZero, TypeMem, 8, elemType, valn("addr", i, 3),
 				valn("store", i-1, 4)),
-			Valu(valn("store", i, 1), OpStore, TypeMem, 0, nil, valn("addr", i, 1),
+			Valu(valn("store", i, 1), OpStore, TypeMem, 0, elemType, valn("addr", i, 1),
 				valn("v", i, 0), valn("zero", i, 1)),
-			Valu(valn("store", i, 2), OpStore, TypeMem, 0, nil, valn("addr", i, 2),
+			Valu(valn("store", i, 2), OpStore, TypeMem, 0, elemType, valn("addr", i, 2),
 				valn("v", i, 0), valn("store", i, 1)),
-			Valu(valn("store", i, 3), OpStore, TypeMem, 0, nil, valn("addr", i, 1),
+			Valu(valn("store", i, 3), OpStore, TypeMem, 0, elemType, valn("addr", i, 1),
 				valn("v", i, 0), valn("store", i, 2)),
-			Valu(valn("store", i, 4), OpStore, TypeMem, 0, nil, valn("addr", i, 3),
+			Valu(valn("store", i, 4), OpStore, TypeMem, 0, elemType, valn("addr", i, 3),
 				valn("v", i, 0), valn("store", i, 3)),
 			Goto(blockn(i+1))))
 	}

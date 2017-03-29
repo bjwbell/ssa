@@ -6,6 +6,8 @@ package ssa
 
 import (
 	"testing"
+
+	"github.com/bjwbell/cmd/src"
 )
 
 func TestLoopConditionS390X(t *testing.T) {
@@ -44,12 +46,12 @@ func TestLoopConditionS390X(t *testing.T) {
 	//   done:
 	//
 	c := testConfigS390X(t)
-	fun := Fun(c, "entry",
+	fun := c.Fun("entry",
 		Bloc("entry",
 			Valu("mem", OpInitMem, TypeMem, 0, nil),
 			Valu("SP", OpSP, TypeUInt64, 0, nil),
 			Valu("ret", OpAddr, TypeInt64Ptr, 0, nil, "SP"),
-			Valu("N", OpArg, TypeInt64, 0, c.fe.Auto(TypeInt64)),
+			Valu("N", OpArg, TypeInt64, 0, c.Frontend().Auto(src.NoXPos, TypeInt64)),
 			Valu("starti", OpConst64, TypeInt64, 0, nil),
 			Valu("startsum", OpConst64, TypeInt64, 0, nil),
 			Goto("b1")),
@@ -66,7 +68,7 @@ func TestLoopConditionS390X(t *testing.T) {
 			Goto("b1")),
 		Bloc("b3",
 			Valu("retdef", OpVarDef, TypeMem, 0, nil, "mem"),
-			Valu("store", OpStore, TypeMem, 8, nil, "ret", "phisum", "retdef"),
+			Valu("store", OpStore, TypeMem, 0, TypeInt64, "ret", "phisum", "retdef"),
 			Exit("store")))
 	CheckFunc(fun.f)
 	Compile(fun.f)
@@ -82,6 +84,4 @@ func TestLoopConditionS390X(t *testing.T) {
 		OpS390XCMP:       1,
 		OpS390XCMPWconst: 0,
 	})
-
-	fun.f.Free()
 }

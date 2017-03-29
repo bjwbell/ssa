@@ -236,11 +236,18 @@ var genericOps = []opData{
 	{name: "Com32", argLength: 1},
 	{name: "Com64", argLength: 1},
 
-	{name: "Ctz32", argLength: 1}, // Count trailing (low order) zeroes (returns 0-32)
-	{name: "Ctz64", argLength: 1}, // Count trailing zeroes (returns 0-64)
+	{name: "Ctz32", argLength: 1},    // Count trailing (low order) zeroes (returns 0-32)
+	{name: "Ctz64", argLength: 1},    // Count trailing zeroes (returns 0-64)
+	{name: "BitLen32", argLength: 1}, // Number of bits in arg[0] (returns 0-32)
+	{name: "BitLen64", argLength: 1}, // Number of bits in arg[0] (returns 0-64)
 
 	{name: "Bswap32", argLength: 1}, // Swap bytes
 	{name: "Bswap64", argLength: 1}, // Swap bytes
+
+	{name: "BitRev8", argLength: 1},  // Reverse the bits in arg[0]
+	{name: "BitRev16", argLength: 1}, // Reverse the bits in arg[0]
+	{name: "BitRev32", argLength: 1}, // Reverse the bits in arg[0]
+	{name: "BitRev64", argLength: 1}, // Reverse the bits in arg[0]
 
 	{name: "Sqrt", argLength: 1}, // sqrt(arg0), float64 only
 
@@ -286,16 +293,16 @@ var genericOps = []opData{
 	{name: "Invalid"},            // unused value
 
 	// Memory operations
-	{name: "Load", argLength: 2},                                  // Load from arg0.  arg1=memory
-	{name: "Store", argLength: 3, typ: "Mem", aux: "Int64"},       // Store arg1 to arg0.  arg2=memory, auxint=size.  Returns memory.
-	{name: "Move", argLength: 3, typ: "Mem", aux: "SizeAndAlign"}, // arg0=destptr, arg1=srcptr, arg2=mem, auxint=size+alignment.  Returns memory.
-	{name: "Zero", argLength: 2, typ: "Mem", aux: "SizeAndAlign"}, // arg0=destptr, arg1=mem, auxint=size+alignment. Returns memory.
+	{name: "Load", argLength: 2},                             // Load from arg0.  arg1=memory
+	{name: "Store", argLength: 3, typ: "Mem", aux: "Typ"},    // Store arg1 to arg0.  arg2=memory, aux=type.  Returns memory.
+	{name: "Move", argLength: 3, typ: "Mem", aux: "TypSize"}, // arg0=destptr, arg1=srcptr, arg2=mem, auxint=size, aux=type.  Returns memory.
+	{name: "Zero", argLength: 2, typ: "Mem", aux: "TypSize"}, // arg0=destptr, arg1=mem, auxint=size, aux=type. Returns memory.
 
 	// Memory operations with write barriers.
 	// Expand to runtime calls. Write barrier will be removed if write on stack.
-	{name: "StoreWB", argLength: 3, typ: "Mem", aux: "Int64"},                             // Store arg1 to arg0. arg2=memory, auxint=size.  Returns memory.
-	{name: "MoveWB", argLength: 3, typ: "Mem", aux: "SymSizeAndAlign", symEffect: "None"}, // arg0=destptr, arg1=srcptr, arg2=mem, auxint=size+alignment, aux=symbol-of-type (for typedmemmove).  Returns memory.
-	{name: "ZeroWB", argLength: 2, typ: "Mem", aux: "SymSizeAndAlign", symEffect: "None"}, // arg0=destptr, arg1=mem, auxint=size+alignment, aux=symbol-of-type. Returns memory.
+	{name: "StoreWB", argLength: 3, typ: "Mem", aux: "Typ"},    // Store arg1 to arg0. arg2=memory, aux=type.  Returns memory.
+	{name: "MoveWB", argLength: 3, typ: "Mem", aux: "TypSize"}, // arg0=destptr, arg1=srcptr, arg2=mem, auxint=size, aux=type.  Returns memory.
+	{name: "ZeroWB", argLength: 2, typ: "Mem", aux: "TypSize"}, // arg0=destptr, arg1=mem, auxint=size, aux=type. Returns memory.
 
 	// Function calls. Arguments to the call have already been written to the stack.
 	// Return values appear on the stack. The method receiver, if any, is treated

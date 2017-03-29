@@ -144,8 +144,13 @@ var emptyPass pass = pass{
 // returns a fun containing the composed Func. entry must be a name
 // supplied to one of the Bloc functions. Each of the bloc names and
 // valu names should be unique across the Fun.
-func Fun(c *Config, entry string, blocs ...bloc) fun {
-	f := c.NewFunc()
+func (c *Conf) Fun(entry string, blocs ...bloc) fun {
+	f := NewFunc(c.Frontend())
+	f.Config = c.config
+	// TODO: Either mark some SSA tests as t.Parallel,
+	// or set up a shared Cache and Reset it between tests.
+	// But not both.
+	f.Cache = new(Cache)
 	f.pass = &emptyPass
 
 	blocks := make(map[string]*Block)
@@ -270,7 +275,7 @@ type valu struct {
 
 func TestArgs(t *testing.T) {
 	c := testConfig(t)
-	fun := Fun(c, "entry",
+	fun := c.Fun("entry",
 		Bloc("entry",
 			Valu("a", OpConst64, TypeInt64, 14, nil),
 			Valu("b", OpConst64, TypeInt64, 26, nil),
@@ -289,10 +294,11 @@ func TestArgs(t *testing.T) {
 }
 
 func TestEquiv(t *testing.T) {
+	cfg := testConfig(t)
 	equivalentCases := []struct{ f, g fun }{
 		// simple case
 		{
-			Fun(testConfig(t), "entry",
+			cfg.Fun("entry",
 				Bloc("entry",
 					Valu("a", OpConst64, TypeInt64, 14, nil),
 					Valu("b", OpConst64, TypeInt64, 26, nil),
@@ -301,7 +307,7 @@ func TestEquiv(t *testing.T) {
 					Goto("exit")),
 				Bloc("exit",
 					Exit("mem"))),
-			Fun(testConfig(t), "entry",
+			cfg.Fun("entry",
 				Bloc("entry",
 					Valu("a", OpConst64, TypeInt64, 14, nil),
 					Valu("b", OpConst64, TypeInt64, 26, nil),
@@ -313,7 +319,7 @@ func TestEquiv(t *testing.T) {
 		},
 		// block order changed
 		{
-			Fun(testConfig(t), "entry",
+			cfg.Fun("entry",
 				Bloc("entry",
 					Valu("a", OpConst64, TypeInt64, 14, nil),
 					Valu("b", OpConst64, TypeInt64, 26, nil),
@@ -322,7 +328,7 @@ func TestEquiv(t *testing.T) {
 					Goto("exit")),
 				Bloc("exit",
 					Exit("mem"))),
-			Fun(testConfig(t), "entry",
+			cfg.Fun("entry",
 				Bloc("exit",
 					Exit("mem")),
 				Bloc("entry",
@@ -344,26 +350,26 @@ func TestEquiv(t *testing.T) {
 	differentCases := []struct{ f, g fun }{
 		// different shape
 		{
-			Fun(testConfig(t), "entry",
+			cfg.Fun("entry",
 				Bloc("entry",
 					Valu("mem", OpInitMem, TypeMem, 0, nil),
 					Goto("exit")),
 				Bloc("exit",
 					Exit("mem"))),
-			Fun(testConfig(t), "entry",
+			cfg.Fun("entry",
 				Bloc("entry",
 					Valu("mem", OpInitMem, TypeMem, 0, nil),
 					Exit("mem"))),
 		},
 		// value order changed
 		{
-			Fun(testConfig(t), "entry",
+			cfg.Fun("entry",
 				Bloc("entry",
 					Valu("mem", OpInitMem, TypeMem, 0, nil),
 					Valu("b", OpConst64, TypeInt64, 26, nil),
 					Valu("a", OpConst64, TypeInt64, 14, nil),
 					Exit("mem"))),
-			Fun(testConfig(t), "entry",
+			cfg.Fun("entry",
 				Bloc("entry",
 					Valu("mem", OpInitMem, TypeMem, 0, nil),
 					Valu("a", OpConst64, TypeInt64, 14, nil),
@@ -372,12 +378,12 @@ func TestEquiv(t *testing.T) {
 		},
 		// value auxint different
 		{
-			Fun(testConfig(t), "entry",
+			cfg.Fun("entry",
 				Bloc("entry",
 					Valu("mem", OpInitMem, TypeMem, 0, nil),
 					Valu("a", OpConst64, TypeInt64, 14, nil),
 					Exit("mem"))),
-			Fun(testConfig(t), "entry",
+			cfg.Fun("entry",
 				Bloc("entry",
 					Valu("mem", OpInitMem, TypeMem, 0, nil),
 					Valu("a", OpConst64, TypeInt64, 26, nil),
@@ -385,12 +391,12 @@ func TestEquiv(t *testing.T) {
 		},
 		// value aux different
 		{
-			Fun(testConfig(t), "entry",
+			cfg.Fun("entry",
 				Bloc("entry",
 					Valu("mem", OpInitMem, TypeMem, 0, nil),
 					Valu("a", OpConst64, TypeInt64, 0, 14),
 					Exit("mem"))),
-			Fun(testConfig(t), "entry",
+			cfg.Fun("entry",
 				Bloc("entry",
 					Valu("mem", OpInitMem, TypeMem, 0, nil),
 					Valu("a", OpConst64, TypeInt64, 0, 26),
@@ -398,14 +404,14 @@ func TestEquiv(t *testing.T) {
 		},
 		// value args different
 		{
-			Fun(testConfig(t), "entry",
+			cfg.Fun("entry",
 				Bloc("entry",
 					Valu("mem", OpInitMem, TypeMem, 0, nil),
 					Valu("a", OpConst64, TypeInt64, 14, nil),
 					Valu("b", OpConst64, TypeInt64, 26, nil),
 					Valu("sum", OpAdd64, TypeInt64, 0, nil, "a", "b"),
 					Exit("mem"))),
-			Fun(testConfig(t), "entry",
+			cfg.Fun("entry",
 				Bloc("entry",
 					Valu("mem", OpInitMem, TypeMem, 0, nil),
 					Valu("a", OpConst64, TypeInt64, 0, nil),
@@ -426,7 +432,8 @@ func TestEquiv(t *testing.T) {
 // TestConstCache ensures that the cache will not return
 // reused free'd values with a non-matching AuxInt
 func TestConstCache(t *testing.T) {
-	f := Fun(testConfig(t), "entry",
+	c := testConfig(t)
+	f := c.Fun("entry",
 		Bloc("entry",
 			Valu("mem", OpInitMem, TypeMem, 0, nil),
 			Exit("mem")))

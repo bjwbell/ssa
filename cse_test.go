@@ -19,7 +19,7 @@ func TestCSEAuxPartitionBug(t *testing.T) {
 
 	// construct lots of values with args that have aux values and place
 	// them in an order that triggers the bug
-	fun := Fun(c, "entry",
+	fun := c.Fun("entry",
 		Bloc("entry",
 			Valu("start", OpInitMem, TypeMem, 0, nil),
 			Valu("sp", OpSP, TypeBytePtr, 0, nil),
@@ -38,7 +38,7 @@ func TestCSEAuxPartitionBug(t *testing.T) {
 			Valu("r3", OpAdd64, TypeInt64, 0, nil, "arg1", "arg2"),
 			Valu("r5", OpAdd64, TypeInt64, 0, nil, "r2", "r3"),
 			Valu("r10", OpAdd64, TypeInt64, 0, nil, "r6", "r9"),
-			Valu("rstore", OpStore, TypeMem, 8, nil, "raddr", "r10", "raddrdef"),
+			Valu("rstore", OpStore, TypeMem, 0, TypeInt64, "raddr", "r10", "raddrdef"),
 			Goto("exit")),
 		Bloc("exit",
 			Exit("rstore")))
@@ -87,7 +87,7 @@ func TestCSEAuxPartitionBug(t *testing.T) {
 func TestZCSE(t *testing.T) {
 	c := testConfig(t)
 
-	fun := Fun(c, "entry",
+	fun := c.Fun("entry",
 		Bloc("entry",
 			Valu("start", OpInitMem, TypeMem, 0, nil),
 			Valu("sp", OpSP, TypeBytePtr, 0, nil),
@@ -104,7 +104,7 @@ func TestZCSE(t *testing.T) {
 			Valu("r3", OpAdd64, TypeInt64, 0, nil, "r1", "r2"),
 			Valu("raddr", OpAddr, TypeInt64Ptr, 0, nil, "sp"),
 			Valu("raddrdef", OpVarDef, TypeMem, 0, nil, "start"),
-			Valu("rstore", OpStore, TypeMem, 8, nil, "raddr", "r3", "raddrdef"),
+			Valu("rstore", OpStore, TypeMem, 0, TypeInt64, "raddr", "r3", "raddrdef"),
 			Goto("exit")),
 		Bloc("exit",
 			Exit("rstore")))

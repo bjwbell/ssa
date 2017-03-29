@@ -15,7 +15,7 @@ import (
 	"github.com/bjwbell/cmd/obj"
 )
 
-func applyRewrite(f *Func, rb func(*Block, *Config) bool, rv func(*Value, *Config) bool) {
+func applyRewrite(f *Func, rb blockRewriter, rv valueRewriter) {
 	// repeat rewrites until we find no more rewrites
 	var curb *Block
 	var curv *Value
@@ -28,7 +28,6 @@ func applyRewrite(f *Func, rb func(*Block, *Config) bool, rv func(*Value, *Confi
 			// TODO(khr): print source location also
 		}
 	}()
-	config := f.Config
 	for {
 		change := false
 		for _, b := range f.Blocks {
@@ -38,7 +37,7 @@ func applyRewrite(f *Func, rb func(*Block, *Config) bool, rv func(*Value, *Confi
 				}
 			}
 			curb = b
-			if rb(b, config) {
+			if rb(b) {
 				change = true
 			}
 			curb = nil
@@ -67,7 +66,7 @@ func applyRewrite(f *Func, rb func(*Block, *Config) bool, rv func(*Value, *Confi
 
 				// apply rewrite function
 				curv = v
-				if rv(v, config) {
+				if rv(v) {
 					change = true
 				}
 				curv = nil
@@ -155,11 +154,36 @@ func canMergeSym(x, y interface{}) bool {
 
 // canMergeLoad reports whether the load can be merged into target without
 // invalidating the schedule.
-func canMergeLoad(target, load *Value) bool {
+// It also checks that the other non-load argument x is something we
+// are ok with clobbering (all our current load+op instructions clobber
+// their input register).
+func canMergeLoad(target, load, x *Value) bool {
 	if target.Block.ID != load.Block.ID {
 		// If the load is in a different block do not merge it.
 		return false
 	}
+
+	// We can't merge the load into the target if the load
+	// has more than one use.
+	if load.Uses != 1 {
+		return false
+	}
+
+	// The register containing x is going to get clobbered.
+	// Don't merge if we still need the value of x.
+	// We don't have liveness information here, but we can
+	// approximate x dying with:
+	//  1) target is x's only use.
+	//  2) target is not in a deeper loop than x.
+	if x.Uses != 1 {
+		return false
+	}
+	loopnest := x.Block.Func.loopnest()
+	loopnest.calculateDepths()
+	if loopnest.depth(target.Block.ID) > loopnest.depth(x.Block.ID) {
+		return false
+	}
+
 	mem := load.MemoryArg()
 
 	// We need the load's memory arg to still be alive at target. That
@@ -260,6 +284,7 @@ search:
 			}
 		}
 	}
+
 	return true
 }
 
@@ -394,12 +419,12 @@ func devirt(v *Value, sym interface{}, offset int64) *obj.LSym {
 	if !ok {
 		return nil
 	}
-	lsym := f.Config.Frontend().DerefItab(ext.Sym, offset)
+	lsym := f.fe.DerefItab(ext.Sym, offset)
 	if f.pass.debug > 0 {
 		if lsym != nil {
-			f.Config.Warnl(v.Pos, "de-virtualizing call")
+			f.Warnl(v.Pos, "de-virtualizing call")
 		} else {
-			f.Config.Warnl(v.Pos, "couldn't de-virtualize call")
+			f.Warnl(v.Pos, "couldn't de-virtualize call")
 		}
 	}
 	return lsym
@@ -512,7 +537,7 @@ func noteRule(s string) bool {
 // cond is true and the rule is fired.
 func warnRule(cond bool, v *Value, s string) bool {
 	if cond {
-		v.Block.Func.Config.Warnl(v.Pos, s)
+		v.Block.Func.Warnl(v.Pos, s)
 	}
 	return true
 }
