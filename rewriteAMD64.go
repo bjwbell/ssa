@@ -4,7 +4,7 @@
 package ssa
 
 import "math"
-import "cmd/internal/obj"
+import "github.com/bjwbell/cmd/obj"
 
 var _ = math.MinInt8 // in case not otherwise used
 var _ = obj.ANOP     // in case not otherwise used
